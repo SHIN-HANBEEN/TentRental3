@@ -1,4 +1,4 @@
-// branch feature-user2
+// branch main
 plugins {
     id 'java'
     id 'war'
