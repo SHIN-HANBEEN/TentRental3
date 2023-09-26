@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:replace="~{layout/goodsLayout :: setContent(~{this::content} )}"> <!-- 템플릿 조각 전달 -->
+  <th:block th:fragment="content"> <!-- 템플릿 만들기 -->
+
+    <!-- ============= main contents (여기부터 js 전까지의 모든 코드는 각 상품 페이지마다 다 복사해서 가져간 다음 수정해서 사용해야 합니다. layout 제작이 불가능합니다.) ========== -->
+    <div class="top_grid">
+      <div class="main_grid">
+        <!-- 제품 이미지 슬라이드쇼 -->
+        <div class="container">
+          <!-- 제품 예시 이미지 여기서 교체하면 됩니다. -->
+          <div class="mySlides">
+            <div class="numbertext">1 / 6</div>
+            <img src="/assets/goodsImage/capture1.PNG" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">2 / 6</div>
+            <img src="/assets/goodsImage/capture2.PNG" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">3 / 6</div>
+            <img src="/assets/goodsImage/capture3.PNG" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">4 / 6</div>
+            <img src="/assets/goodsImage/capture4.PNG" style="width:100%">
+          </div>
+
+          <div class="mySlides">
+            <div class="numbertext">5 / 6</div>
+            <img src="/assets/goodsImage/capture5.PNG" style="width:100%">
+          </div>
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+          <!-- Image text -->
+          <div class="caption-container">
+            <p id="caption"></p>
+          </div>
+
+          <!-- 제품 이미지 슬라이드쇼의 미리보기 사진 조절하는 곳입니다 -->
+          <div class="row">
+            <div class="column">
+              <img class="demo cursor" src="/assets/goodsImage/capture1.PNG" style="width:100%" onclick="currentSlide(1)" alt="2인용 텐트 세트 A">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="/assets/goodsImage/capture2.PNG" style="width:100%" onclick="currentSlide(2)" alt="2인용 텐트 세트 A">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="/assets/goodsImage/capture3.PNG" style="width:100%" onclick="currentSlide(3)" alt="2인용 텐트 세트 A">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="/assets/goodsImage/capture4.PNG" style="width:100%" onclick="currentSlide(4)" alt="2인용 텐트 세트 A">
+            </div>
+            <div class="column">
+              <img class="demo cursor" src="/assets/goodsImage/capture5.PNG" style="width:100%" onclick="currentSlide(5)" alt="2인용 텐트 세트 A">
+            </div>
+          </div>
+        </div>
+
+        <!-- 제품 이미지 오른쪽 상세설명 부분 -->
+        <div class="detailed_product_description">
+          <h2 id="productName">2인용 텐트 세트 A [10% 할인 중]</h2>
+          <!--상품명, 2박3일 대여요금, SNS 상품홍보-->
+          <div class="detailed_product_description_under1">
+            <div>
+              <p>상품명</p>
+              <p class="price">2박3일 대여요금</p>
+            </div>
+            <div>
+              <p>2인용 캠핑 패키지 [10% 할인 중]</p>
+              <p class="price">57,000원</p>
+            </div>
+          </div>
+          <!--기본포함장비-->
+          <div class="detailed_product_description_under1">
+            <div>
+              <p>기본포함장비확인</p>
+            </div>
+            <div class="detailed_product_description_under1_select">
+              <select id="mySelect1">
+                <option value="option1">- [필수] 기본포함장비확인 선택</option>
+                <option value="option2" disabled>-------------------------</option>
+                <option value="option3">비박텐트, 미니타프, 경량릴렉스체어 2개, 경량테이블, 자충매트 2개, 2인용 코펠, 버너</option>
+              </select>
+              <!--옵션 선택시 팝업기능-->
+              <!-- <div class="choosenOption"></div>
+              <script>
+                  const selectOptions = document.getElementById('mySelect1');
+                  const choosenOption = document.querySelector('.choosenOption');
+                  selectOptions.addEventListener('change', (event) => {
+                  choosenOption.innerText = event.target.value;
+                  });
+              </script> -->
+
+            </div>
+          </div>
+          <!--대여기간-->
+          <div class="detailed_product_description_under1">
+            <div><p>대여기간</p></div>
+            <!--대여기간 select-->
+            <div class="detailed_product_description_under1_select">
+              <select id="select" onchange="
+                            const selectedValue = myOption();
+                            if(selectedValue == 'option3'){
+                                console.log('정상작동 했습니다. option3')
+                                priceLoad(selectedValue);
+                            }
+                            else if(selectedValue == 'option4'){
+                                console.log('정상작동 했습니다. option4');
+                                priceLoad(selectedValue);
+                            }
+                            else if(selectedValue == 'option5'){
+                                console.log('정상작동 했습니다. option5');
+                                priceLoad(selectedValue);
+                            }
+                            else if(selectedValue == 'option6'){
+                                console.log('정상작동 했습니다. option6');
+                                priceLoad(selectedValue);
+                            }
+                        ">
+                <option value="option1">- [필수] 대여기간 선택</option>
+                <option value="option2" disabled>-------------------------</option>
+                <option value="option3">2박3일</option>
+                <option value="option4">3박4일(+25,000원)</option>
+                <option value="option5">4박5일(+50,000원)</option>
+                <option value="option6">5박6일(+75,000원)</option>
+              </select>
+            </div>
+          </div>
+          <!--사용시작일-->
+          <div class="detailed_product_description_under1">
+            <div>
+              <p>사용 시작일</p>
+            </div>
+            <div class="detailed_product_description_under1_select">
+              <input type="date"/>
+            </div>
+          </div>
+          <!--최소 주문 수량-->
+          <div class="minor_text">
+            <scan>(최소 주문 수량은 1개입니다)</scan>
+          </div>
+          <!--선택 상품, 선택 옵션 가격-->
+          <div class="detailed_product_description_under2">
+            <div>
+              <h3>현재 선택 상품 :</h3>
+              <!--현재 선택 상품-->
+              <div  class="choosenProduct">
+                <script>
+                  const productName = document.getElementById("productName").textContent;
+                  const description = document.querySelector(".choosenProduct");
+                  description.innerHTML = productName;
+                </script>
+              </div>
+              <h3>▼현재 선택 옵션 가격▼</h3>
+              <!--선택 옵션에 따른 가격-->
+              <div id="result">
+                0원
+              </div>
+            </div>
+          </div>
+          <!--최종 가격-->
+          <div class="detailed_product_description_under2">
+            <div id="finalPrice">
+              <h3>▼최종 가격▼</h3>
+              <div id="result2">
+                0원
+              </div>
+            </div>
+          </div>
+          <!-- 구매하기, 장바구니담기 버튼 -->
+          <div class="decision_butn_mom">
+            <!-- <input class="button" type="button" id="naverPayBtn" value="네이버페이 결제"> -->
+            <button class="button" id="naverPayBtn"><span>네이버페이 결제</span></button>
+            <!-- <button class="button"><span>장바구니 담기</span></button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- This is a contents tab section -->
+    <div class="contentstab">
+      <span class="contentstab-content" onclick="ajax('product_discription_1', 'result3')">제품 상세설명</span>
+      <span class="contentstab-content" onclick="scrollToTag('comments_head')">제품 리뷰</span>
+      <span class="contentstab-content" onclick="ajax('attention', 'result3')">주의사항</span>
+      <!-- 제품 상세설명, 제품 리뷰, 주의사항 -->
+    </div>
+
+    <!-- 제품 상세설명 탭의 이미지 넣는 부분 -->
+    <div class="contentstab_under_content">
+      <div id="result3">
+        <img id="discription_image" src="https://camp-road.co.kr/web/upload/NNEditor/20210326/copy-1616740172-1.jpg"/>
+      </div>
+    </div>
+
+    <!-- 제품 리뷰 html (제품 댓글 코드를 이 div 태그 안에 대신 넣어야합니다.) -->
+    <div class="comments" id="comments_head">
+      <p> 여기에 제품 댓글 코드를 넣어주세요 ~~ </p>
+    </div>
+
+  </th:block>
+</th:block>
+
+</html>

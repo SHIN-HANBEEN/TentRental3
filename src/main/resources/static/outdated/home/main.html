@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:replace="~{layout/homeLayout :: setContent(~{this::content} )}"> <!-- 템플릿 조각 전달 -->
+    <th:block th:fragment="content"> <!-- 템플릿 만들기 -->
+
+        <!-- ========== 관리자 계정 로그인 시 추가 화면 출력 =============== -->
+        <!--인증시 사용된 객체에 대한 정보-->
+        <b sec:authorize="hasRole('ADMIN')">Authenticated DTO:</b>
+        <div sec:authorize="hasRole('ADMIN')" sec:authentication="principal"></div>
+
+        <!--인증시 사용된 객체의 아이디-->
+        <b sec:authorize="hasRole('ADMIN')">Authenticated username:</b>
+        <div sec:authorize="hasRole('ADMIN')" sec:authentication="name"></div>
+
+        <!--객체의 권한-->
+        <b sec:authorize="hasRole('ADMIN')">Authenticated user role:</b>
+        <div sec:authorize="hasRole('ADMIN')" sec:authentication="principal.authorities"></div>
+
+        <div sec:authorize="hasRole('ADMIN')">[[${id}]] 관리자님 안녕하세요. 로그인 되셨습니다.</div>
+        <!-- ========== /관리자 계정 로그인 시 추가 화면 출력 =============== -->
+
+        <!-- ========== homepage video =============== -->
+        <div class="video-container">
+            <!-- The video -->
+            <video autoplay muted loop id="homepageVideo">
+                <source src="/assets/videos/homepageVideo.mp4" type="video/mp4">
+            </video>
+
+            <!-- Optional: some overlay text to describe the video -->
+            <div class="content">
+                <h1>캠프로드</h1>
+                <p>캠핑도 트렌드다! 합리적인 가격과 감성적인 캠핑으로 추억을 만들어 드립니다.</p>
+                <!-- Use a button to pause/play the video with JavaScript -->
+                <button id="homepageVideoBtn" onclick="homepageVideoFunction()">Pause</button>
+            </div>
+        </div>
+        <!-- ========== /homepage video =============== -->
+
+        <!-- ==========  =============== -->
+        <!-- ========== / =============== -->
+
+    </th:block>
+</th:block>
+
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+    <head>
+        <link rel="stylesheet" href="/css/goodsLayout.css" />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>캠핑도 트렌드다 그린 텐트 대여</title>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LK2GHGN8WB"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-LK2GHGN8WB');
+        </script>
+
+        <!-- Day Night Mode Button-->
+        <script>
+            function LinksSetColor(color) {
+                var alist = document.querySelectorAll('a');
+                    var i = 0;
+                    while(i < alist.length) {
+                        alist[i].style.color = color;
+                        i += 1;
+                    }
+            }
+            function BodySetColor(color) {
+                document.querySelector('body').style.color = color;
+            }
+            function BodySetBackgroundColor(color) {
+                document.querySelector('body').style.backgroundColor = color;
+            }
+            function nightDayHandler(self) {
+                var target = document.querySelector('body');
+
+                if(self.value === 'Night Mode') {
+                    BodySetBackgroundColor('black');
+                    BodySetColor('white');
+                    self.value = 'Day Mode';
+                    LinksSetColor('powderblue');
+                } else {
+                    BodySetBackgroundColor('white');
+                    BodySetColor('black');
+                    self.value = 'Night Mode';
+                    LinksSetColor('yellow');
+                }
+            }
+        </script>
+
+        <!--jQuery CDN(Content Delivery Network)-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!--document.querySelector : self content-->
+        <script>
+            function selfContent(className){
+                const myHeading = document.querySelector("."+className);
+                const myText = myHeading.textContent;
+                return myText
+            }
+        </script>
+
+        <!--Load font awesome icons-->
+        <head>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        </head>
+
+        <!--style-->
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+
+    <body>
+        <!-- 상단 이미지 배너 -->
+        <header><img class="header_image" src="https://camp-road.co.kr/web/upload/dor_main_img/top_banner_01.jpg" onclick="location.href='/home/main'"/></header>
+
+        <!-- This is a navbar section -->
+        <div id="navbar">
+            <div class="dropdown">
+                <a class="dropbtn" href="javascript:void(0)">캠핑 패키지<i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">2인용 캠핑 패키지</a>
+                    <a href="#">3인용 캠핑 패키지</a>
+                    <a href="#">4인용 캠핑 패키지</a>
+                </div>
+            </div>
+            <a href="#home">텐트</a>
+            <a href="#home">타프</a>
+            <a href="#home">원터치텐트</a>
+            <a href="#home">매트/침낭</a>
+            <a href="#home">코펠/버너/BBQ</a>
+            <div class="login-container">
+                <a id="loginAnchor" href="/home/login">로그인</a>
+            </div>
+        </div>
+
+        <!-- =========== The social media icon bar =========== -->
+        <div class="icon-bar">
+            <a href="https://www.facebook.com/" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="https://twitter.com/?lang=ko" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.google.com/webhp?hl=ko&sa=X&ved=0ahUKEwiR96LnlrSBAxUCIYgKHXX_AFoQPAgJ" class="google"><i class="fa fa-google"></i></a>
+            <a href="https://kr.linkedin.com/?original_referer=https%3A%2F%2Fwww.google.com%2F" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/" class="youtube"><i class="fa fa-youtube"></i></a>
+        </div>
+
+        <!-- =============== 페이지 콘텐츠가 들어가는 곳 =========== -->
+        <div class="container-fluid">
+            <th:block th:replace = "${content}"></th:block>
+        </div>
+        <!-- =============== /페이지 콘텐츠가 들어가는 곳 =========== -->
+
+
+
+        <!-- ============ Footer =============-->
+        <div class="footer_container">
+            <div class="footer_content">
+                <p class="footer_content_title">Company Info</p>
+                <p>Company : 그린컴퓨터 텐트몰</p>
+                <p>CEO : 홍길동</p>
+                <p>Business Number : 110-25-10284 <br>
+                    <a href="https://bizno.net/">[사업자정보확인]</a>
+                </p>
+                <p>방문매장주소 : 서울특별시 강남대로 1번지</p>
+                <p>회사물류창고 : 경북 칠곡군 지천면 소재</p>
+                <p>TEL : 010-1234-5678</p>
+                <p>FAX : 0504-205-3992</p>
+                <p>MAIL : shb080101@naver.com</p>
+                <br/>
+                <p>Copyright(c) 그린컴퓨터 텐트몰 all rights reserved.</p>
+            </div>
+            <div class="footer_content">
+                <p class="footer_content_title">Quick Menu</p>
+                <ul>
+                    <li>공지사항</li>
+                    <li>이벤트</li>
+                    <li>찾아오시는길</li>
+                    <li>질문&답변</li>
+                    <li>사용후기</li>
+                </ul>
+                <br>
+                <br>
+                <p class="footer_delivery">배송 문의 및 배송 조회</p>
+                <p>CJ 대한통운 고객센터 : 1588-1255</p><br>
+                <button><a href="https://www.cjlogistics.com/ko/tool/parcel/tracking">대한통운배송조회</a></button>
+            </div>
+            <div class="footer_content">
+                <p class="footer_content_title">Customer Center</p>
+                <p id="footer_number">010-1234-5678</p>
+                <p>평일 : 오전 9시 30분 ~ 오후 7시</p>
+                <P>주말 : 오전 9시 30분 ~ 오후 5시</P>
+                <p>점심시간 : 오후 12시 ~ 1시까지 (방문픽업불가)</p>
+            </div>
+            <div class="footer_content">
+                <p class="footer_content_title">Banking Info</p>
+                <p id="footer_number">801301-01-468184</p>
+                <p class="bankingAddress">국민은행/그린컴퓨터 텐트몰</p>
+            </div>
+        </div>
+        <!-- ============ /Footer =============-->
+
+
+
+        <!--========= Live chatting fnc =============== -->
+        <p>
+            <!--Start of Tawk.to Script-->
+            <script type="text/javascript">
+                var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/63fc114f4247f20fefe2cc3b/1gq8a77tp';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+                })();
+            </script>
+        </p>
+        <!-- =========== End of Live Chatting : Tawk.to Script ===========-->
+
+        <!--==== JavaScript 영역 ====-->
+        <!-- 이미지 슬라이드 쇼 -->
+        <script>
+            let slideIndex = 1;
+            showSlides(slideIndex);
+
+            // Next/previous controls
+            function plusSlides(n) {
+            showSlides(slideIndex += n);
+            }
+
+            // Thumbnail image controls
+            function currentSlide(n) {
+            showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("demo");
+            let captionText = document.getElementById("caption");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+            captionText.innerHTML = dots[slideIndex-1].alt;
+            }
+        </script>
+
+        <!-- 아작스 기능 -->
+        <script>
+            function ajax(filename, select_id) {
+                fetch(filename).then(function(response) {
+                    response.text().then(function(text) {
+                        document.querySelector("#" + select_id).innerHTML = text;
+                    });
+                });
+            }
+        </script>
+
+        <!-- scroll to bottom -->
+        <script>
+            function scrollToBottom() {
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        </script>
+
+        <!-- scroll to tag -->
+        <script>
+            function scrollToTag(tagID) {
+                var element = document.getElementById(tagID); // Replace "tag-id" with the ID of the element you want to scroll to
+                element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+            }
+        </script>
+
+        <!--click dropdown 기능-->
+        <script>
+            /* When the user clicks on the button,
+            toggle between hiding and showing the dropdown content */
+            function dropdownFunction() {
+              document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(e) {
+              if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                myDropdown.classList.remove('show');
+                }
+              }
+            }
+        </script>
+
+        <!--myOption()-->
+        <script>
+            function myOption(){
+                var selectedOption = document.getElementById("select")
+                selectedOption = selectedOption.options[selectedOption.selectedIndex].value;
+                return selectedOption;
+            }
+        </script>
+
+        <!--priceLoad 함수-->
+        <script>
+            let naverPrice;
+            function priceLoad(name) {
+                fetch(name).then(function(response) {
+                    response.text().then(function(text) {
+                        if (typeof text === 'string') {
+                            const formattedText = parseFloat(text).toLocaleString();
+                            document.querySelector("#result").innerHTML = '요금 : ' + formattedText + '원';
+                            naverPrice = text;
+                        }
+                    });
+                });
+            }
+        </script>
+
+        <!--priceLoad2 함수 (#result2)-->
+        <script>
+            function priceLoad2(name) {
+                fetch(name).then(function(response) {
+                    response.text().then(function(text) {
+                        if (typeof text === 'string') {
+                            const formattedText = parseFloat(text).toLocaleString();
+                            document.querySelector("#result2").innerHTML = '요금 : ' + formattedText + '원';
+                            naverPrice = text;
+                        }
+                    });
+                });
+            }
+        </script>
+
+        <!--id=result 값 변화 감지 함수-->
+        <script>
+            // Get a reference to the result div
+            var resultDiv = document.getElementById("result");
+
+            // Create a MutationObserver to detect changes to the div contents
+            var observer = new MutationObserver(function() {
+                // Call the priceLoad2 function when the contents of the div change
+                const selectedValue = myOption();
+                priceLoad2(selectedValue);
+            });
+
+            // Start observing the div for changes
+            observer.observe(resultDiv, { childList: true });
+        </script>
+
+        <!-- Sticky Navbar 함수 -->
+        <script>
+            // When the user scrolls the page, execute myFunction
+            window.onscroll = function() {myFunction()};
+
+            // Get the navbar
+            var navbar = document.getElementById("navbar");
+
+            // Get the offset position of the navbar
+            var sticky = navbar.offsetTop;
+
+            // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+            function myFunction() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+            }
+        </script>
+
+        <!-- 네이버 결제 api -->
+        <script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
+        <script>
+            var oPay = Naver.Pay.create({
+                "mode" : "production", // development or production
+                "clientId": "u86j4ripEt8LRfPGzQ8" // clientId
+            });
+
+            //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
+            var elNaverPayBtn = document.getElementById("naverPayBtn");
+
+            elNaverPayBtn.addEventListener("click", function() {
+                if (naverPrice == 0 || naverPrice == undefined)  {
+                    alert('대여기간을 선택하시지 않으셨습니다.\n대여기간을 다시 선택하신후 결제 해주세요')
+                }
+                else {
+                oPay.open({
+                "merchantUserKey": "고객1",
+                "merchantPayKey": "100번",
+                "productName": "2인용 텐트 세트 A",
+                "totalPayAmount": naverPrice,
+                "taxScopeAmount": naverPrice,
+                "taxExScopeAmount": "0",
+                "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
+                });
+                }
+            });
+
+        </script>
+    </body>
+</th:block>
+
+</html>

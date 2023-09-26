@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layout/basic :: setContent(~{this :: content}) }">
+    <th:block th:fragment="content">
+        <!-- 관리자 계정으로 회원 목록 페이지에서 상세 페이지 들어오는 것을 처리하는 페이지입니다. -->
+
+        <h1 class="mt-4">회원 상세 페이지</h1>
+
+        <form action="/user/modify" method="post">
+            <!-- 페이지 번호(수정이 완료된 이후에 페이지 정보를 유지시키는 역할) -->
+            <input type="hidden" name="page" th:value="${requestDTO.page}" />
+            <input type="hidden" name="type" th:value="${requestDTO.type}" />
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}" />
+            <input type="hidden" name="r_type" th:value="${requestDTO.r_type}" />
+            <input type="hidden" name="r_keyword" th:value="${requestDTO.r_keyword}" />
+            <!-- /페이지 번호(수정이 완료된 이후에 페이지 정보를 유지시키는 역할) -->
+            <!-- **회원 이미지 추가해야함 -->
+            <!-- /**회원 이미지 추가해야함 -->
+            <div class="form-group">
+                <label>이메일(아이디)</label>
+                <input type="email" class="form-control"
+                       name="userEmail" th:value="${dto.userEmail}" readonly/>
+            </div>
+<!--            <div class="form-group">-->
+<!--                <label>아이디</label>-->
+<!--                <input type="text" class="form-control bcgrey"-->
+<!--                       name="userId" th:value="${dto.userId}" readonly />-->
+<!--            </div>-->
+            <div class="form-group">
+                <label>비밀번호</label>
+                <input type="text" class="form-control"
+                       name="userPw" th:value="${dto.userPw}" />
+            </div>
+            <div class="form-group">
+                <label>주소</label>
+                <input type="text" class="form-control"
+                       name="userAddress" th:value="${dto.userAddress}" />
+            </div>
+            <div class="form-group">
+                <label>이름</label>
+                <input type="text" class="form-control bcgrey"
+                       name="userName" th:value="${dto.userName}" readonly />
+            </div>
+            <div class="form-group">
+                <label>전화번호</label>
+                <input type="text" class="form-control"
+                       name="userPhoneNumber" th:value="${dto.userPhoneNumber}" />
+            </div>
+            <div class="form-group">
+                <label>성별</label>
+                <input type="text" class="form-control bcgrey"
+                       name="gender" th:value="${dto.gender}" readonly />
+            </div>
+            <div class="form-group">
+                <label>권한</label>
+                <input type="text" class="form-control bcgrey"
+                       name="role" th:value="${dto.role}" readonly/>
+            </div>
+
+            <div class="form-group">
+                <label>RegDate</label>
+                <input type="text" class="form-control bcgrey"
+                       th:value="${ #temporals.format( dto.regDate, 'yyyy/MM/dd HH:mm:ss' ) }" readonly/>
+            </div>
+            <div class="form-group">
+                <label>ModDate</label>
+                <input type="text" class="form-control bcgrey"
+                       th:value="${ #temporals.format( dto.modDate, 'yyyy/MM/dd HH:mm:ss' ) }" readonly/>
+            </div>
+        </form>
+
+        <button type="button" class="btn btn-primary modifyBtn">수정하기</button>
+        <button type="button" class="btn btn-info listBtn">목록으로</button>
+        <button type="button" class="btn btn-danger removeBtn">회원삭제하기</button>
+
+        <script th:inline="javascript">
+            var actionForm = $("form");  // form 태그 객체
+            $(".removeBtn").click(function() { // removeBtn 클래스를 가진 요소가 클릭 되었을 때 /user/remove 주소로 post 요청을 submit( )한다.
+                actionForm
+                        .attr("action", "/user/remove")
+                        .attr("method", "post");
+                actionForm.submit();
+            });
+
+            $(".modifyBtn").click( function() {
+                if( !confirm("수정하겠습니까?") ) {
+                    return;
+                }
+                actionForm
+                    .attr("action", "/guestbook/modify")
+                    .attr("method", "post")
+                    .submit();
+            } )
+
+            $('.listBtn').click( function() {
+                var page = $( " input[ name = 'page' ] " );
+                var type = $( " input[ name = 'type' ] " );
+                var keyword = $( " input[ name = 'keyword' ] " );
+                var r_type = $( " input[ name = 'r_type' ] " );
+                var r_keyword = $( " input[ name = 'r_keyword' ] " );
+
+                actionForm.empty(); // form 태그의 모든 내용을 지운다.
+                actionForm.append(page); // 목록 페이지 이동에 필요한 페이지 정보를 다시 추가
+                actionForm.append(type); // 목록 페이지 이동에 필요한 페이지 정보를 다시 추가
+                actionForm.append(keyword); // 목록 페이지 이동에 필요한 페이지 정보를 다시 추가
+                actionForm.append(r_type); // 목록 페이지 이동에 필요한 페이지 정보를 다시 추가
+                actionForm.append(r_keyword); // 목록 페이지 이동에 필요한 페이지 정보를 다시 추가
+
+                actionForm
+                        .attr("action", "/user/list")
+                        .attr("method", "get");
+
+                actionForm.submit();
+            } );
+        </script>
+    </th:block>
+</th:block>
+

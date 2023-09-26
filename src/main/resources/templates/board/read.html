@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+	<th:block th:fragment="content">
+
+		<h1 class="mt-4">상품 상세 페이지</h1>
+
+		<div class="form-group">
+			<label>번호</label>
+			<input type="text" class="form-control" th:value="${dto.goodsNo}" readonly>
+		</div>
+
+		<div class="form-group">
+			<label>상품명</label>
+			<input type="text" class="form-control" th:value="${dto.goodsName}" readonly>
+		</div>
+		<div class="form-group">
+			<label>상세내용</label>
+			<textarea class="form-control" rows="5" readonly>[[${dto.goodsDescription}]]</textarea>
+		</div>
+		<div class="form-group">
+			<label>가격</label>
+			<input type="text" class="form-control" th:value="${dto.goodsPrice}" readonly>
+		</div>
+		<div class="form-group">
+			<label>조회수</label>
+			<input type="text" class="form-control" th:value="${dto.goodsView}" readonly>
+		</div>
+		<div class="form-group">
+			<label>등록일</label>
+			<input type="text" class="form-control"
+				th:value="${#temporals.format(dto.goodsRegDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+		</div>
+		<div class="form-group">
+			<label>수정일</label>
+			<input type="text" class="form-control"
+				th:value="${#temporals.format(dto.goodsModDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+		</div>
+		<!--이미지-->
+		<th:block th:if="${dto.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
+            <div class="form-group">
+            	<img th:src="@{'/uploadfile/'+${dto.imgPath}}">
+        	</div>
+        </th:block>
+
+
+		<!--댓글구현-->
+		<div class="card shadow mb-4" style="margin-top:10px">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">댓글보기</h6>
+			</div>
+			<div class="card-body" id="commentdiv">
+			</div>
+			<div class="card-body">
+				<textarea class="form-control" id="commentContent" rows="5"></textarea>
+				<button type="button" class="btn btn-secondary" onclick="registerComment()">댓글등록</button>
+			</div>
+		</div>
+		<!--댓글구현-->
+
+		<script th:inline="javascript">
+			$(document).ready(function () {
+				showComment();
+			})
+
+			//댓글조회
+			function showComment() {
+				var goodsNo = [[${dto.goodsNo}]];
+				let comment_div = $('#commentdiv');
+
+				$.ajax({
+					type: "GET",
+					url: "/comment/read/" + goodsNo,
+					success: function (response) {
+						var commentlist = response;
+						if (commentlist) {
+							comment_div.empty(); //자식 엘리먼트 모두 지우기
+							for (var i = 0; i < commentlist.length; i++) {
+								let comment = commentlist[i];
+								let writer_span = '<span class="fw-bold strong mar">' + comment.cmtWriter + '</span>';
+								let content_span = '<span class="mar"> ' + comment.cmtContents + ' </span>';
+								let modify_btn = '<button><a href="#" class="editCommentBtn" data-comment-no="' + comment.cmtNo + '">수정</a></button>';
+								let href = '/comment/remove?cmtNo=' + comment.cmtNo;
+								let delete_btn = '<button><a href="javascript:removeComment(' + comment.cmtNo + ')" class="deleteCommentBtn">삭제</a></button>';
+								let comment_html = '<div class="row1">' + writer_span + '</br>' + content_span + '</br>' + modify_btn + '&nbsp;' + delete_btn + '</div> </br>';
+								comment_div.append(comment_html);
+							}
+						} else {
+							comment_div.append("댓글이 없습니다.");
+						}
+					}
+				})
+			}
+
+			//댓글등록
+			function registerComment() {
+				var board = [[${dto.goodsNo}]];
+				let commentContent = document.getElementById("commentContent");
+				let goodsNo = [[${dto.goodsNo}]];
+				let commentDto =
+				{
+					'cmtNo': 0,
+					'goodsNo': goodsNo,
+					'cmtContents': commentContent.value
+				}
+				$.ajax({
+					type: "POST",
+					url: "/comment/register",
+					data: commentDto,
+					success: function (response) {
+						if (response) {
+							commentContent.value = null;
+							showComment();
+						}
+					}
+				});
+			};
+
+			//댓글수정
+			$(document).on("click", ".editCommentBtn", function (event) {
+				let cmtNo = $(this).data("comment-no");
+				let cmtRow = $(this).closest(".row1");
+				let cmtContents = cmtRow.find("span").eq(1).text();
+				let saveButton = '<button class="saveCommentBtn" data-comment-no="' + cmtNo + '">저장</button>';
+				cmtRow.find("span").eq(1).replaceWith(`<textarea>${cmtContents}</textarea>`);
+				$(this).replaceWith(saveButton);
+
+
+			})
+
+			$(document).on("click", ".saveCommentBtn", function (event) {
+				let cmtNo = $(this).data("comment-no");
+				let cmtRow = $(this).closest(".row1");
+				let newCmtText = cmtRow.find("textarea").val();
+				let commentDto =
+				{
+					"cmtNo": cmtNo,
+					"goodsNo": [[${dto.goodsNo}]],
+					"cmtContents": newCmtText,
+				};
+
+				$.ajax({
+					type: "POST",
+					url: "/comment/modify",
+					data: commentDto,
+					success: function (response) {
+						if (response) {
+							showComment();
+						} else {
+							alert("댓글 수정에 실패했습니다.");
+						}
+					}
+				});
+
+				let editButton = '<button class="editCommentBtn" data-comment-no="' + cmtNo + '">수정</button>';
+
+				let cmtText = cmtRow.find("textarea").val();
+				cmtRow.find("textarea").replaceWith(`<span>${cmtText}</span>`);
+			});
+
+			//댓글삭제
+			function removeComment(cmtNo) {
+				var board = [[${dto.goodsNo}]];
+				$.ajax({
+					type: "GET",
+					url: "/comment/remove/" + cmtNo,
+					success: function (response) {
+						if (response) {
+							showComment();
+						}
+					}
+				})
+			}
+
+		</script>
+
+		<a th:href="@{/board/modify(no = ${dto.goodsNo})}">
+			<button type="button" class="btn btn-primary">수정</button>
+		</a>
+		<a th:href="@{/board/list(page=${page})}">
+			<button type="button" class="btn btn-info">목록으로</button>
+		</a>
+
+	</th:block>
+</th:block>

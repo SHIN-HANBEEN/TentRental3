@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+    <head>
+        <link rel="stylesheet" href="/css/homeLayout.css" />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>캠핑도 트렌드다 그린 텐트 대여</title>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LK2GHGN8WB"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-LK2GHGN8WB');
+        </script>
+
+        <!--jQuery CDN(Content Delivery Network)-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!--document.querySelector : self content-->
+        <script>
+            function selfContent(className){
+                const myHeading = document.querySelector("."+className);
+                const myText = myHeading.textContent;
+                return myText
+            }
+        </script>
+
+        <!--Load font awesome icons-->
+        <head>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        </head>
+
+        <!--style-->
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <header><img class="header_image" src="https://camp-road.co.kr/web/upload/dor_main_img/top_banner_01.jpg" onclick="location.href='/home/main'"/></header>
+
+        <!-- ============= Hoverable Sidenav Buttons =============== -->
+        <div id="mySidenav" class="sidenav">
+            <a href="#" id="about">About</a>
+            <a href="#" id="blog">Blog</a>
+            <a href="#" id="projects">Projects</a>
+            <a href="#" id="contact">Contact</a>
+        </div>
+        <!-- ============= /Hoverable Sidenav Buttons =============== -->
+
+        <!-- =========== Sticky navbar =========== -->
+        <div id="navbar">
+            <div class="dropdown">
+                <a class="dropbtn" href="javascript:void(0)">캠핑 패키지<i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="#">2인용 캠핑 패키지</a>
+                    <a href="#">3인용 캠핑 패키지</a>
+                    <a href="#">4인용 캠핑 패키지</a>
+                </div>
+            </div>
+            <a href="#home">텐트</a>
+            <a href="#home">타프</a>
+            <a href="#home">원터치텐트</a>
+            <a href="#home">매트/침낭</a>
+            <a href="#home">코펠/버너/BBQ</a>
+            <div class="login-container">
+                <a id="loginAnchor" href="/home/login">로그인</a>
+            </div>
+        </div>
+        <!-- =========== /Sticky navbar =========== -->
+
+        <!-- =========== The social media icon bar =========== -->
+        <div class="icon-bar">
+            <a href="https://www.facebook.com/" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="https://twitter.com/?lang=ko" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.google.com/webhp?hl=ko&sa=X&ved=0ahUKEwiR96LnlrSBAxUCIYgKHXX_AFoQPAgJ" class="google"><i class="fa fa-google"></i></a>
+            <a href="https://kr.linkedin.com/?original_referer=https%3A%2F%2Fwww.google.com%2F" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/" class="youtube"><i class="fa fa-youtube"></i></a>
+        </div>
+        <!-- =========== /The social media icon bar =========== -->
+
+        <!-- =============== Page content =========== -->
+        <div class="container-fluid">
+            <th:block th:replace = "${content}"></th:block>
+        </div>
+
+        <!-- ============= 제품 댓글 =============== -->
+
+        <!-- ============= /제품 댓글 =============== -->
+
+        <!-- ============ Footer =============-->
+        <div class="footer_container">
+            <div class="footer_content">
+                <p class="footer_content_title">Company Info</p>
+                <p>Company : 그린컴퓨터 텐트몰</p>
+                <p>CEO : 홍길동</p>
+                <p>Business Number : 110-25-10284 <br>
+                    <a href="https://bizno.net/">[사업자정보확인]</a>
+                </p>
+                <p>방문매장주소 : 서울특별시 강남대로 1번지</p>
+                <p>회사물류창고 : 경북 칠곡군 지천면 소재</p>
+                <p>TEL : 010-1234-5678</p>
+                <p>FAX : 0504-205-3992</p>
+                <p>MAIL : shb080101@naver.com</p>
+                <br/>
+                <p>Copyright(c) 그린컴퓨터 텐트몰 all rights reserved.</p>
+            </div>
+            <div class="footer_content">
+                <p class="footer_content_title">Quick Menu</p>
+                <ul>
+                    <li>공지사항</li>
+                    <li>이벤트</li>
+                    <li>찾아오시는길</li>
+                    <li>질문&답변</li>
+                    <li>사용후기</li>
+                </ul>
+                <br>
+                <br>
+                <p class="footer_delivery">Delivery 배송 문의 및 배송 조회</p>
+                <p>CJ 대한통운 고객센터 : 1588-1255</p>
+                <button><a href="https://www.cjlogistics.com/ko/tool/parcel/tracking">대한통운배송조회</a></button>
+            </div>
+            <div class="footer_content">
+                <p class="footer_content_title">Customer Center</p>
+                <p id="footer_number">010-1234-5678</p>
+                <br/>
+                <br/>
+                <p>평일 : 오전 9시 30분 ~ 오후 7시</p>
+                <P>주말 : 오전 9시 30분 ~ 오후 5시</P>
+                <p>점심시간 : 오후 12시 ~ 1시까지 (방문픽업불가)</p>
+            </div>
+            <div class="footer_content">
+                <p class="footer_content_title">Banking Info</p>
+                <p id="footer_number">801301-01-468184</p>
+                <p class="bankingAddress">국민은행/그린컴퓨터 텐트몰</p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <!-- ============ /Footer =============-->
+
+
+        <!--========= Live chatting fnc =============== -->
+        <p>
+            <!--Start of Tawk.to Script-->
+            <script type="text/javascript">
+                var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+                (function(){
+                var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+                s1.async=true;
+                s1.src='https://embed.tawk.to/63fc114f4247f20fefe2cc3b/1gq8a77tp';
+                s1.charset='UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s0.parentNode.insertBefore(s1,s0);
+                })();
+            </script>
+        </p>
+        <!-- =========== End of Live Chatting : Tawk.to Script ===========-->
+
+        <!-- =========== homepageVideo ===========-->
+        <script>
+            // Get the video
+            var video = document.getElementById("homepageVideo");
+
+            // Get the button
+            var btn = document.getElementById("homepageVideoBtn");
+
+            // Pause and play the video, and change the button text
+            function homepageVideoFunction() {
+                if (video.paused) {
+                    video.play();
+                    btn.innerHTML = "Pause";
+                } else {
+                    video.pause();
+                    btn.innerHTML = "Play";
+                }
+            }
+        </script>
+        <!-- =========== /homepageVideo ===========-->
+
+        <!-- =========== sticky navbar ===========-->
+        <script>
+            // Get the navbar element
+            var navbar = document.getElementById("navbar");
+
+            // Get the offset position of the navbar
+            var sticky = navbar.offsetTop;
+
+            // Function to add the "sticky" class to the navbar when scrolling
+            function addSticky() {
+                if (window.pageYOffset >= sticky) {
+                    navbar.classList.add("sticky");
+                } else {
+                    navbar.classList.remove("sticky");
+                }
+            }
+
+            // Add a scroll event listener to call the addSticky function
+            window.addEventListener("scroll", addSticky);
+        </script>
+        <!-- =========== /sticky navbar ===========-->
+    </body>
+</th:block>
+
+</html>

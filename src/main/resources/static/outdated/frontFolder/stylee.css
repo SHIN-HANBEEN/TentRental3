@@ -1,0 +1,583 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
+
+* {
+    font-family: 'Nanum Gothic', sans-serif;
+    padding: 0; margin: 0; box-sizing: border-box;
+}
+
+/* 헤더 영역 */
+header {
+    width: 100%;
+    height: 100vh;
+    background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.2)),
+                url('image/camping.jpg');
+    background-size: cover;
+}
+.h-txt {
+    max-width: 650px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white
+}
+.h-txt span {
+    font-family: 'Nanum Brush Script', cursive;
+    font-size: 2.3em;
+    letter-spacing: 5px;
+}
+.h-txt h1 {
+    font-family: 'Gowun Dodum', sans-serif;
+    font-size: 2.7em;
+}
+.h-txt a {
+    text-decoration: none;
+    background: cornflowerblue;
+    color: white;
+    padding: 10px 20px;
+    letter-spacing: 5px;
+    transition: 0.4s;
+}
+.h-txt a:hover {
+    background: transparent;
+    border: 1px solid cornflowerblue;
+}
+
+/* 네비게이션바 */
+nav {
+    font-family: 'Nanum Gothic', sans-serif;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(0,0,0,0.2);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    position: fixed;
+    z-index: 999;
+}
+.logo {
+    font-size: 2em;
+    letter-spacing: 2px;
+}
+.menu a{
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 20px;
+    position: relative;
+}
+.menu a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    border-bottom: 2px solid cornflowerblue;
+    transition: 0.4s linear;
+}
+.menu a:hover:before {
+    width: 90%;
+}
+
+/* 로그인영역 */
+.register a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
+    background: cornflowerblue;
+    border-radius: 8px;
+    transition: 0.4s;
+}
+.register a:hover {
+    background: transparent;
+    border: 1px solid cornflowerblue;
+}
+
+
+/* 하단 영역 */
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+.footer a {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 30px;
+}
+.footer h3 {
+    padding-bottom: 5px;
+}
+.footer p {
+    padding-bottom: 3%;
+}
+
+/* 슬라이더 영역 */
+.slideshow-container * {
+    box-sizing: border-box;
+}
+.slideshow-container body {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.slideshow-container img {
+    vertical-align: middle;
+}
+.slideshow-container {
+    width: auto;
+    height: 100%;
+    position: relative;
+    margin: auto;
+}
+.mySlides {
+    display: none;
+}
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0,0,0,0.4);
+}
+.dot, .dot2 {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+.active {
+    background-color: #717171;
+}
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+/* 리뷰 영역 */
+.review-slider-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+
+/* 서브 영역 */
+.sub {
+    padding: 5%;
+    text-align: center;
+    line-height: 1.5;
+}
+.sub h3 {
+    font-style: italic;
+    font-size: 20pt;
+    padding-bottom: 5%;
+    line-height: 1.5;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color:#818181;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+.reviews {
+    text-align: center;
+    padding: 5%;
+}
+.reviews h3 {
+    font-style: italic;
+    padding-bottom: 5%;
+    font-size: 20pt;
+    line-height: 1.5;
+}
+.reviews h4 {
+    padding-bottom: 5%;
+}
+.reviews p {
+    line-height: 30pt;
+}
+.reviews ul {
+    padding-bottom: 5%;
+}
+.reviews p, ul {
+    font-size: 12pt;
+}
+
+/* 메인 영역 */
+.main {
+    height: 100%;
+    padding: 5%;
+    text-align: center;
+    line-height: 2.5;
+}
+.main h3 {
+    font-style: italic;
+    font-size: 20pt;
+    padding-bottom: 5%;
+    line-height: 1.5;
+}
+.main ul {
+    padding-top: 5%;
+    padding-bottom: 2%;
+    font-size: 18pt;
+}
+
+/* 오버레이 */
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    line-height: 100px;
+}
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+/* 문의사항 스타일 */
+#Contact {
+    width: 100%;
+    margin-right:0;
+    text-align: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    display: flex;    
+    flex-wrap: wrap;
+}
+.contact_box1 {
+    flex: 1;
+    width : 50%;
+}
+.contact_box1 h3 {
+    font-style: italic;
+    padding-bottom: 10%;
+    line-height: 1.5;
+    font-size: 20pt;
+}
+.contact_box1 p {
+    line-height: 1.5;
+}
+.contact_box2 input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+} 
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+input[type=submit] {
+    background-color: #333;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+input[type=submit]:hover {
+    background-color: cornflowerblue;
+}  
+.contact_box2 {
+    width : 50%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+} 
+.col-25 {
+    float: left;
+    width: 28%;
+    margin-top: 6px;
+}
+.col-75 {
+    float: left;
+    width: 72%;
+    margin-top: 6px;
+}
+
+/* 배너 스타일 */
+.banner {
+    display:flex;
+    width:100%;
+    margin: 0 auto;
+    font-size:0;
+}
+
+.banner1, .banner2, .banner3 {
+    flex:1;
+}
+
+.banner1 img, .banner2 img, .banner3 img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Clear floats after the columns */
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* placeholder 폰트 적용 */
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: sans-serif;
+    font-size: 13px;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    font-family: sans-serif;
+    font-size: 13px;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    font-family: sans-serif;
+    font-size: 13px;
+}
+:-moz-placeholder { /* Firefox 18- */
+    font-family: sans-serif;
+    font-size: 13px;
+}
+
+/* 스크롤다운버튼 */
+.arrow-down{
+    width:60px;
+    height:40px;
+    margin:0 0 0 -30px;
+    position:absolute;
+    left:51%;
+    bottom:0px;
+    -webkit-animation: arrow 0.5s 1s infinite ease-out alternate;
+}
+.arrow-down:hover{
+   -webkit-animation-play-state: paused;
+}
+.left{
+    position:absolute;
+    height:10px;
+    width:40px;
+    background:rgba(255, 255, 255, 0.732);
+    -webkit-transform:rotate(240deg);
+    top:10px;
+    left:10px;
+    -webkit-border-radius:4px;
+    -webkit-transform-origin:5px 50%;
+    -webkit-animation: leftArrow 0.5s 1s infinite ease-out alternate;
+}
+.right{
+    position:absolute;
+    height:10px;
+    width:40px;
+    background:rgba(255, 255, 255, 0.732);
+    -webkit-transform:rotate(-60deg);
+    top:10px;
+    left:10px;
+    -webkit-border-radius:4px;
+    -webkit-transform-origin:5px 50%;
+    -webkit-animation: rightArrow 0.5s 1s infinite ease-out alternate;
+}
+
+@-webkit-keyframes arrow{
+  0% {
+    bottom:0px;
+  }
+  100%{
+    bottom:40px;
+  }
+}
+@-webkit-keyframes leftArrow{
+  0% {
+  }
+  100%{
+    -webkit-transform:rotate(225deg);
+  }
+}
+@-webkit-keyframes rightArrow{
+  0% {
+  }
+  100%{
+    -webkit-transform:rotate(-45deg);
+  }
+}
+
+/* fade */
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+/* 모바일스크린 너비 400px, 높이 840px */
+@media only screen and (max-width: 685px) {
+    /* 슬라이더영역 */
+    .text {
+        font-size: 11px
+    }
+
+    /* 메인영역 */
+    .main {
+        line-height: 1.7;
+    }
+    .main p {
+        font-size: 11pt;
+    }
+    .main li {
+        font-size: 11pt;
+        line-height: 2.2;
+    }
+
+    /* 네비게이션바 영역 */
+    .menu {
+        display: none;
+    }
+    .menu a {
+        font-size: 20px;
+        padding: 5px;
+    }
+    nav {
+        display: inline block;
+        text-align: center;
+        height: 100px;
+    }
+
+    /* 로그인 영역 */
+    .register {
+        position: static;
+    }
+
+    /* 오버레이 */
+    .overlay a {
+        font-size: 30px;
+        line-height: 70px;
+    }
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+
+    /* 문의사항영역 */
+    .contact {
+        display: block;
+    }
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }     
+    .contact_box1 {
+        position: sticky;
+        width : 100%;
+        padding-top:20px;
+    }
+    .contact_box2 {
+        width : 100%;
+    }
+
+    /* 헤더영역 */
+    .h-txt span {
+        font-size: 22pt
+    }
+    .h-txt h1 {
+        font-size: 21pt;
+    }
+    .h-txt a {
+        display: block;
+        min-width: max-content;
+    }
+    header {
+        width: 100%;
+        height: 100vh;
+        background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.2)),
+                url('image/m_camping.PNG');
+        background-size: cover;
+    }
+
+    /* 리뷰영역 */
+    .reviews p, ul {
+        font-size: 10pt;
+    }
+
+    /* 하단배너 영역 */
+    .banner {
+        display: flex;
+        flex-direction: column;
+    }
+    .banner1, .banner2, .banner3 {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 서브 영역 */
+    .sub p {
+        font-size: 10pt;
+    }
+
+    /* 스크롤다운버튼 */
+    .arrow-down {
+        left: 53%;
+    }
+}

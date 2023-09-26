@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>캠핑장 지도</title>
+    <link rel="stylesheet" href="campingmap.css">
+    <link rel="stylesheet" href="login.css">
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LK2GHGN8WB"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+    
+            gtag('config', 'G-LK2GHGN8WB');
+        </script>
+    
+</head>
+<body>
+      <!-- 헤더 영역 -->
+      <header id="home">
+        <!-- 네비게이션 바 -->
+        <nav>
+            <!-- 오버레이 -->
+            <div class="logo">
+                <div id="myNav" class="overlay">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div class="overlay-content">
+                        <a onclick="closeNav()" href="index.html#home">홈으로</a>
+                        <a onclick="closeNav()" href="index.html#sl">베스트품목</a>
+                        <a onclick="closeNav()" href="index.html#rv">이용후기</a>
+                        <a onclick="closeNav()" href="index.html#Contact">이용문의</a>
+                    </div>
+                </div>
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            </div>
+            <!-- 메뉴 -->
+            <div class="menu">
+                <a href="index.html#home">홈으로</a>
+                <a href="index.html#sl">베스트품목</a>
+                <a href="index.html#rv">이용후기</a>
+                <a href="index.html#Contact">이용문의</a>
+            </div>
+
+            <!-- 로그인 -->
+            <div class="register">
+                <a type="button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">로그인</a>
+
+                <div id="id01" class="modal">
+              
+                    <form class="modal-content animate" action="/action_page.php" method="post">
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close modal">&times;</span>
+                            <img src="image/login.jpg" alt="Avatar" class="avatar">
+                        </div>
+            
+                    <div class="modalcontainer">
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required>
+            
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                    
+                        <button type="submit">로그인</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> 이 계정 기억하기
+                        </label>
+                    </div>
+            
+                        <div class="modalcontainer" style="background-color:#f1f1f1">
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">닫기</button>
+                            <span class="psw"><a href="javascript:alert('바보');">비밀번호를 잃어버리셨나요?</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+      </header>
+
+  <script src="campingmap.js"></script>
+  <div id="text">
+  <h2 style="text-align:center;"> 내 주변의 캠핑장 찾기 </h2>
+  </div>
+  <div id="map" style="width:1000px;height:600px;margin: 0 auto;"></div>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxWz4B3DL_ss33krqas6P6SxX9BMVVBi8&callback=initMap"></script>
+</script>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="login.js"></script>
+</body>
+</html>
+

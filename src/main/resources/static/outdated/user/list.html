@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{ layout/basic :: setContent(~{this::content}) }">
+    <th:block th:fragment="content">
+        <!-- 제목 및 등록 버튼 -->
+        <h1 class="mt-4">
+            회원 목록
+            <span>
+                <a th:href="@{/user/register}">
+                    <button type="button" class="btn btn-outline-primary">회원등록</button>
+                </a>
+            </span>
+        </h1>
+        <!-- /제목 및 등록 버튼 -->
+        <!-- 검색 창 -->
+        <form action="/user/list" method="get" id="searchForm">
+            <div class="input-group">
+                <input type="hidden" name="page" value="1" />
+                <div class="input-group-prepend">
+                    <select class="form-select" name="type">
+                        <option th:selected="${pageRequestDTO.type == null}">------</option>
+<!--                        <option value="u" th:selected="${pageRequestDTO.type == 'u'}">아이디</option>--> <!-- 원래 아이디가 User 엔티티에 있었으나, 이메일을 아아디로 바꾸면서 주석처리 -->
+                        <option value="e" th:selected="${pageRequestDTO.type == 'e'}">이메일(아이디)</option>
+                        <option value="n" th:selected="${pageRequestDTO.type == 'n'}">이름</option>
+                        <option value="un" th:selected="${pageRequestDTO.type == 'tc'}">아이디 or 이름</option>
+                    </select>
+                </div>
+                <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}"/>
+                <div class="input-group-prepend">
+                    <select class="form-select" name="r_type">
+                        <option value="r" th:selected="${pageRequestDTO.r_type == 'r'}" selected>권한</option>
+                    </select>
+                </div>
+                <select class="form-select" name="r_keyword">
+                    <option th:selected="${pageRequestDTO.type == null}">------</option>
+                    <option value="ROLE_USER" th:selected="${pageRequestDTO.r_keyword == 'ROLE_USER'}">일반유저</option>
+                    <option value="ROLE_ADMIN" th:selected="${pageRequestDTO.r_keyword == 'ROLE_ADMIN'}">관리자</option>
+                </select>
+
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search" type="button">
+                        Search
+                    </button>
+                    <button class="btn btn-outline-secondary btn-clear" type="button">
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- / 검색 창 -->
+        <!-- 유저 목록 -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">userEmail</th>
+                    <th scope="col">userPw</th>
+                    <th scope="col">userPhoneNumber</th>
+                    <th scope="col">regDate</th>
+                    <th scope="col">userName</th>
+                    <th scope="col">role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="dto : ${result.dtoList}">
+                    <th scope="row">
+                        <a th:href="@{ /user/read( userEmail = ${dto.userEmail},
+                                                    page = ${result.page},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                    )
+                                    }"
+                        > <!-- 조회 페이지로 넘어갈 때 사용자 이메일(아이디)와 현재 페이지 정보를 같이 넘겨준다. -->
+                            [[${dto.userEmail}]]
+                        </a>
+                    </th>
+                    <td>[[${dto.userPw}]]</td>
+                    <td>[[${dto.userPhoneNumber}]]</td>
+                    <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+                    <td>[[${dto.userName}]]</td>
+                    <td>[[${dto.role}]]</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- /유저 목록 -->
+        <!-- 페이징 출력 -->
+        <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item" th:if="${result.prev}">
+                <a class="page-link" th:href="@{/user/list(
+                                                    page=${result.start - 1},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                )}" tabindex="-1">
+                    Previous
+                </a>
+            </li>
+
+            <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}"
+                th:each="page: ${result.pageList}">
+                <a class="page-link" th:href="@{/user/list(
+                                                    page=${page},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                )}">
+                    [[${page}]]
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${result.next}">
+                <a class="page-link" th:href="@{/user/list(
+                                                    page=${result.end + 1},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                )}">
+                    Next
+                </a>
+            </li>
+        </ul>
+        <!-- /페이징 출력 -->
+        <!--    모달 창 실행-->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">회원등록성공</h5>
+                        <button type="button" class="btn-close close-area1" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>회원 등록이 완료되었습니다. 로그인을 진행해주세요.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/user/login" class="btn btn-primary">로그인하기</a>
+                        <button type="button" class="btn btn-secondary close-area2" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--    /모달 창-->
+        <!--  JavaScript
+              1. 모달 (register( ) 후 전달되는 msg 값을 확인. 아래 코드에서 const closeBtn 으로 모달을 닫는 버튼들을 지정한다. 해단 버튼이 클릭되었을 때 display 를 none 으로 설정해둔다.)
+              2. 검색
+        -->
+        <script th:inline="javascript">
+            // 검색처리
+            var searchForm = $("#searchForm");
+            $(".btn-search").click(function(e) {
+                searchForm.submit();
+            });
+            $(".btn-clear").click(function(e) {
+                searchForm.empty().submit();
+            });
+
+            // 회원 등록 완료 시 모달 창
+            var msg = [[${msg}]];
+            console.log(msg);
+            // Wait for the DOM to be ready
+            document.addEventListener("DOMContentLoaded", function() {
+
+                const modal = document.querySelector(".modal");
+                const closeBtn1 = modal.querySelector(".close-area1");
+                const closeBtn2 = modal.querySelector(".close-area2");
+
+                closeBtn1.addEventListener("click", function(e) {
+                    modal.style.display = "none";
+                });
+                closeBtn2.addEventListener("click", function(e) {
+                    modal.style.display = "none";
+                });
+
+                if (msg) {
+                    modal.style.display = "block"; // Show the modal
+                }
+            });
+            // \모달 처리
+
+        </script>
+        <!--  /JavaScript
+                1. msg 값 확인
+                2. 검색
+        -->
+    </th:block>
+</th:block>

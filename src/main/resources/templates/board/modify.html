@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+	
+	<th:block th:fragment="content"> 
+
+
+        <h1 class="mt-4">상품 수정 페이지</h1>
+
+        <form>
+        
+        <div class="form-group">
+            <label >번호</label>
+            <input type="text" class="form-control" name="goodsNo" th:value="${dto.goodsNo}" readonly >
+        </div>
+
+        <div class="form-group">
+            <label >상품명</label>
+            <input type="text" class="form-control" name="goodsName" th:value="${dto.goodsName}" >
+        </div>
+        <div class="form-group">
+            <label >상세내용</label>
+            <textarea class="form-control" rows="5" name="goodsDescription">[[${dto.goodsDescription}]]</textarea>
+        </div>
+        <div class="form-group">
+            <label >가격</label>
+            <input type="text" class="form-control" name="goodsPrice" th:value="${dto.goodsPrice}">
+        </div>
+        <div class="form-group">
+            <label >등록일</label>
+            <input type="text" class="form-control" th:value="${#temporals.format(dto.goodsRegDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+        </div>
+        <div class="form-group">
+            <label >수정일</label>
+            <input type="text" class="form-control" th:value="${#temporals.format(dto.goodsModDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+        </div>
+
+        </form>
+
+        <button type="button" class="btn btn-primary modifyBtn">수정</button>
+
+        <button type="button" class="btn btn-info listBtn">목록으로</button>
+
+        <button type="button" class="btn btn-danger removeBtn">삭제</button>
+        
+        <script th:inline="javascript">
+			
+			var form = $("form"); //form 태그 객체 가져오기
+			
+				
+				//$() 함수는 태그이름이나 CSS선택자로 HTML 태그를 가져온다
+        	var form = $("form"); //form 태그 객체 가져오기
+
+            $(".modifyBtn").click(function() {
+                if(!confirm("수정할래?")){
+                    return ;
+                }
+
+                form
+                    .attr("action", "/board/modify")
+                    .attr("method","post")
+                    .submit();
+            });
+
+            $(".listBtn").click(function() {
+                form
+                    .attr("action", "/board/list")
+                    .attr("method","get")
+              		.submit();
+            })
+            
+            $(".removeBtn").click(function(){
+				
+				if(!confirm("삭제할래?")){
+					return;
+				}
+				
+				form
+					.attr("action", "/board/remove")
+					.attr("method", "post")
+					.submit();
+			});
+				
+		</script>
+
+	</th:block>
+	
+</th:block>

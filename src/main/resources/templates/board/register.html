@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+	<th:block th:fragment="content">
+
+		<h1 class="mt-4">상품등록페이지</h1>
+
+		<form th:action="@{/board/register}" th:method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label>상품명</label>
+				<input type="text" class="form-control" name="goodsName">
+			</div>
+			<div class="form-group">
+				<label>가격</label>
+				<input type="text" class="form-control" name="goodsPrice">
+			</div>
+			<div class="form-group">
+				<label>상세설명</label>
+				<textarea class="form-control" rows="5" name="goodsDescription"></textarea>
+			</div>
+
+			<div class="form-group">
+				<label>첨부파일</label>
+				<input type="file" class="form-control" name="uploadfile"/>
+			</div>
+
+
+			<button type="submit" class="btn btn-primary registerGoods">등록</button>
+		</form>
+
+		
+	</th:block>

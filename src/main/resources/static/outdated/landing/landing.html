@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>TentRental</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image"
+          content="https://images.unsplash.com/photo-1478827536114-da961b7f86d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+    <meta property="og:title" content="International Travel Agency">
+    <meta property="og:description" content="인터페이스개발프로젝트 - 텐트대여 랜딩페이지">
+
+    <!-- ======== 스타일 관련 ================= -->
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- ======== /스타일 관련 ================= -->
+
+    <link rel="icon" href="/assets/tentFavicon.png" type="image/png">
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LK2GHGN8WB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LK2GHGN8WB');
+    </script>
+
+    <!-- 부드러운 스크롤 -->
+    <script>
+        $(document).ready(function () {
+            // Add smooth scrolling to all links
+            $("a").on('click', function (event) {
+
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+        });
+    </script>
+
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50"> <!-- scroll spy 추가 -->
+<!-- 헤더 영역 -->
+<header id="home">
+    <!-- 네비게이션 바 -->
+    <nav>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">TentRental</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#section1">Section 1</a></li>
+                    <li><a href="#section2">Section 2</a></li>
+                    <li><a href="#section3">Section 3</a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Section 4 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#section41">Section 4-1</a></li>
+                            <li><a href="#section42">Section 4-2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{'/user/edit'}">회원정보수정</a>
+                    </li> <!-- 컨틀로러가 아닌 실제 URL이므로 제일 앞에 /는 빼야한다. 로그인한 사람에게만 보이게 설정. -->
+                    <li><a href="/user/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}"><a href="/user/customlogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </nav>
+
+    <!-- 헤더 내용 -->
+    <section class="h-txt">
+        <h1>텐트렌탈 프로젝트
+        </h1>
+        <br>
+        <span>2023.08.13 ~ 2023.10.12</span>
+    </section>
+
+</header>
+
+<!-- ============ main =================== -->
+<section id="scroll-target"></section><br><br><br> <!-- 스크롤 다운 버튼 클릭 시 이동 대상 -->
+
+<div class="main">
+    <img src="/assets/landingImage/BackendPortfolioItems.JPG">
+    <div id="section1" class="container-fluid">
+        <h1>Section 1</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
+    <div id="section2" class="container-fluid">
+        <h1>Section 2</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
+    <div id="section3" class="container-fluid">
+        <h1>Section 3</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
+    <div id="section41" class="container-fluid">
+        <h1>Section 4 Submenu 1</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
+    <div id="section42" class="container-fluid">
+        <h1>Section 4 Submenu 2</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
+</div>
+
+<!-- 문의 사항 -->
+<div id="Contact">
+    <div class="contact_box1">
+        <h3>"<br>
+            실시간 대여문의
+            <br>"
+        </h3>
+        <p>상품문의나 구매문의 등은<br>
+            게시판으로 문의가능합니다.</p>
+    </div>
+    <div class="contact_box2">
+        <form action="/sendEmail" method="post">
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">성함</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="name" name="name" placeholder="고객님의 이름을 입력하세요.">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="emailForReply">이메일</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="emailForReply" name="emailForReply" placeholder="안내를 받으실 이메일을 입력하세요." required>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-25">
+                    <label for="password">비밀번호</label>
+                </div>
+                <div class="col-75">
+                    <input type="password" id="password" name="senderPassword" placeholder="고객님의 이메일 비밀번호를 입력하세요." required>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-25">
+                    <label for="subject">제목</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="subject" name="subject" placeholder="이메일 제목을 입력해주세요." required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="text">문의사항</label>
+                </div>
+                <div class="col-75">
+                        <textarea id="text" name="text" placeholder="문의사항을 입력하세요."
+                                  style="height:200px"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <input type="submit" value="이메일 보내기">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <!-- 하단 배너 -->
+    <!--    <div class="banner">-->
+    <!--        <div class="banner1">-->
+    <!--            <a href="detail.html" target="_self"><img src="/assets/landingImage/TENT_RENT.png"></a>-->
+    <!--        </div>-->
+    <!--        <div class="banner2">-->
+    <!--            <a href="campingmap.html" target="_self"><img src="/assets/landingImage/campingmapbanner.png"></a>-->
+    <!--        </div>-->
+    <!--        <div class="banner3">-->
+    <!--            <a href="detail.html" target="_self"><img src="/assets/landingImage/HAPPY_TENT.png"></a>-->
+    <!--        </div>-->
+    <!--        <div style="clear:both;"></div> &lt;!&ndash; clear 속성 추가 &ndash;&gt;-->
+    <!--    </div>-->
+</div> <!-- 하단 배너 이미지 생략 -->
+
+<!-- 하단영역 -->
+<footer>
+    <section class="footer">
+            <span>
+            <!-- 인스타그램 -->
+                <!--            <a href="https://www.instagram.com/explore/tags/캠핑" target="_blank"><i class="ri-instagram-fill"></i></a>-->
+                <!-- 페이스북 -->
+                <!--            <a href="https://www.facebook.com/" target="_blank"><i class="ri-facebook-box-fill"></i></a>-->
+                <!-- 유튜브 -->
+                <!--            <a href="https://www.youtube.com/results?search_query=%EC%BA%A0%ED%95%91" target="_blank"><i-->
+                <!--                    class="ri-youtube-fill"></i></a>-->
+                <!-- 저작권표시 -->
+                <!--            <h3><i class="ri-copyright-line"></i>TentRental</h3>-->
+            </span> <!-- footer 기존 내용 생략 -->
+    </section>
+</footer>
+
+<!-- 스크립트 -->
+<script type="text/javascript" src="/js/script.js"></script>
+<span>
+        <!--    <script type="text/javascript" src="/js/login.js"></script>-->
+    </span> <!-- 기존 login script 생략 -->
+
+</body>
+
+</html>

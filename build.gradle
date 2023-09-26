@@ -1,0 +1,102 @@
+// branch feature-user2
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.1.3'
+    id 'io.spring.dependency-management' version '1.1.3'
+
+    //id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" // querydsl settings 1
+}
+
+group = 'green.teamproject'
+version = '0.0.1-SNAPSHOT'
+java {sourceCompatibility = '17'}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    annotationProcessor 'org.projectlombok:lombok'
+    //jar 가 아닌 war 패키징에서 아래 의존성 주입을 하면 tomcat 서버가 정상 실행되지 않는다.
+    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' //구글 OAuth 사용을 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-mail' //메일발송 의존성 추가
+
+    // JDBC 는 maven 에서 검색해서 찾아온다.
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.4'
+
+    /* querydsl settings 2 */
+//    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0' //Querydsl NoResultException 대응
+//    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
+//    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+//    implementation "com.querydsl:querydsl-core"
+//    implementation "com.querydsl:querydsl-collections"
+//    annotationProcessor "jakarta.annotation:jakarta.annotation-api" // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드
+//    annotationProcessor "jakarta.persistence:jakarta.persistence-api" // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
+
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl recreate 오류 대응 실험
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    /* /querydsl settings 2 */
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+test {
+    exclude '**/*'
+}
+
+/* querydsl settings 3 */
+//
+//def querydslDir = '$buildDir/generated/querydsl' //Repository 확장을 위한 Querydsl 설정
+//def generated = 'src/main/generated'
+//
+//tasks.withType(JavaCompile) { // querydsl QClass 파일 생성 위치를 지정
+//    options.getGeneratedSourceOutputDirectory().set(file(generated))
+//}
+//
+//querydsl {
+//    jpa = true
+//    querydslSourcesDir = generated //Repository 확장을 위한 Querydsl 설정
+//}
+//
+//
+//sourceSets { // java source set 에 querydsl QClass 위치 추가
+//    main.java.srcDirs += [ generated ]
+//}
+//
+//tasks.compileQuerydsl.dependsOn(clean); // complieQuerydsl Task에 clean 동작 추가
+//
+//configurations {
+//    querydsl.extendsFrom compileClasspath
+//}
+//
+//compileQuerydsl {
+//    options.annotationProcessorPath = configurations.querydsl //Repository 확장을 위한 Querydsl 설정
+//}
+//
+//clean { // gradle clean 시에 QClass 디렉토리 삭제
+//    delete file(generated)
+//}
+
+/* /querydsl settings 3 */

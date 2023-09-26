@@ -1,0 +1,555 @@
+body {
+    margin: 0;
+}
+
+/* ==================== navbar ===================== */
+
+/* CSS for Naver-like login anchor tag */
+.login-container #loginAnchor {
+    background-color: #03C75A; /* Green background color */
+    color: #ffffff; /* White text color */
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 20px; /* Add padding for spacing */
+    border-radius: 4px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.login-container #loginAnchor:hover {
+    background-color: #028744; /* Dark green on hover */
+    color: #ffffff; /* White text color on hover */
+}
+
+
+
+/* =============================Start of Sticky Navbar=============================*/
+#navbar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style-type:	none;
+  margin:				0;
+  padding:			0;
+  /*overflow: 			hidden;*/
+  background-color: #333;
+  font-size: 0;
+  z-index: 3;
+  height: 55px;
+}
+
+.dropdown {
+    display: 	inline-block;
+}
+#navbar > a {
+    display: inline-block
+}
+
+#navbar a, .dropbtn {
+    display:			inline-block;
+    color:				white;
+    text-align:			center;
+    padding:			14px 16px;
+    text-decoration:	none;
+	  width:				auto;
+    font-size: 23px;
+}
+
+#navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.dropdown {
+    display:	inline-block;
+	position:	relative;
+}
+
+.dropdown-content {
+    display: 			none;
+    position: 			absolute;
+    background-color: 	#333;
+    width: 				auto;
+    box-shadow: 		5px 10px 10px rgba(0,0,0,0.3);
+	z-index: 			1;
+}
+
+/* .dropdown-content a {
+    color: 				black;
+    padding: 			12px 16px;
+    text-decoration: 	none;
+    display: 			block;
+    text-align: 		center;
+	width:				128px;
+	z-index: 			1;
+} */
+
+.dropdown-content a:hover {
+	background-color: 	rgb(140, 185, 220);
+}
+
+.dropdown:hover .dropdown-content {
+    display:	block;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+/* =============================End of Sticky Navbar=============================*/
+
+/* ==================== /navbar ===================== */
+
+/* ================This is image gallery Slideshow =====================*/
+* {
+  box-sizing: border-box;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+  max-width: 600px;
+  margin-top: 80px;
+  margin-right: 60px;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 23%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+/*=================== End of  Slideshow ===================*/
+
+
+/* ========================= start of sticky social bar ======================== */
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+.icon-bar {
+  position: fixed;
+  top: 50%;
+  right: 0%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/* Style the icon bar links */
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+}
+
+/* Style the social media icons with color, if you want */
+.icon-bar a:hover {
+  background-color: #000;
+}
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.google {
+  background: #dd4b39;
+  color: white;
+}
+
+.linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.youtube {
+  background: #bb0000;
+  color: white;
+}
+/* ========================= End of sticky social bar ======================== */
+
+
+/* ========================= Start of purchase button ======================== */
+.button {
+  border-radius: 4px;
+  background-color: rgb(33, 221, 33);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 220px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  font-size: 15pt;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/* ========================= End of purchase button ======================== */
+
+
+/* ========================= Start of attention ======================== */
+.highlight {
+  color: #dd4b39;
+}
+.attention_header {
+  text-align: center;
+}
+.attention_container {
+  background-color: rgb(253, 248, 227);
+  padding: 2%;
+  border: 2px solid black;
+}
+/* ========================= End of attention ======================== */
+
+
+/* ========================= Start of footer ======================== */
+.footer_container {
+  background-color: rgba(247,247,247,255);
+  margin: 3%;
+  padding: 3%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+.footer_content_title {
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+.footer_content ul {
+  margin-left: 30px;
+  padding-left: 0px;
+  list-style-type: " ―   ";
+}
+.footer_content li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.footer_content {
+  border-right: 1px solid silver;
+  padding-left: 2%;
+  padding-right: 3%;
+  margin-left: 2%;
+}
+.footer_content p a {
+  text-decoration: none;
+}
+.footer_content p {
+  font-size:14px;
+  margin-bottom: 5px;
+}
+#footer_number {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20pt;
+}
+.bankingAddress {
+  text-align: center;
+}
+.footer_delivery {
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+}
+.footer_content button a {
+  text-decoration: none;
+}
+/* ========================= End of footer ======================== */
+
+
+/* ========================= Start of contents tab ======================== */
+.decision_butn_mom {
+  margin: 1%;
+  margin-top: 4%;
+  display: inline-flexbox;
+  justify-content: space-between;
+  
+}
+
+.decision_butn {
+  cursor: pointer;
+  margin: 1%;
+  background-color: rgb(64, 97, 204);
+  color: white;
+  padding: 2%;
+  font-size: 20px;
+}
+
+.decision_butn:hover {
+  background-color: black;
+  color: white;
+}
+
+#promotion {
+  border-style: none;
+}
+#comments_title {
+  text-align: center;
+  font-size: larger;
+  font-weight: bolder;
+  padding: 1%;
+}
+.contentstab_under_content {
+  margin: 10%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+.comments {
+  margin-left: 3%;
+  margin-right: 3%;
+  background-color: cornsilk;
+  padding: 3%;
+}
+.contentstab {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 33% 33% 33%;
+  padding-top: 1%;
+  padding-bottom: 0%;
+  padding-left: 1%;
+  text-align: center;
+  
+}
+.contentstab-content {
+  background-color: dimgray;
+  color: aliceblue;
+  text-decoration: none;
+  padding: 10px;
+  font-size: large;
+  border-bottom: 4px solid black;
+  cursor: pointer;
+}
+.contentstab-content:hover, .contentstab-content:focus  {
+  background-color: bisque;
+  color: #333;
+}
+/*===================================End of contentstab=================================================*/
+
+
+/* ======================== and other things ==================================*/
+
+.main_grid {
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: top; /* center vertically */
+    margin: 10px;
+}
+#mySelect1 {
+  width: 250px;
+}
+.show {
+  display: block;
+}
+#finalPrice{
+  font-size: larger;
+  font-weight: bold;
+  color: tomato;
+  display: inline;
+}
+#result {
+  font-size: larger;
+    font-weight: bold;
+    color: deepskyblue;
+  }
+header {
+    /* background-image: url('https://camp-road.co.kr/web/upload/dor_main_img/top_banner_01.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: rgba(215,206,197,255);
+    cursor: pointer;
+}
+.header_image {
+  min-width: 1300px;
+}
+input[type="button"] {
+    /* add a lower z-index to the input tag to make it appear in front of the h1 tag */
+    z-index: 1;
+    font-size: 100%;
+}
+/* .top_grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+} */
+@media only screen and (max-width: 600px) {
+    .header {
+        font-size: 2em;
+        padding: 10px;
+    }
+}
+.product_image {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 15%;
+}
+h1 a {
+    color: aliceblue;
+    font-size: 200%;
+}
+.detailed_product_description {
+    margin-left: 20px;
+    font: 0.75em Nanum Gothic,"나눔고딕",'Noto Sans KR',Dotum,AppleGothic,Verdana,'FontAwesome',sans-serif ;
+}
+.detailed_product_description_under1 {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    font-size: 150%;
+    border-bottom: 1px solid black;
+}
+.detailed_product_description_under2 {
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    font-size: 150%;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+}
+.detailed_product_description_under1_select {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.SNS_image {
+    width: 15px;
+    height: 15px;
+    padding-left: 5px;
+    padding-right: 5px;     
+}
+.price {
+    color: dodgerblue;
+}
+.minor_text{
+    color: grey;
+    font-size: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.review_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: cornflowerblue;
+    border-style: none;
+}
+h2 {
+    font-size: 300%;
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+}

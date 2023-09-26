@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>그린텐트렌탈</title>
+    <link rel="icon" href="/assets/tentFavicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script th:src="@{/js/scripts.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <style>
+        /* Style the checkbox container paragraph */
+        p {
+          display: flex; /* Use flexbox to display items in a row */
+          align-items: center; /* Vertically align items to the center */
+        }
+
+        /* Style the checkbox */
+        .rememberMe {
+          flex: 1; /* Make the checkbox take up 100% of the remaining width */
+          margin-right: 5px; /* Add spacing between the checkbox and the text */
+        }
+
+        .rememberMeText {
+          flex: 9;
+        }
+
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+          display: flex;
+          flex-direction: column;
+          justify-content: center; /* Vertically center the content */
+          align-items: center; /* Horizontally center the content */
+          height: 100vh; /* Use 100% of the viewport height */
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        /* style the container */
+        .container {
+          position: relative;
+          border-radius: 5px;
+          background-color: #f2f2f2;
+          padding: 20px 0 0 0;
+        }
+
+        /* style inputs and link buttons */
+        input,
+        .btn {
+          width: 100%;
+          padding: 12px;
+          border: none;
+          border-radius: 4px;
+          margin: 5px 0;
+          opacity: 0.85;
+          display: inline-block;
+          font-size: 17px;
+          line-height: 20px;
+          text-decoration: none; /* remove underline from anchors */
+        }
+
+        input:hover,
+        .btn:hover {
+          opacity: 1;
+        }
+
+        /* add appropriate colors to fb, twitter and google buttons */
+        .fb {
+          background-color: #3B5998;
+          color: white;
+        }
+
+        .twitter {
+          background-color: #55ACEE;
+          color: white;
+        }
+
+        .google {
+          background-color: #dd4b39;
+          color: white;
+        }
+
+        /* style the submit button */
+        input[type=submit] {
+          background-color: #04AA6D;
+          color: white;
+          cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+
+        /* Two-column layout */
+        .col {
+          float: left;
+          width: 50%;
+          margin: auto;
+          padding: 0 50px;
+          margin-top: 6px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+
+        /* vertical line */
+        .vl {
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%);
+          border: 2px solid #ddd;
+          height: 175px;
+        }
+
+        /* text inside the vertical line */
+        .vl-innertext {
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #f1f1f1;
+          border: 1px solid #ccc;
+          border-radius: 50%;
+          padding: 8px 10px;
+        }
+
+        /* hide some text on medium and large screens */
+        .hide-md-lg {
+          display: none;
+        }
+
+        /* bottom container */
+        .bottom-container {
+          text-align: center;
+          background-color: #666;
+          border-radius: 0px 0px 4px 4px;
+          width: inherit;
+        }
+
+        /* Responsive layout - when the screen is less than 650px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 650px) {
+          .col {
+            width: 100%;
+            margin-top: 0;
+          }
+          /* hide the vertical line */
+          .vl {
+            display: none;
+          }
+          /* show the hidden text on small screens */
+          .hide-md-lg {
+            display: block;
+            text-align: center;
+          }
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <h2 style="text-align:center">Login with Social Media or Manually</h2>
+        <div class="vl">
+            <span class="vl-innertext">or</span>
+        </div>
+
+        <div class="col">
+            <a href="#" class="fb btn">
+                <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+            </a>
+            <a href="#" class="twitter btn">
+                <i class="fa fa-twitter fa-fw"></i> Login with Twitter
+            </a>
+            <a href="/oauth2/authorization/google" class="google btn"><i class="fa fa-google fa-fw">
+            </i> Login with Google
+            </a>
+        </div>
+
+        <div class="col">
+            <div class="hide-md-lg">
+                <p>Or sign in manually:</p>
+            </div>
+
+            <form class="form-signin" th:action="@{/login}"  method="post"> <!-- 요청 보내기-->
+                <div th:if="${param.error}"  class="alert alert-danger" role="alert">
+                    Invalid username and password
+                </div>
+
+                <div th:if="${param.logout}"  class="alert alert-primary" role="alert">
+                    You have been logged out
+                </div>
+
+                <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus> <!-- name 을 username 과 password 로 지정해야한다. 그래야 Security Config 에서 커스텀 로그인 페이지 설정을 만든 이후에도 내부적으로 정보를 수집해서 로그인 처리를 해준다. -->
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+                <p>
+                    <input type='checkbox' name='remember-me' class="rememberMe"/>
+                    <span class="rememberMeText">Remember me on this computer.</span>
+                </p>
+            </form>
+            <!-- =============== 중앙 분리선 =============== -->
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="row">
+            <div class="col">
+                <a style="color:white" class="btn" th:href="@{/user/register}">Sign up</a>
+            </div>
+            <div class="col">
+                <a href="#" style="color:white" class="btn">Forgot password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+
+</html>

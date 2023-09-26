@@ -1,0 +1,63 @@
+package green.teamproject.tentrental.comment.entity;
+
+import static com.querydsl.core.types.PathMetadataFactory.*;
+
+import com.querydsl.core.types.dsl.*;
+
+import com.querydsl.core.types.PathMetadata;
+import javax.annotation.processing.Generated;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
+
+
+/**
+ * QCommentEntity is a Querydsl query type for CommentEntity
+ */
+@Generated("com.querydsl.codegen.DefaultEntitySerializer")
+public class QCommentEntity extends EntityPathBase<CommentEntity> {
+
+    private static final long serialVersionUID = 1845885020L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
+
+    public static final QCommentEntity commentEntity = new QCommentEntity("commentEntity");
+
+    public final QBaseEntity _super = new QBaseEntity(this);
+
+    public final StringPath cmtContents = createString("cmtContents");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> cmtModDate = _super.cmtModDate;
+
+    public final NumberPath<Integer> cmtNo = createNumber("cmtNo", Integer.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> cmtRegDate = _super.cmtRegDate;
+
+    public final StringPath cmtWriter = createString("cmtWriter");
+
+    public final green.teamproject.tentrental.goods.entity.QGoodsEntity goodsEntity;
+
+    public QCommentEntity(String variable) {
+        this(CommentEntity.class, forVariable(variable), INITS);
+    }
+
+    public QCommentEntity(Path<? extends CommentEntity> path) {
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+    }
+
+    public QCommentEntity(PathMetadata metadata) {
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCommentEntity(PathMetadata metadata, PathInits inits) {
+        this(CommentEntity.class, metadata, inits);
+    }
+
+    public QCommentEntity(Class<? extends CommentEntity> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.goodsEntity = inits.isInitialized("goodsEntity") ? new green.teamproject.tentrental.goods.entity.QGoodsEntity(forProperty("goodsEntity")) : null;
+    }
+
+}
+
