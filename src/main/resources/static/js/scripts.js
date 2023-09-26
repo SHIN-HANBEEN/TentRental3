@@ -25,33 +25,43 @@ const emailInput = document.getElementById("userEmail");
 const checkEmailButton = document.getElementById("checkEmailButton");
 const emailCheckResult = document.getElementById("emailCheckResult");
 
-checkEmailButton.addEventListener("click", function () {
-const userEmail = emailInput.value;
+console.log(checkEmailButton);
 
-// AJAX request using Fetch API. EmailController 라는 @RestController 를 만든다음. EmailCheckResponse 객체를 반환시켰다.
-fetch(`/check-email?email=${userEmail}`, {
-  method: "GET",
-})
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.exists) {
-      emailCheckResult.textContent = "이미 사용 중인 이메일입니다.";
-      emailCheckResult.style.color = "red";
-    } else {
-      emailCheckResult.textContent = "사용 가능한 이메일입니다.";
-      emailCheckResult.style.color = "green";
+if (checkEmailButton != null) { /* emailCheckButton 이 있을 때 로직 */
+    checkEmailButton.addEventListener
+    ( "click", function ()
+        {
+            const userEmail = emailInput.value;
 
-      // If email is not found, make the input field readonly
-      emailInput.readOnly = true;
-      checkEmailButton.disabled = true; // Disable the button as well
-    }
-  })
-  .catch((error) => {
-    console.error("Error checking email:", error);
-    emailCheckResult.textContent = "이메일 확인 중 오류가 발생했습니다.";
-    emailCheckResult.style.color = "red";
-  });
-});
+            // AJAX request using Fetch API. EmailController 라는 @RestController 를 만든다음. EmailCheckResponse 객체를 반환시켰다.
+            fetch(`/check-email?email=${userEmail}`, {
+              method: "GET",
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.exists) {
+                  emailCheckResult.textContent = "이미 사용 중인 이메일입니다.";
+                  emailCheckResult.style.color = "red";
+                } else {
+                  emailCheckResult.textContent = "사용 가능한 이메일입니다.";
+                  emailCheckResult.style.color = "green";
+
+                  // If email is not found, make the input field readonly
+                  emailInput.readOnly = true;
+                  checkEmailButton.disabled = true; // Disable the button as well
+                }
+              })
+              .catch((error) => {
+                console.error("Error checking email:", error);
+                emailCheckResult.textContent = "이메일 확인 중 오류가 발생했습니다.";
+                emailCheckResult.style.color = "red";
+              });
+        }
+    );
+} else { /* emailCheckButton 가 없을 때 로직 */
+    console.log("emailCheckButton 없음");
+}
+
 /* ========= /userEmail confirm logic ========= */
 
 /* ========= password confirm logic ========= */
