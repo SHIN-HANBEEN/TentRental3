@@ -14,6 +14,12 @@
 			<label>상품명</label>
 			<input type="text" class="form-control" th:value="${dto.goodsName}" readonly>
 		</div>
+		<!--이미지-->
+		<th:block th:if="${dto.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
+			<div class="form-group">
+				<img th:src="@{'/uploadfile/'+${dto.imgPath}}">
+			</div>
+		</th:block>
 		<div class="form-group">
 			<label>상세내용</label>
 			<textarea class="form-control" rows="5" readonly>[[${dto.goodsDescription}]]</textarea>
@@ -29,20 +35,13 @@
 		<div class="form-group">
 			<label>등록일</label>
 			<input type="text" class="form-control"
-				th:value="${#temporals.format(dto.goodsRegDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+				   th:value="${#temporals.format(dto.goodsRegDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 		</div>
 		<div class="form-group">
 			<label>수정일</label>
 			<input type="text" class="form-control"
-				th:value="${#temporals.format(dto.goodsModDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+				   th:value="${#temporals.format(dto.goodsModDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 		</div>
-		<!--이미지-->
-		<th:block th:if="${dto.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
-            <div class="form-group">
-            	<img th:src="@{'/uploadfile/'+${dto.imgPath}}">
-        	</div>
-        </th:block>
-
 
 		<!--댓글구현-->
 		<div class="card shadow mb-4" style="margin-top:10px">
@@ -56,8 +55,8 @@
 				<button type="button" class="btn btn-secondary" onclick="registerComment()">댓글등록</button>
 			</div>
 		</div>
-		<!--댓글구현-->
 
+		<!--댓글구현-->
 		<script th:inline="javascript">
 			$(document).ready(function () {
 				showComment();
@@ -146,6 +145,7 @@
 					success: function (response) {
 						if (response) {
 							showComment();
+							alert("댓글이 수정되었습니다");
 						} else {
 							alert("댓글 수정에 실패했습니다.");
 						}
@@ -156,6 +156,8 @@
 
 				let cmtText = cmtRow.find("textarea").val();
 				cmtRow.find("textarea").replaceWith(`<span>${cmtText}</span>`);
+
+
 			});
 
 			//댓글삭제
@@ -170,6 +172,7 @@
 						}
 					}
 				})
+				alert("댓글이 삭제되었습니다");
 			}
 
 		</script>
@@ -180,7 +183,7 @@
 		<a th:href="@{/board/list(page=${page})}">
 			<button type="button" class="btn btn-info">목록으로</button>
 		</a>
-		<a th:href="@{/purchase/add}">
+		<a th:href="@{/purchase/add(goodsNo = ${dto.goodsNo})}">
 			<button type="button" class="btn btn-info">예약하기</button>
 		</a>
 

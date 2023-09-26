@@ -2,6 +2,7 @@ package green.teamproject.tentrental.goods.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +22,9 @@ public class GoodsController {
 	
 	@Autowired
 	private GoodsService service;
-	
-	//메인화면
-	@GetMapping("/home")
-	public void home() {
-		
-	}
-	
+
 	//상품리스트 화면
+	@PreAuthorize("permitAll()")
 	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0") int page, Model model) {
 		Page<GoodsDTO> list = service.getList(page);
@@ -40,17 +36,19 @@ public class GoodsController {
 	}
 	
 	//등록화면
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/register")
 	public void register() {
 		
 	}
 	
 	//등록처리
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/register")
 	public String registerPost(GoodsDTO dto, RedirectAttributes redirectAttributes) {
 		int no = service.register(dto);
 		redirectAttributes.addAttribute("msg", no);
-		return "redirect:/board/list";
+		return "redirect:/home/main";
 	}
 	
 	//상세조회
@@ -63,6 +61,7 @@ public class GoodsController {
 	}
 	
 	//수정화면
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/modify")
 	public void modify(int no, Model model) {
 		GoodsDTO dto = service.read(no);
@@ -70,6 +69,7 @@ public class GoodsController {
 	}
 	
 	//수정처리
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/modify")
 	public String modifyPost(GoodsDTO dto, RedirectAttributes redirectAttributes) {
 		service.modify(dto);
@@ -78,6 +78,7 @@ public class GoodsController {
 	}
 	
 	//삭제처리
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/remove")
 	public String removePost(int goodsNo) {
 		service.remove(goodsNo);

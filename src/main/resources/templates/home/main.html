@@ -11,18 +11,26 @@
                         <div class="card h-100">
                             <!-- Product image-->
                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
+                            <div class="form-group">
+                                <label>번호</label>
+                                <input type="text" class="form-control" th:value="${dto.goodsNo}" readonly>
                             </div>
+                            <div class="form-group">
+                                <label>상품명</label>
+                                <input type="text" class="form-control" th:value="${dto.goodsName}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>상세내용</label>
+                                <textarea class="form-control" rows="5" readonly>[[${dto.goodsDescription}]]</textarea>
+                            </div>
+                            <div class="form-group">
+                                    <label>가격</label>
+                                    <input type="text" class="form-control" th:value="${dto.goodsPrice}" readonly>
+                            </div>
+
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="board/read">상세보기</a></div>
                             </div>
                         </div>
                     </div>
