@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{/layout/base :: setContent(~{this::content} )}">
 	
 	<th:block th:fragment="content"> 
 		
@@ -10,14 +10,6 @@
                 </a>
             </span>
 		</h1>
-		<!--<h2>
-			 <form action="/board/search" method="get">
-				<div>
-					<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
-				</div>
-				<button>검색하기</button>
-			</form>
-		</h2>-->
 
 		<!--테이블 구조 변경-->
 		<table class="table table-striped"><!--부트스트랩의 스타일 적용-->
@@ -71,19 +63,6 @@
 				
 			</th>
 		</ul>
-		
-		<script th:inline="javascript">
-			
-			$(document).ready(
-				function(){
-					let msg = [[${msg}]]
-					if(msg != null){
-						alert(msg + "번 글이 등록되었습니다.");
-					}
-				}
-			);
-			
-		</script>
 		
 	</th:block>
 	

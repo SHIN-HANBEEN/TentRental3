@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{/layout/base :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
 
@@ -179,6 +179,9 @@
 		</a>
 		<a th:href="@{/board/list(page=${page})}">
 			<button type="button" class="btn btn-info">목록으로</button>
+		</a>
+		<a th:href="@{/purchase/add}">
+			<button type="button" class="btn btn-info">예약하기</button>
 		</a>
 
 	</th:block>

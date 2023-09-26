@@ -1,9 +1,5 @@
 package green.teamproject.tentrental.goods.controller;
 
-import java.io.File;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import green.teamproject.tentrental.goods.dto.GoodsDTO;
-import green.teamproject.tentrental.goods.entity.GoodsEntity;
 import green.teamproject.tentrental.goods.service.GoodsService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/board")
+
 public class GoodsController {
 	
 	@Autowired
@@ -89,15 +83,4 @@ public class GoodsController {
 		service.remove(goodsNo);
 		return "redirect:/board/list";
 	}
-	
-	//검색처리
-	/*
-	 * @GetMapping("/search") public String search(@RequestParam(value="keyword")
-	 * String keyword, Model model) { List<GoodsEntity> searchList =
-	 * service.search(keyword); model.addAttribute("searchList", searchList); return
-	 * "redirect:/board/list"; }
-	 */
-	
-	
-
 }

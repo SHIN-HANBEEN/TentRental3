@@ -1,9 +1,8 @@
-package green.teamproject.tentrental.cart.entity;
+package green.teamproject.tentrental.purchase.entity;
 
 import java.time.LocalDateTime;
 
 
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,10 +19,9 @@ abstract class BaseEntity {
 	
 	@CreatedDate
 	
-	LocalDateTime cartRegDate;
+	LocalDateTime pcsRegDate;
 	
 	@LastModifiedDate
 	
-	LocalDateTime cartModDate;
-
+	LocalDateTime pcsModDate;
 }

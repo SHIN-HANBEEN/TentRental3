@@ -37,6 +37,8 @@ public interface GoodsService {
 	//상품검색
 	//List<GoodsEntity> search(String keyword);
 	
+	List<GoodsDTO> getAllList();
+	
 	//상품엔티티를 티디오로 변경
 	default GoodsEntity dtoToEntity(GoodsDTO dto) {
 		GoodsEntity entity = GoodsEntity.builder()

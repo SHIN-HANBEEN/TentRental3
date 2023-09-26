@@ -1,4 +1,4 @@
-package green.teamproject.tentrental.cart.entity;
+package green.teamproject.tentrental.purchase.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,13 +15,13 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultSupertypeSerializer")
 public class QBaseEntity extends EntityPathBase<BaseEntity> {
 
-    private static final long serialVersionUID = 522657351L;
+    private static final long serialVersionUID = 1412703976L;
 
     public static final QBaseEntity baseEntity = new QBaseEntity("baseEntity");
 
-    public final DateTimePath<java.time.LocalDateTime> cartModDate = createDateTime("cartModDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.LocalDateTime> pcsModDate = createDateTime("pcsModDate", java.time.LocalDateTime.class);
 
-    public final DateTimePath<java.time.LocalDateTime> cartRegDate = createDateTime("cartRegDate", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.LocalDateTime> pcsRegDate = createDateTime("pcsRegDate", java.time.LocalDateTime.class);
 
     public QBaseEntity(String variable) {
         super(BaseEntity.class, forVariable(variable));

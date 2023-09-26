@@ -46,7 +46,7 @@ public class CommentController {
 		
 		//todo: 로그인 기능이 완성이되면 아이디를 DTO에 저장한다
 		
-		dto.setCmtWriter("코딩좋아하는상현"); //강제로 저장
+		dto.setCmtWriter("aaa"); //강제로 저장
 		
 		int cmtNo = service.register(dto);
 		

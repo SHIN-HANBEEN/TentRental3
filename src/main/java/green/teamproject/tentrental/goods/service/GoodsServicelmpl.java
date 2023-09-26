@@ -1,7 +1,9 @@
 package green.teamproject.tentrental.goods.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -11,6 +13,7 @@ import green.teamproject.tentrental.comment.repository.CommentRepository;
 import green.teamproject.tentrental.goods.dto.GoodsDTO;
 import green.teamproject.tentrental.goods.entity.GoodsEntity;
 import green.teamproject.tentrental.goods.repository.GoodsRepository;
+import green.teamproject.tentrental.purchase.repository.PurchaseRepository;
 import green.teamproject.tentrental.util.FileUploadUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -26,6 +29,9 @@ public class GoodsServicelmpl implements GoodsService{
 	
 	@Autowired
 	private CommentRepository commentRepository;
+	
+	@Autowired
+	private PurchaseRepository purchaseRepository;
 
 	//상품등록
 	@Override
@@ -83,10 +89,8 @@ public class GoodsServicelmpl implements GoodsService{
 	}
 
 	//조회수, 중복방지
-	
 	@Override
 	@Transactional 
-	
 	public Optional<GoodsEntity> updateView(int goodsNo, HttpSession session) {
 		 
 		 Optional<GoodsEntity> GoodsOptional = repository.findById(goodsNo);
@@ -107,16 +111,16 @@ public class GoodsServicelmpl implements GoodsService{
 		 }
 	 }
 
-	//상품검색
-	/*
-	 * @Override
-	 *
-	 * @Transactional public List<GoodsEntity> search(String keyword) {
-	 * List<GoodsEntity> goodsList = repository.findByTitleContaining(keyword);
-	 * return goodsList;
-	 *
-	 * }
-	 */
+	@Override
+	public List<GoodsDTO> getAllList() {
+		List<GoodsEntity> entityList = repository.findAll();
+		List<GoodsDTO> dtoList = new ArrayList<>();
+		for(GoodsEntity entity : entityList) {
+			GoodsDTO dto = entityToDto(entity);
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
 }
 	 
 	

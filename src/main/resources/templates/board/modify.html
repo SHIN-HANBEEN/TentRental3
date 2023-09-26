@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{/layout/base :: setContent(~{this::content} )}">
 	
 	<th:block th:fragment="content"> 
 
@@ -51,7 +51,7 @@
         	var form = $("form"); //form 태그 객체 가져오기
 
             $(".modifyBtn").click(function() {
-                if(!confirm("수정할래?")){
+                if(!confirm("수정하시겠습니까?")){
                     return ;
                 }
 
@@ -70,7 +70,7 @@
             
             $(".removeBtn").click(function(){
 				
-				if(!confirm("삭제할래?")){
+				if(!confirm("삭제하시겠습니까?")){
 					return;
 				}
 				
