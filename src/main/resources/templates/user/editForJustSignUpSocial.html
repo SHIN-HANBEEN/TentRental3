@@ -11,12 +11,19 @@
 
 
                 <label class="allForEditAndRegister">비밀번호</label>
-                <input type="password" class="allForEditAndRegister form-control" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요" required/>
+                <input type="password" class="allForEditAndRegister form-control" name="userPw" id="userPw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="비밀번호를 입력하세요" required/> <!-- 대문자, 소문자, 숫자 포함 8글자 이상 기입하도록 생성 -->
 
                 <label class="allForEditAndRegister">비밀번호 확인</label> <!-- 비밀번호 확인은 JS 활용 -->
                 <span id="password-match-message"></span> <!-- 비밀 번호 확인을 알려주는 칸 -->
-                <input type="password" id="password_confirm" name="password_confirm" class="allForEditAndRegister form-control" placeholder="비밀번호를 한번 더 입력하세요" required>
+                <input type="password" id="password_confirm" name="password_confirm" class="allForEditAndRegister form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="비밀번호를 한번 더 입력하세요" required> <!-- 대문자, 소문자, 숫자 포함 8글자 이상 기입하도록 생성 -->
 
+                <div id="PWmessage">
+                    <h3>비밀번호 생성 규칙</h3>
+                    <p id="PWletter" class="PWinvalid">1개 이상의 <b>소문자</b> 영어</p>
+                    <p id="PWcapital" class="PWinvalid">1개 이상의 <b>대문자</b> 영어</p>
+                    <p id="PWnumber" class="PWinvalid">1개 이상의 <b>숫자</b></p>
+                    <p id="PWlength" class="PWinvalid">최소길이 <b>8자</b></p>
+                </div>
 
                 <label class="allForEditAndRegister">주소</label><br>
                 <input class="allForEditAndRegister form-control" type="text" name="userAddressNumber" id="sample6_postcode" placeholder="우편번호">
@@ -48,7 +55,7 @@
                 </div> <br>
 
                 <label class="allForEditAndRegister">권한</label>
-                <input id="roleString" type="text" class="allForEditAndRegister form-control" name="role" th:value="${dto.role}" readonly/> <!-- input 태그에 입력되는 값은 String 이기 때문에 DB에 저장하기 위해서는 Set<Role>로 수정해주어야 한다. 일단, name 속성을 지워서 데이터베이스로 정보가 넘어가지 않도록 하였다(왜냐하면 여기서 지정하면 무조건 넘겨줄 때 Set< > 자료형으로 넘겨주어야 하는데, 여기서 넘겨줄 수 있는 자료형은 무조건 STring 으로 넘어간 다음 컨트롤러에서 Set<> 자로형으로 수정될 것이기 때문이다. 또한 String 정보를 가져갈 수 있도록 id 를 지정해주었다.  -->
+                <input id="roleString" type="text" class="allForEditAndRegister form-control" th:value="${dto.role}" readonly/> <!-- input 태그에 입력되는 값은 String 이기 때문에 DB에 저장하기 위해서는 Set<Role>로 수정해주어야 한다. 일단, name 속성을 지워서 데이터베이스로 정보가 넘어가지 않도록 하였다(왜냐하면 여기서 지정하면 무조건 넘겨줄 때 Set< > 자료형으로 넘겨주어야 하는데, 여기서 넘겨줄 수 있는 자료형은 무조건 STring 으로 넘어간 다음 컨트롤러에서 Set<> 자로형으로 수정될 것이기 때문이다. 또한 String 정보를 가져갈 수 있도록 id 를 지정해주었다.  -->
 
                 <label class="allForEditAndRegister">등록일자</label>
                 <input type="text" class="allForEditAndRegister form-control" th:value="${ #temporals.format( dto.regDate, 'yyyy/MM/dd HH:mm:ss' ) }" readonly/>

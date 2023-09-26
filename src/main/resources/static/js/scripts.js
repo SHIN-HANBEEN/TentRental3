@@ -19,6 +19,70 @@ window.onscroll = function() {
 }
 /* ========= /customizeNavbar shrink sticky navbar ========= */
 
+/* ========= 비밀번호 소문자, 대문자, 개수 확인 js ============= */
+var myInput = document.getElementById("userPw");
+var letter = document.getElementById("PWletter");
+var capital = document.getElementById("PWcapital");
+var number = document.getElementById("PWnumber");
+var length = document.getElementById("PWlength");
+
+if( (myInput != null) && (letter != null) && (capital != null) && (number != null) && (length != null) ) {
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+      document.getElementById("PWmessage").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+      document.getElementById("PWmessage").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+      // Validate lowercase letters
+      var lowerCaseLetters = /[a-z]/g;
+      if(myInput.value.match(lowerCaseLetters)) {
+        letter.classList.remove("PWinvalid");
+        letter.classList.add("PWvalid");
+      } else {
+        letter.classList.remove("PWvalid");
+        letter.classList.add("PWinvalid");
+      }
+
+      // Validate capital letters
+      var upperCaseLetters = /[A-Z]/g;
+      if(myInput.value.match(upperCaseLetters)) {
+        capital.classList.remove("PWinvalid");
+        capital.classList.add("PWvalid");
+      } else {
+        capital.classList.remove("PWvalid");
+        capital.classList.add("PWinvalid");
+      }
+
+      // Validate numbers
+      var numbers = /[0-9]/g;
+      if(myInput.value.match(numbers)) {
+        number.classList.remove("PWinvalid");
+        number.classList.add("PWvalid");
+      } else {
+        number.classList.remove("PWvalid");
+        number.classList.add("PWinvalid");
+      }
+
+      // Validate length
+      if(myInput.value.length >= 8) {
+        length.classList.remove("PWinvalid");
+        length.classList.add("PWvalid");
+      } else {
+        length.classList.remove("PWvalid");
+        length.classList.add("PWinvalid");
+      }
+    }
+} else {
+    console.log("비밀번호 개수 확인 관련 태그가 없습니다.")
+}
+
+/* ========= /비밀번호 소문자, 대문자, 개수 확인 js ============= */
 
 /* ========= userEmail confirm logic ========= */
 const emailInput = document.getElementById("userEmail");
@@ -77,10 +141,10 @@ const matchMessage = document.getElementById("password-match-message");
 
 // Check if the passwords match
 if (password === passwordConfirm) {
-  matchMessage.textContent = "비밀번호가 일치합니다.";
+  matchMessage.textContent = ": 비밀번호가 일치합니다.";
   matchMessage.style.color = "green";
 } else {
-  matchMessage.textContent = "비밀번호가 일치하지 않습니다.";
+  matchMessage.textContent = ": 비밀번호가 일치하지 않습니다.";
   matchMessage.style.color = "red";
 }
 });
