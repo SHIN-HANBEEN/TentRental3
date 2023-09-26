@@ -1,4 +1,4 @@
-// branch dev
+// branch feature-goods
 plugins {
     id 'java'
     id 'war'
