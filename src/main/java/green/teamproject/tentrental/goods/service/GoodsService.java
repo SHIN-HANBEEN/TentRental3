@@ -58,8 +58,8 @@ public interface GoodsService {
 				.goodsName(entity.getGoodsName())
 				.goodsPrice(entity.getGoodsPrice())
 				.goodsDescription(entity.getGoodsDescription())
-				.goodsRegDate(entity.getRegDate())
-				.goodsModDate(entity.getModDate())
+				.regDate(entity.getRegDate())
+				.modDate(entity.getModDate())
 				.imgPath(entity.getImgPath())
 				.goodsView(entity.getGoodsView())
 				.build();

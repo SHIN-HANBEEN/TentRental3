@@ -68,6 +68,17 @@ public class GoodsServicelmpl implements GoodsService{
 		return new PageResultDTO<>(result, fn);
 	}
 
+	private BooleanBuilder getSearch(PageRequestDTO requestDTO) { //Querydsl 처리
+
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		QGoodsEntity qGoodsEntity = QGoodsEntity.goodsEntity;
+
+		BooleanExpression expression = qGoodsEntity.goodsName.isNotEmpty(); // userEmail isNotEmpty( )조건 생성
+		booleanBuilder.and(expression); // 조건 탑재
+
+		return booleanBuilder;
+	}
+
 	//상품상세정보
 	@Override
 	public GoodsDTO read(int goodsNo) {
@@ -137,16 +148,7 @@ public class GoodsServicelmpl implements GoodsService{
 		return dtoList;
 	}
 
-	private BooleanBuilder getSearch(PageRequestDTO requestDTO) { //Querydsl 처리
 
-		BooleanBuilder booleanBuilder = new BooleanBuilder();
-		QGoodsEntity qGoodsEntity = QGoodsEntity.goodsEntity;
-
-		BooleanExpression expression = qGoodsEntity.goodsName.isNotEmpty(); // userEmail isNotEmpty( )조건 생성
-		booleanBuilder.and(expression); // 조건 탑재
-
-		return booleanBuilder;
-	}
 }
 	 
 	
