@@ -12,6 +12,29 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
+/* ========= 유저 리스트 페이지(/user/list) ============= */
+
+.userEmailInUserList {
+    max-width: 50px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.userPwInUserList {
+    max-width: 30px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.userPhoneNumberInUserList {
+    max-width: 35px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+
+/* ========= /유저 리스트 페이지(/user/list) ============= */
+
 /* ========= 전체 페이지 대상 ============= */
 
 * {
