@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<th:block th:replace="~{/layout/base :: setContent(~{this::content} )}">
+
+<th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
 
@@ -7,40 +7,40 @@
 
 		<div class="form-group">
 			<label>번호</label>
-			<input type="text" class="form-control" th:value="${dto.goodsNo}" readonly>
+			<input type="text" class="form-control" th:value="${result.goodsNo}" readonly>
 		</div>
 
 		<div class="form-group">
 			<label>상품명</label>
-			<input type="text" class="form-control" th:value="${dto.goodsName}" readonly>
+			<input type="text" class="form-control" th:value="${result.goodsName}" readonly>
 		</div>
 		<!--이미지-->
-		<th:block th:if="${dto.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
+		<th:block th:if="${result.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
 			<div class="form-group">
-				<img th:src="@{'/uploadfile/'+${dto.imgPath}}">
+				<img th:src="@{'/uploadfile/'+${result.imgPath}}">
 			</div>
 		</th:block>
 		<div class="form-group">
 			<label>상세내용</label>
-			<textarea class="form-control" rows="5" readonly>[[${dto.goodsDescription}]]</textarea>
+			<textarea class="form-control" rows="5" readonly>[[${result.goodsDescription}]]</textarea>
 		</div>
 		<div class="form-group">
 			<label>가격</label>
-			<input type="text" class="form-control" th:value="${dto.goodsPrice}" readonly>
+			<input type="text" class="form-control" th:value="${result.goodsPrice}" readonly>
 		</div>
 		<div class="form-group">
 			<label>조회수</label>
-			<input type="text" class="form-control" th:value="${dto.goodsView}" readonly>
+			<input type="text" class="form-control" th:value="${result.goodsView}" readonly>
 		</div>
 		<div class="form-group">
 			<label>등록일</label>
 			<input type="text" class="form-control"
-				   th:value="${#temporals.format(dto.goodsRegDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+				   th:value="${#temporals.format(result.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 		</div>
 		<div class="form-group">
 			<label>수정일</label>
 			<input type="text" class="form-control"
-				   th:value="${#temporals.format(dto.goodsModDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+				   th:value="${#temporals.format(result.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 		</div>
 
 		<!--댓글구현-->
@@ -56,6 +56,16 @@
 			</div>
 		</div>
 
+		<a th:href="@{/goods/modify(goodsNo = ${result.goodsNo})}">
+			<button type="button" class="btn btn-primary">수정</button>
+		</a>
+		<a th:href="@{/goods/list}">
+			<button type="button" class="btn btn-info">목록으로</button>
+		</a>
+		<a th:href="@{/purchase/add(goodsNo = ${result.goodsNo})}">
+			<button type="button" class="btn btn-info">예약하기</button>
+		</a>
+
 		<!--댓글구현-->
 		<script th:inline="javascript">
 			$(document).ready(function () {
@@ -64,7 +74,7 @@
 
 			//댓글조회
 			function showComment() {
-				var goodsNo = [[${dto.goodsNo}]];
+				var goodsNo = [[${result.goodsNo}]];
 				let comment_div = $('#commentdiv');
 
 				$.ajax({
@@ -93,9 +103,9 @@
 
 			//댓글등록
 			function registerComment() {
-				var board = [[${dto.goodsNo}]];
+				var board = [[${result.goodsNo}]];
 				let commentContent = document.getElementById("commentContent");
-				let goodsNo = [[${dto.goodsNo}]];
+				let goodsNo = [[${result.goodsNo}]];
 				let commentDto =
 				{
 					'cmtNo': 0,
@@ -134,7 +144,7 @@
 				let commentDto =
 				{
 					"cmtNo": cmtNo,
-					"goodsNo": [[${dto.goodsNo}]],
+					"goodsNo": [[${result.goodsNo}]],
 					"cmtContents": newCmtText,
 				};
 
@@ -162,7 +172,7 @@
 
 			//댓글삭제
 			function removeComment(cmtNo) {
-				var board = [[${dto.goodsNo}]];
+				var board = [[${result.goodsNo}]];
 				$.ajax({
 					type: "GET",
 					url: "/comment/remove/" + cmtNo,
@@ -176,16 +186,5 @@
 			}
 
 		</script>
-
-		<a th:href="@{/board/modify(no = ${dto.goodsNo})}">
-			<button type="button" class="btn btn-primary">수정</button>
-		</a>
-		<a th:href="@{/board/list(page=${page})}">
-			<button type="button" class="btn btn-info">목록으로</button>
-		</a>
-		<a th:href="@{/purchase/add(goodsNo = ${dto.goodsNo})}">
-			<button type="button" class="btn btn-info">예약하기</button>
-		</a>
-
 	</th:block>
 </th:block>

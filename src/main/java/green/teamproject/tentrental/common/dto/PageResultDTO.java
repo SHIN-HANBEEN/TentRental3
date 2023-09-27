@@ -32,6 +32,7 @@ public class PageResultDTO<DTO, EN> {
     //페이지 번호 목록
     private List<Integer> pageList;
 
+    private int goodsNo; // 상품번호
     private String goodsName; // 상품명
     private int goodsPrice; // 상품가격
     private String imgPath; // 이미지 주소

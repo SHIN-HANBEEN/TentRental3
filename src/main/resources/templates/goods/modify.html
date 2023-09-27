@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<th:block th:replace="~{/layout/base :: setContent(~{this::content} )}">
+<th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
 	
 	<th:block th:fragment="content"> 
 
@@ -27,11 +27,11 @@
         </div>
         <div class="form-group">
             <label >등록일</label>
-            <input type="text" class="form-control" th:value="${#temporals.format(dto.goodsRegDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            <input type="text" class="form-control" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
         </div>
         <div class="form-group">
             <label >수정일</label>
-            <input type="text" class="form-control" th:value="${#temporals.format(dto.goodsModDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            <input type="text" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
         </div>
 
         </form>
@@ -56,14 +56,14 @@
                 }
 
                 form
-                    .attr("action", "/board/modify")
+                    .attr("action", "/goods/modify")
                     .attr("method","post")
                     .submit();
             });
 
             $(".listBtn").click(function() {
                 form
-                    .attr("action", "/board/list")
+                    .attr("action", "/goods/list")
                     .attr("method","get")
               		.submit();
             })
@@ -75,7 +75,7 @@
 				}
 				
 				form
-					.attr("action", "/board/remove")
+					.attr("action", "/goods/remove")
 					.attr("method", "post")
 					.submit();
 			});
