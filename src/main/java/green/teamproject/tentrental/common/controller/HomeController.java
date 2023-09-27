@@ -2,6 +2,7 @@ package green.teamproject.tentrental.common.controller;
 
 import java.security.Principal;
 
+import green.teamproject.tentrental.common.dto.PageRequestDTO;
 import green.teamproject.tentrental.goods.dto.GoodsDTO;
 import green.teamproject.tentrental.goods.service.GoodsService;
 import green.teamproject.tentrental.user.service.UserService;
@@ -35,9 +36,9 @@ public class HomeController {
     }
 
     @PreAuthorize("permitAll()")
-    @GetMapping("/home/main") //홈화면
-    public void list(@RequestParam(defaultValue = "0") int page, Model model) {
-        Page<GoodsDTO> list = service.getList(page);
-        model.addAttribute("list", list);
+    @GetMapping("/home/main")
+    public void list(PageRequestDTO pageRequestDTO, Model model){
+        log.info("list........" + pageRequestDTO);
+        model.addAttribute("result", service.getList(pageRequestDTO));
     }
 }

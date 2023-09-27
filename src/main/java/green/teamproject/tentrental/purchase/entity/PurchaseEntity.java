@@ -1,6 +1,7 @@
 package green.teamproject.tentrental.purchase.entity;
 import java.time.LocalDate;
 
+import green.teamproject.tentrental.common.entity.BaseEntity;
 import green.teamproject.tentrental.goods.entity.GoodsEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +26,7 @@ import lombok.ToString;
 @ToString
 @Builder
 
-public class PurchaseEntity extends BaseEntity{
+public class PurchaseEntity extends BaseEntity {
 	
 	//예약번호
 	@Id

@@ -1,5 +1,6 @@
 package green.teamproject.tentrental.comment.entity;
 
+import green.teamproject.tentrental.common.entity.BaseEntity;
 import green.teamproject.tentrental.user.entity.User;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 
-public class CommentEntity extends BaseEntity{
+public class CommentEntity extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

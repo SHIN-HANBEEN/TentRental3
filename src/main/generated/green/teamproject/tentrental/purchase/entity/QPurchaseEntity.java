@@ -22,23 +22,23 @@ public class QPurchaseEntity extends EntityPathBase<PurchaseEntity> {
 
     public static final QPurchaseEntity purchaseEntity = new QPurchaseEntity("purchaseEntity");
 
-    public final QBaseEntity _super = new QBaseEntity(this);
+    public final green.teamproject.tentrental.common.entity.QBaseEntity _super = new green.teamproject.tentrental.common.entity.QBaseEntity(this);
 
     public final StringPath explanation = createString("explanation");
 
     public final green.teamproject.tentrental.goods.entity.QGoodsEntity goodsEntity;
 
-    public final DatePath<java.time.LocalDate> pcsEndDate = createDate("pcsEndDate", java.time.LocalDate.class);
-
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> pcsModDate = _super.pcsModDate;
+    public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
+
+    public final DatePath<java.time.LocalDate> pcsEndDate = createDate("pcsEndDate", java.time.LocalDate.class);
 
     public final NumberPath<Integer> pcsNo = createNumber("pcsNo", Integer.class);
 
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> pcsRegDate = _super.pcsRegDate;
-
     public final DatePath<java.time.LocalDate> pcsStartDate = createDate("pcsStartDate", java.time.LocalDate.class);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath userId = createString("userId");
 

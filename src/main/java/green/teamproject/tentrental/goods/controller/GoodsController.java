@@ -1,5 +1,7 @@
 package green.teamproject.tentrental.goods.controller;
 
+import green.teamproject.tentrental.common.dto.PageRequestDTO;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/board")
-
+@Log4j2
 public class GoodsController {
 	
 	@Autowired
@@ -26,13 +28,9 @@ public class GoodsController {
 	//상품리스트 화면
 	@PreAuthorize("permitAll()")
 	@GetMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int page, Model model) {
-		Page<GoodsDTO> list = service.getList(page);
-		model.addAttribute("list", list);
-		System.out.println("전체 페이지 수" + list.getTotalPages());
-		System.out.println("전체 게시물 수: " + list.getTotalElements());
-		System.out.println("현재 페이지 번호: " + (list.getNumber() + 1));
-		System.out.println("페이지에 표시할 게시물 수: " + list.getNumberOfElements());
+	public void list(PageRequestDTO pageRequestDTO, Model model){
+		log.info("list........" + pageRequestDTO);
+		model.addAttribute("result", service.getList(pageRequestDTO));
 	}
 	
 	//등록화면

@@ -26,8 +26,8 @@ public interface CommentService {
 				.cmtNo(entity.getCmtNo())
 				.cmtContents(entity.getCmtContents())
 				.cmtWriter(entity.getCmtWriter())
-				.cmtRegDate(entity.getCmtRegDate())
-				.cmtModDate(entity.getCmtModDate())
+				.cmtRegDate(entity.getRegDate())
+				.cmtModDate(entity.getModDate())
 				.build();
 		return dto;
 	}

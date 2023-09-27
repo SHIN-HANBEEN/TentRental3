@@ -19,12 +19,9 @@ public class QGoodsEntity extends EntityPathBase<GoodsEntity> {
 
     public static final QGoodsEntity goodsEntity = new QGoodsEntity("goodsEntity");
 
-    public final QBaseEntity _super = new QBaseEntity(this);
+    public final green.teamproject.tentrental.common.entity.QBaseEntity _super = new green.teamproject.tentrental.common.entity.QBaseEntity(this);
 
     public final StringPath goodsDescription = createString("goodsDescription");
-
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> goodsModDate = _super.goodsModDate;
 
     public final StringPath goodsName = createString("goodsName");
 
@@ -32,12 +29,15 @@ public class QGoodsEntity extends EntityPathBase<GoodsEntity> {
 
     public final NumberPath<Integer> goodsPrice = createNumber("goodsPrice", Integer.class);
 
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> goodsRegDate = _super.goodsRegDate;
-
     public final NumberPath<Integer> goodsView = createNumber("goodsView", Integer.class);
 
     public final StringPath imgPath = createString("imgPath");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public QGoodsEntity(String variable) {
         super(GoodsEntity.class, forVariable(variable));
