@@ -152,7 +152,7 @@ passwordConfirmInput.addEventListener("keyup", function () {
 });
 /* ========= /password confirm logic ========= */
 
-/* ========= 회원 정보 수정 버튼 활성화 로직 ========= */
+/* ========= 회원 등록 버튼 활성화 로직 ========= */
 // Add event listeners to monitor changes
 document.addEventListener("DOMContentLoaded", function () {
     // Initial check, this code will run after the email check logic
@@ -186,7 +186,7 @@ function hasInvalidPasswordElements() {
 
 // Function to enable/disable the register button and change the text
 function updateRegisterButtonState() {
-    var registerButton = document.querySelector(".registerBtn");
+    var registerButton = document.querySelector(".registerbtn");
     var registerButtonMessage = document.getElementById("registerButtonMessage");
 
     if (isFontColorGreen() && !hasInvalidPasswordElements()) {

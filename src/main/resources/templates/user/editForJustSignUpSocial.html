@@ -6,7 +6,7 @@
                 <p class="allForEditAndRegister">회원 정보 수정할 내용을 입력해주세요</p>
                 <hr>
 
-                <label class="allForEditAndRegister">이메일(아이디)</label><span id="emailCheckResult"></span>
+                <label class="allForEditAndRegister">이메일(아이디)</label> <span id="emailCheckResult" style="color: green;"></span>
                 <input type="email" class="allForEditAndRegister form-control" name="userEmail" id="userEmail" th:value="${dto.userEmail}" readonly required/>
 
 
@@ -64,6 +64,8 @@
                 <input type="text" class="allForEditAndRegister form-control" th:value="${ #temporals.format( dto.modDate, 'yyyy/MM/dd HH:mm:ss' ) }" readonly/>
 
                 <hr>
+
+                <span id="registerButtonMessage">아이디 중복 여부를 확인하거나, 적절한 비밀번호 입력을 입력하세요.</span>
                 <button class="allForEditAndRegister registerbtn modifyBtn" type="submit">수정하기</button>
             </div>
         </form>
