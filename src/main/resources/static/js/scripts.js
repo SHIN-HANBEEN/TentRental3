@@ -135,23 +135,78 @@ const passwordConfirmInput = document.getElementById("password_confirm");
 
 // Add a keyup event listener to the password confirmation field
 passwordConfirmInput.addEventListener("keyup", function () {
-const password = passwordInput.value;
-const passwordConfirm = passwordConfirmInput.value;
-const matchMessage = document.getElementById("password-match-message");
+    const password = passwordInput.value;
+    const passwordConfirm = passwordConfirmInput.value;
+    const matchMessage = document.getElementById("password-match-message");
 
-// Check if the passwords match
-if (password === passwordConfirm) {
-  matchMessage.textContent = ": 비밀번호가 일치합니다.";
-  matchMessage.style.color = "green";
-} else {
-  matchMessage.textContent = ": 비밀번호가 일치하지 않습니다.";
-  matchMessage.style.color = "red";
-}
+    // Check if the passwords match
+    if (password === passwordConfirm) {
+      matchMessage.textContent = ": 비밀번호가 일치합니다.";
+      matchMessage.style.color = "green";
+    } else {
+      matchMessage.textContent = ": 비밀번호가 일치하지 않습니다.";
+      matchMessage.style.color = "red";
+    }
+
+    updateRegisterButtonState(); //회원등록 버튼 업데이트 동작 메서드 실행시켜주기.
 });
 /* ========= /password confirm logic ========= */
 
+/* ========= 회원 정보 수정 버튼 활성화 로직 ========= */
+// Add event listeners to monitor changes
+document.addEventListener("DOMContentLoaded", function () {
+    // Initial check, this code will run after the email check logic
+    updateRegisterButtonState();
 
-/* ========= 회원정보수정 & login & logout button ========= */
+    var pwMessage = document.getElementById("PWmessage");
+
+    // Create a MutationObserver to watch for changes in emailCheckResult and pwMessage
+    var observer = new MutationObserver(updateRegisterButtonState);
+    observer.observe(emailCheckResult, { childList: true, subtree: true });
+});
+
+// Function to check if the emailCheckResult font color is green
+function isFontColorGreen() {
+    var emailCheckResult = document.getElementById("emailCheckResult");
+    var computedStyle1 = window.getComputedStyle(emailCheckResult);
+    var passwordMatchMessage = document.getElementById("password-match-message");
+    var computedStyle2 = window.getComputedStyle(passwordMatchMessage);
+
+    var color1 = computedStyle1.getPropertyValue("color");
+    var color2 = computedStyle2.getPropertyValue("color");
+    return (color1 === "rgb(0, 128, 0)")&&(color2 === "rgb(0, 128, 0)"); // Green color
+}
+
+// Function to check if there are elements with the class "PWinvalid" in the PWmessage div
+function hasInvalidPasswordElements() {
+    var pwMessage = document.getElementById("PWmessage");
+    var invalidElements = pwMessage.querySelectorAll(".PWinvalid");
+    return invalidElements.length > 0;
+}
+
+// Function to enable/disable the register button and change the text
+function updateRegisterButtonState() {
+    var registerButton = document.querySelector(".registerBtn");
+    var registerButtonMessage = document.getElementById("registerButtonMessage");
+
+    if (isFontColorGreen() && !hasInvalidPasswordElements()) {
+        registerButton.disabled = false;
+        registerButtonMessage.style.color = "green";
+        registerButtonMessage.textContent = "회원 등록 및 수정이 가능합니다."; // Change the text
+    } else {
+        registerButton.disabled = true;
+        registerButtonMessage.textContent = "아이디 중복 여부를 확인하거나, 적절한 비밀번호 입력을 입력하세요.";
+        registerButtonMessage.style.color = "red";
+    }
+}
+/* ========= /회원 정보 수정 버튼 활성화 로직 ========= */
+
+/* ========= 회원리스트 & 내정보수정 & login & logout button ========= */
+function redirectToUserList() {
+    // Redirect to the login page
+    window.location.href = '/user/list'; // Replace '/login' with your login URL
+}
+
 function redirectToEdit() {
     // Redirect to the login page
     window.location.href = '/user/edit'; // Replace '/login' with your login URL
