@@ -1,5 +1,6 @@
 package green.teamproject.tentrental.goods.entity;
 
+import green.teamproject.tentrental.common.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ import lombok.ToString;
 @Builder
 
 
-public class GoodsEntity extends BaseEntity{
+public class GoodsEntity extends BaseEntity {
 	
 	//상품번호
 	@Id

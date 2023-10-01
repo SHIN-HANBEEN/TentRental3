@@ -26,8 +26,8 @@ public interface CommentService {
 				.cmtNo(entity.getCmtNo())
 				.cmtContents(entity.getCmtContents())
 				.cmtWriter(entity.getCmtWriter())
-				.cmtRegDate(entity.getCmtRegDate())
-				.cmtModDate(entity.getCmtModDate())
+				.cmtRegDate(entity.getRegDate())
+				.cmtModDate(entity.getModDate())
 				.build();
 		return dto;
 	}
@@ -35,12 +35,12 @@ public interface CommentService {
 	default CommentEntity dtoToEntity(CommentDTO dto) {
 		
 		GoodsEntity goodsentity = GoodsEntity.builder().goodsNo(dto.getGoodsNo()).build();
+
 		
 		CommentEntity entity = CommentEntity.builder()
 				.cmtNo(dto.getCmtNo())
 				.cmtContents(dto.getCmtContents())
 				.cmtWriter(dto.getCmtWriter())
-				
 				.goodsEntity(goodsentity)
 				.build();
 				return entity;

@@ -1,8 +1,22 @@
 package green.teamproject.tentrental.goods.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
+
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import green.teamproject.tentrental.common.dto.PageRequestDTO;
+import green.teamproject.tentrental.common.dto.PageResultDTO;
+import green.teamproject.tentrental.goods.entity.QGoodsEntity;
+import green.teamproject.tentrental.user.dto.UserDTO;
+import green.teamproject.tentrental.user.entity.QUser;
+import green.teamproject.tentrental.user.entity.User;
+import green.teamproject.tentrental.user.entityenum.Role;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -11,11 +25,14 @@ import green.teamproject.tentrental.comment.repository.CommentRepository;
 import green.teamproject.tentrental.goods.dto.GoodsDTO;
 import green.teamproject.tentrental.goods.entity.GoodsEntity;
 import green.teamproject.tentrental.goods.repository.GoodsRepository;
+import green.teamproject.tentrental.purchase.repository.PurchaseRepository;
 import green.teamproject.tentrental.util.FileUploadUtil;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @Service
+@Log4j2
+@RequiredArgsConstructor
 public class GoodsServicelmpl implements GoodsService{
 	
 	@Autowired
@@ -26,6 +43,9 @@ public class GoodsServicelmpl implements GoodsService{
 	
 	@Autowired
 	private CommentRepository commentRepository;
+	
+	@Autowired
+	private PurchaseRepository purchaseRepository;
 
 	//상품등록
 	@Override
@@ -39,12 +59,24 @@ public class GoodsServicelmpl implements GoodsService{
 
 	//상품조회
 	@Override
-	public Page<GoodsDTO> getList(int page) {
-		int pageNum = (page == 0) ? 0 : page-1;
-		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("goodsNo").descending());
-		Page<GoodsEntity> entityPage = repository.findAll(pageable);
-		Page<GoodsDTO> dtoPage = entityPage.map(entity->entityToDto(entity));
-		return dtoPage;
+	public PageResultDTO<GoodsDTO, GoodsEntity> getList(PageRequestDTO requestDTO) {
+		Pageable pageable = requestDTO.getPageable(Sort.by("regDate").descending());
+		BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색 조건 처리
+		Page<GoodsEntity> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+		Function<GoodsEntity, GoodsDTO> fn = (entity -> entityToDto(entity));
+		// entity to dto 의 결과로 dtoList 를 반환하게 된다.
+		return new PageResultDTO<>(result, fn);
+	}
+
+	private BooleanBuilder getSearch(PageRequestDTO requestDTO) { //Querydsl 처리
+
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		QGoodsEntity qGoodsEntity = QGoodsEntity.goodsEntity;
+
+		BooleanExpression expression = qGoodsEntity.goodsName.isNotEmpty(); // userEmail isNotEmpty( )조건 생성
+		booleanBuilder.and(expression); // 조건 탑재
+
+		return booleanBuilder;
 	}
 
 	//상품상세정보
@@ -83,10 +115,8 @@ public class GoodsServicelmpl implements GoodsService{
 	}
 
 	//조회수, 중복방지
-	
 	@Override
 	@Transactional 
-	
 	public Optional<GoodsEntity> updateView(int goodsNo, HttpSession session) {
 		 
 		 Optional<GoodsEntity> GoodsOptional = repository.findById(goodsNo);
@@ -107,16 +137,18 @@ public class GoodsServicelmpl implements GoodsService{
 		 }
 	 }
 
-	//상품검색
-	/*
-	 * @Override
-	 *
-	 * @Transactional public List<GoodsEntity> search(String keyword) {
-	 * List<GoodsEntity> goodsList = repository.findByTitleContaining(keyword);
-	 * return goodsList;
-	 *
-	 * }
-	 */
+	@Override
+	public List<GoodsDTO> getAllList() {
+		List<GoodsEntity> entityList = repository.findAll();
+		List<GoodsDTO> dtoList = new ArrayList<>();
+		for(GoodsEntity entity : entityList) {
+			GoodsDTO dto = entityToDto(entity);
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+
+
 }
 	 
 	

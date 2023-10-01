@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
 
 		<h1 class="mt-4">상품등록페이지</h1>
 
-		<form th:action="@{/board/register}" th:method="post" enctype="multipart/form-data">
+		<form th:action="@{/goods/register}" th:method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label>상품명</label>
 				<input type="text" class="form-control" name="goodsName">
