@@ -17,7 +17,7 @@
 		<!--이미지-->
 		<th:block th:if="${result.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
 			<div class="form-group">
-				<img th:src="@{'/uploadfile/'+${result.imgPath}}">
+				<img th:src="@{'/assets/uploadFile/'+${result.imgPath}}">
 			</div>
 		</th:block>
 		<div class="form-group">
