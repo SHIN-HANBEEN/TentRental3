@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
             return booleanBuilder;
         }
 
-        //검색 조건 작성
+        //검색 조건을 선정한 경우 검색 조건 작성
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 //        if(type.contains("u")) { // type = u 일 때는 아이디 검색
 //            conditionBuilder.or(qUser.userId.contains(keyword));

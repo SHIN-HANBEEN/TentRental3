@@ -12,6 +12,28 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
+/* ========= 상품리스트 페이지 ============= */
+.goodsButton {
+    border: none;
+    background-color: inherit;
+    padding: 7px 12px;
+    font-size: 16px;
+    color: dodgerblue;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.goodsButton:hover {
+    background: #eee;
+}
+
+.goodsPrice {
+    display: none; /* 버튼 클릭했을 때 보이게 js 처리 */
+}
+
+
+/* ========= 상품리스트 페이지 ============= */
+
 /* ========= 유저 리스트 페이지(/user/list) ============= */
 
 .userEmailInUserList {

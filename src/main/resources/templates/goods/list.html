@@ -22,22 +22,17 @@
 					<select class="form-select" name="type">
 						<option th:selected="${pageRequestDTO.type == null}">------</option>
 						<!--                        <option value="u" th:selected="${pageRequestDTO.type == 'u'}">아이디</option>--> <!-- 원래 아이디가 User 엔티티에 있었으나, 이메일을 아아디로 바꾸면서 주석처리 -->
-						<option value="e" th:selected="${pageRequestDTO.type == 'e'}">이메일(아이디)</option>
-						<option value="n" th:selected="${pageRequestDTO.type == 'n'}">이름</option>
-						<option value="un" th:selected="${pageRequestDTO.type == 'tc'}">아이디 or 이름</option>
+						<option value="e" th:selected="${pageRequestDTO.type == 'g'}">상품명</option>
+						<option value="n" th:selected="${pageRequestDTO.type == 'gd'}">상품명 or 상품설명</option>
 					</select>
 				</div>
 				<input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}"/>
-				<div class="input-group-prepend">
-					<select class="form-select" name="r_type">
-						<option value="r" th:selected="${pageRequestDTO.r_type == 'r'}" selected>권한</option>
-					</select>
-				</div>
-				<select class="form-select" name="r_keyword">
-					<option th:selected="${pageRequestDTO.type == null}">------</option>
-					<option value="ROLE_USER" th:selected="${pageRequestDTO.r_keyword == 'ROLE_USER'}">일반유저</option>
-					<option value="ROLE_ADMIN" th:selected="${pageRequestDTO.r_keyword == 'ROLE_ADMIN'}">관리자</option>
-				</select>
+
+
+				<div class="goodsButton">가격검색</div>
+				<input type="number" class="goodsPrice" id="minPrice" min="0" >
+				<span class="goodsPrice"> ∼ </span>
+				<input type="number" class="goodsPrice" id="maxPrice" min="0" >
 
 				<div class="input-group-append" id="button-addon4">
 					<button class="btn btn-outline-secondary btn-search" type="button">
@@ -144,6 +139,8 @@
 			// 검색처리
             var searchForm = $("#searchForm");
             $(".btn-search").click(function(e) {
+            	pageRequestDTO.minPrice = document.getElementById("minPrice");
+            	pageRequestDTO.maxPrice = document.getElementById("maxPrice");
                 searchForm.submit();
             });
             $(".btn-clear").click(function(e) {

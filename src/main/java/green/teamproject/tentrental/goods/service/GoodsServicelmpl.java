@@ -15,6 +15,7 @@ import green.teamproject.tentrental.user.dto.UserDTO;
 import green.teamproject.tentrental.user.entity.QUser;
 import green.teamproject.tentrental.user.entity.User;
 import green.teamproject.tentrental.user.entityenum.Role;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,12 +70,53 @@ public class GoodsServicelmpl implements GoodsService{
 	}
 
 	private BooleanBuilder getSearch(PageRequestDTO requestDTO) { //Querydsl 처리
+		String type = requestDTO.getType();
+		String keyword = requestDTO.getKeyword();
+		String minPrice = requestDTO.getMinPrice();
+		String maxPrice = requestDTO.getMaxPrice();
+		int intMinPrice = 0;
+		int intMaxPrice = 0;
 
-		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		if (!minPrice.isEmpty()) {
+			intMinPrice = Integer.parseInt(minPrice);
+		}
+
+		if (!minPrice.isEmpty()) {
+			intMaxPrice = Integer.parseInt(maxPrice);
+		}
+
+
+
+		BooleanBuilder booleanBuilder = new BooleanBuilder(); // 최종적으로 반환될 검색 조건
 		QGoodsEntity qGoodsEntity = QGoodsEntity.goodsEntity;
 
 		BooleanExpression expression = qGoodsEntity.goodsName.isNotEmpty(); // userEmail isNotEmpty( )조건 생성
 		booleanBuilder.and(expression); // 조건 탑재
+
+		if( (type == null || type.trim().isEmpty() ) && (minPrice.isEmpty() || maxPrice.isEmpty()) ) { // 검색 조건이 없는 경우에는
+			return booleanBuilder;
+		}
+
+		//검색 조건을 선정한 경우 검색 조건 작성
+		BooleanBuilder conditionBuilder = new BooleanBuilder(); //조건을 쌓을 BooleanBuilder 객체인 conditionBuilder 생
+		if(type.contains("g")) { // type = g 일때는 상품명 검색
+			conditionBuilder.or(qGoodsEntity.goodsName.contains(keyword));
+		}
+		if(type.contains("gd")) { // type = gd 일때는 상품명 or 상품설명 검색
+			conditionBuilder.or(qGoodsEntity.goodsName.contains(keyword));
+			conditionBuilder.or(qGoodsEntity.goodsDescription.contains(keyword));
+		}
+
+		if(!minPrice.isEmpty()) { //최소 가격 보다 높은 가격 조건 추가
+			conditionBuilder.and(qGoodsEntity.goodsPrice.gt(intMinPrice));
+		}
+
+		if(!maxPrice.isEmpty()) { //최대 가격 보다 낮은 가격 조건 추가
+			conditionBuilder.and(qGoodsEntity.goodsPrice.lt(intMaxPrice));
+		}
+
+		//모든 조건 통합
+		booleanBuilder.and(conditionBuilder);
 
 		return booleanBuilder;
 	}
