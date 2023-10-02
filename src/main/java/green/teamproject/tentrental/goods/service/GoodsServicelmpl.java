@@ -63,7 +63,13 @@ public class GoodsServicelmpl implements GoodsService{
 	public PageResultDTO<GoodsDTO, GoodsEntity> getList(PageRequestDTO requestDTO) {
 		Pageable pageable = requestDTO.getPageable(Sort.by("regDate").descending());
 		BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색 조건 처리
-		Page<GoodsEntity> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+		Page<GoodsEntity> result;
+		if (requestDTO.getKeyword() == null) { //home page 에서는 조건 검색을 진행하지 않으므로, 분기 처리를 해주어야 한다.
+			result = repository.findAll(pageable); //조건 검색 없이 검색 진행
+		} else {
+			result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+		}
+
 		Function<GoodsEntity, GoodsDTO> fn = (entity -> entityToDto(entity));
 		// entity to dto 의 결과로 dtoList 를 반환하게 된다.
 		return new PageResultDTO<>(result, fn);
@@ -77,11 +83,11 @@ public class GoodsServicelmpl implements GoodsService{
 		int intMinPrice = 0;
 		int intMaxPrice = 0;
 
-		if (!minPrice.isEmpty()) {
+		if (!minPrice.equals("")) { //가격 검색 input 을 클릭을 사용자가 하면, 기본 값으로 "" 공이 잡힌다. 그것을 처리해주어야 한다.
 			intMinPrice = Integer.parseInt(minPrice);
 		}
 
-		if (!minPrice.isEmpty()) {
+		if (!maxPrice.equals("")) {
 			intMaxPrice = Integer.parseInt(maxPrice);
 		}
 
@@ -93,7 +99,7 @@ public class GoodsServicelmpl implements GoodsService{
 		BooleanExpression expression = qGoodsEntity.goodsName.isNotEmpty(); // userEmail isNotEmpty( )조건 생성
 		booleanBuilder.and(expression); // 조건 탑재
 
-		if( (type == null || type.trim().isEmpty() ) && (minPrice.isEmpty() || maxPrice.isEmpty()) ) { // 검색 조건이 없는 경우에는
+		if( type == null && minPrice == null && maxPrice == null) { // 검색 조건이 없는 경우에는
 			return booleanBuilder;
 		}
 
@@ -107,11 +113,11 @@ public class GoodsServicelmpl implements GoodsService{
 			conditionBuilder.or(qGoodsEntity.goodsDescription.contains(keyword));
 		}
 
-		if(!minPrice.isEmpty()) { //최소 가격 보다 높은 가격 조건 추가
+		if(!minPrice.equals("")) { //최소 가격 보다 높은 가격 조건 추가
 			conditionBuilder.and(qGoodsEntity.goodsPrice.gt(intMinPrice));
 		}
 
-		if(!maxPrice.isEmpty()) { //최대 가격 보다 낮은 가격 조건 추가
+		if(!maxPrice.equals("")) { //최대 가격 보다 낮은 가격 조건 추가
 			conditionBuilder.and(qGoodsEntity.goodsPrice.lt(intMaxPrice));
 		}
 
