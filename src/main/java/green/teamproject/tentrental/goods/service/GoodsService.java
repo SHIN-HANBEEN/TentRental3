@@ -3,6 +3,10 @@ package green.teamproject.tentrental.goods.service;
 import java.util.List;
 import java.util.Optional;
 
+import green.teamproject.tentrental.common.dto.PageRequestDTO;
+import green.teamproject.tentrental.common.dto.PageResultDTO;
+import green.teamproject.tentrental.user.dto.UserDTO;
+import green.teamproject.tentrental.user.entity.User;
 import org.springframework.data.domain.Page;
 
 import green.teamproject.tentrental.goods.dto.GoodsDTO;
@@ -17,7 +21,7 @@ public interface GoodsService {
 	int register(GoodsDTO dto);
 	
 	//상품리스트조회
-	Page<GoodsDTO> getList(int pageNumber);
+	PageResultDTO<GoodsDTO, GoodsEntity> getList(PageRequestDTO requestDTO);
 	
 	//상품상세정보조회
 	GoodsDTO read(int goodsNo);
@@ -33,9 +37,8 @@ public interface GoodsService {
 	
 	//상품조회수중복방지
 	Optional<GoodsEntity> updateView(int goodsNo, HttpSession session);
-			
-	//상품검색
-	//List<GoodsEntity> search(String keyword);
+
+	List<GoodsDTO> getAllList();
 	
 	//상품엔티티를 티디오로 변경
 	default GoodsEntity dtoToEntity(GoodsDTO dto) {
@@ -55,8 +58,8 @@ public interface GoodsService {
 				.goodsName(entity.getGoodsName())
 				.goodsPrice(entity.getGoodsPrice())
 				.goodsDescription(entity.getGoodsDescription())
-				.goodsRegDate(entity.getGoodsRegDate())
-				.goodsModDate(entity.getGoodsModDate())
+				.regDate(entity.getRegDate())
+				.modDate(entity.getModDate())
 				.imgPath(entity.getImgPath())
 				.goodsView(entity.getGoodsView())
 				.build();

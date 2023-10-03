@@ -22,21 +22,23 @@ public class QCommentEntity extends EntityPathBase<CommentEntity> {
 
     public static final QCommentEntity commentEntity = new QCommentEntity("commentEntity");
 
-    public final QBaseEntity _super = new QBaseEntity(this);
+    public final green.teamproject.tentrental.common.entity.QBaseEntity _super = new green.teamproject.tentrental.common.entity.QBaseEntity(this);
 
     public final StringPath cmtContents = createString("cmtContents");
 
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> cmtModDate = _super.cmtModDate;
-
     public final NumberPath<Integer> cmtNo = createNumber("cmtNo", Integer.class);
-
-    //inherited
-    public final DateTimePath<java.time.LocalDateTime> cmtRegDate = _super.cmtRegDate;
 
     public final StringPath cmtWriter = createString("cmtWriter");
 
     public final green.teamproject.tentrental.goods.entity.QGoodsEntity goodsEntity;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
+
+    public final green.teamproject.tentrental.user.entity.QUser user;
 
     public QCommentEntity(String variable) {
         this(CommentEntity.class, forVariable(variable), INITS);
@@ -57,6 +59,7 @@ public class QCommentEntity extends EntityPathBase<CommentEntity> {
     public QCommentEntity(Class<? extends CommentEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.goodsEntity = inits.isInitialized("goodsEntity") ? new green.teamproject.tentrental.goods.entity.QGoodsEntity(forProperty("goodsEntity")) : null;
+        this.user = inits.isInitialized("user") ? new green.teamproject.tentrental.user.entity.QUser(forProperty("user")) : null;
     }
 
 }

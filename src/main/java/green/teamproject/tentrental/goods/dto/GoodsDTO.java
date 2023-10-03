@@ -25,8 +25,8 @@ public class GoodsDTO {
 	private String goodsName;
 	private int goodsPrice;
 	private String goodsDescription;
-	private LocalDateTime goodsRegDate;
-	private LocalDateTime goodsModDate;
+	private LocalDateTime regDate;
+	private LocalDateTime modDate;
 	private int goodsView;
 	private String imgPath; //조회
 	private MultipartFile uploadfile; //등록

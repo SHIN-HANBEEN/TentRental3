@@ -1,15 +1,11 @@
 package green.teamproject.tentrental.comment.entity;
 
+import green.teamproject.tentrental.common.entity.BaseEntity;
+import green.teamproject.tentrental.user.entity.User;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
 import green.teamproject.tentrental.goods.entity.GoodsEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,12 +17,12 @@ import lombok.ToString;
 @Table(name = "tbl_comment")
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"user", "goodsEntity"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
-public class CommentEntity extends BaseEntity{
+public class CommentEntity extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +33,11 @@ public class CommentEntity extends BaseEntity{
 	
 	@Column(length = 20, nullable = false)
 	private String cmtWriter;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private GoodsEntity goodsEntity;
 	
 }

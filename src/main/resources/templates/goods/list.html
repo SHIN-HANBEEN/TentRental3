@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
+	
+	<th:block th:fragment="content"> 
+		
+		<h1>상품리스트페이지
+		 	<span>
+                <a th:href="@{/goods/register}">
+                    <button type="button" class="btn btn-outline-primary" sec="{hasRole('ADMIN')}" th:if="${#authorization.expression('isAuthenticated()')}">게시물 등록</button>
+                </a>
+            </span>
+			<span>
+				<a th:href="@{/home/main}">
+                    <button type="button" class="btn btn-outline-primary">홈으로</button>
+                </a>
+			</span>
+		</h1>
+
+		<!-- 검색 창 -->
+		<form action="/goods/list" method="get" id="searchForm">
+			<div class="input-group">
+				<input type="hidden" name="page" value="1" />
+				<div class="input-group-prepend">
+					<select class="form-select" name="type">
+						<option value="" disabled selected th:selected="${pageRequestDTO.type == null}">검색조건선택</option>
+						<!--                        <option value="u" th:selected="${pageRequestDTO.type == 'u'}">아이디</option>--> <!-- 원래 아이디가 User 엔티티에 있었으나, 이메일을 아아디로 바꾸면서 주석처리 -->
+						<option value="g" th:selected="${pageRequestDTO.type == 'g'}">상품명</option>
+						<option value="gd" th:selected="${pageRequestDTO.type == 'gd'}">상품명 or 상품설명</option>
+					</select>
+				</div>
+				<input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}"/>
+
+
+				<div class="goodsButton">가격검색</div>
+				<input type="number" class="goodsPrice" id="minPrice" name="minPrice" th:value="${pageRequestDTO.minPrice}" min="0" >
+				<span class="goodsPrice"> ∼ </span>
+				<input type="number" class="goodsPrice" id="maxPrice" name="maxPrice" th:value="${pageRequestDTO.maxPrice}" min="0" >
+
+				<div class="input-group-append" id="button-addon4">
+					<button class="btn btn-outline-secondary btn-search" type="button">
+						검색하기
+					</button>
+					<button class="btn btn-outline-secondary btn-clear" type="button">
+						검색초기화
+					</button>
+				</div>
+			</div>
+		</form>
+		<!-- / 검색 창 -->
+
+		<!--테이블 구조 변경-->
+		<table class="table table-striped"><!--부트스트랩의 스타일 적용-->
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">상품명</th>
+					<th scope="col">가격</th>
+					<th scope="col">상품설명</th>
+					<th scope="col">등록일</th>
+					<th scope="col">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${result.dtoList}">
+					<!--게시물 리스트를 하나씩 꺼내서 처리하기-->
+					
+					<th scope="row">
+						<a th:href="@{/goods/read(goodsNo = ${dto.goodsNo},
+                                                    page = ${result.page},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword})}"
+						>
+							[[${dto.goodsNo}]]
+						</a>
+					
+					</th>
+					
+					<td>[[${dto.goodsName}]]</td>
+					
+					<td>[[${dto.goodsPrice}]]</td>
+					
+					<td>[[${dto.goodsDescription}]]</td>
+					
+					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+					
+					<td>[[${dto.goodsView}]]</td>
+					
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- 페이징 출력 -->
+		<ul class="pagination h-100 justify-content-center align-items-center">
+			<li class="page-item" th:if="${result.prev}">
+				<a class="page-link" th:href="@{/goods/list(
+                                                    page=${result.start - 1},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                )}" tabindex="-1">
+					Previous
+				</a>
+			</li>
+
+			<li th:class="'page-item ' + ${result.page == page ? 'active' : ''}"
+				th:each="page: ${result.pageList}">
+				<a class="page-link" th:href="@{/goods/list(
+                                                    page=${page},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                )}">
+					[[${page}]]
+				</a>
+			</li>
+
+			<li class="page-item" th:if="${result.next}">
+				<a class="page-link" th:href="@{/goods/list(
+                                                    page=${result.end + 1},
+                                                    type=${pageRequestDTO.type},
+                                                    keyword=${pageRequestDTO.keyword},
+                                                    r_type=${pageRequestDTO.r_type},
+                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                                )}">
+					Next
+				</a>
+			</li>
+		</ul>
+		<!-- /페이징 출력 -->
+
+		<!--    /모달 창-->
+		<!--  JavaScript
+              1. 모달 (register( ) 후 전달되는 msg 값을 확인. 아래 코드에서 const closeBtn 으로 모달을 닫는 버튼들을 지정한다. 해단 버튼이 클릭되었을 때 display 를 none 으로 설정해둔다.)
+              2. 검색
+        -->
+		<script th:inline="javascript">
+			// 검색처리
+            var searchForm = $("#searchForm");
+            $(".btn-search").click(function(e) {
+                searchForm.submit();
+            });
+            $(".btn-clear").click(function(e) {
+                searchForm.empty().submit();
+            });
+
+            // 회원 등록 완료 시 모달 창
+            var msg = [[${msg}]];
+            console.log(msg);
+            // Wait for the DOM to be ready
+            document.addEventListener("DOMContentLoaded", function() {
+
+                const modal = document.querySelector(".modal");
+                const closeBtn1 = modal.querySelector(".close-area1");
+                const closeBtn2 = modal.querySelector(".close-area2");
+
+                closeBtn1.addEventListener("click", function(e) {
+                    modal.style.display = "none";
+                });
+                closeBtn2.addEventListener("click", function(e) {
+                    modal.style.display = "none";
+                });
+
+                if (msg) {
+                    modal.style.display = "block"; // Show the modal
+                }
+            });
+            // \모달 처리
+
+		</script>
+		<!--  /JavaScript
+                1. msg 값 확인
+                2. 검색
+        -->
+
+	</th:block>
+	
+</th:block>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+		.form-group {margin : 5px 1px;}
+	</style>
+</head>
+
+<th:block th:replace="layout/base :: setContent(~{this::content} )">
+
+    <th:block th:fragment="content">
+
+        <h1 class="mt-4" style="border-bottom: double 3px gray; padding-bottom: 5px; width: 75%; font-weight:bold; text-align: center">텐트 예약 현황</h1>
+
+        <form th:action="@{/purchase/read}" th:method="post">
+			 
+            <div class="form-group">
+                <label style="font-weight:bold;">텐트 번호</label><br>
+                <input type="text" class="form-control" style="width: 75%" name= "goodsNo" th:value="${goodsNo}" readonly>
+            </div>
+            <div class="form-group">
+                <label style="font-weight:bold;">예약 번호</label><br>
+                <input type="text" class="form-control" style="width: 75%" name= "pcsNo" th:value="${pcsNo}" readonly>
+            </div>
+			<div class="form-group">
+                <label style="font-weight:bold;">렌탈 기간</label><br>
+                <input style="display:inline; margin-right:10px; text-align-last: center;" type="text" name="pcsStartDate" th:value="${pcsStartDate}" readonly />
+                <p style="display:inline; margin-right:10px;"> ~ </p>
+                <input style="display:inline; text-align-last: center;" type="text" name="pcsEndDate" th:value="${pcsEndDate}" readonly/><br>
+            </div>   
+            <div class="form-group">
+                <label style="font-weight:bold;">비고</label><br>
+                <textarea class="form-control" rows="5" name="explanation" style="width: 75%" th:value="${explanation}" readonly/></textarea>
+            </div>
+            
+        </form>
+        
+        <button type="button" class="btn btn-info listBtn">목록으로</button>
+
+        <button type="button" class="btn btn-danger removeBtn">예약취소</button>
+        
+         <script th:inline="javascript">
+			
+			var form = $("form"); 
+
+            $(".listBtn").click(function() {
+                form
+                    .attr("action", "/purchase/list")
+                    .attr("method","get")
+              		.submit();
+            })
+            
+            $(".removeBtn").click(function(){
+				
+				if(!confirm("예약을 취소하시겠습니까?")){
+					return;
+				}
+				
+				form
+					.attr("action", "/purchase/remove")
+					.attr("method", "post")
+					.submit();
+			});
+				
+		</script>
+       
+       
+    </th:block>
+
+</th:block>

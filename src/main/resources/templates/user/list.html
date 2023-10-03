@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<th:block th:replace="~{ layout/basic :: setContent(~{this::content}) }">
+<th:block th:replace="~{ layout/base :: setContent(~{this::content}) }">
     <th:block th:fragment="content">
         <!-- 제목 및 등록 버튼 -->
         <h1 class="mt-4">
@@ -13,7 +10,6 @@
             </span>
         </h1>
         <!-- /제목 및 등록 버튼 -->
-
         <!-- 검색 창 -->
         <form action="/user/list" method="get" id="searchForm">
             <div class="input-group">
@@ -24,7 +20,7 @@
 <!--                        <option value="u" th:selected="${pageRequestDTO.type == 'u'}">아이디</option>--> <!-- 원래 아이디가 User 엔티티에 있었으나, 이메일을 아아디로 바꾸면서 주석처리 -->
                         <option value="e" th:selected="${pageRequestDTO.type == 'e'}">이메일(아이디)</option>
                         <option value="n" th:selected="${pageRequestDTO.type == 'n'}">이름</option>
-                        <option value="un" th:selected="${pageRequestDTO.type == 'tc'}">아이디 or 이름</option>
+                        <option value="un" th:selected="${pageRequestDTO.type == 'tc'}">이메일(아이디) or 이름</option>
                     </select>
                 </div>
                 <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}"/>
@@ -50,7 +46,6 @@
             </div>
         </form>
         <!-- / 검색 창 -->
-
         <!-- 유저 목록 -->
         <table class="table table-striped">
             <thead>
@@ -65,7 +60,7 @@
             </thead>
             <tbody>
                 <tr th:each="dto : ${result.dtoList}">
-                    <th scope="row">
+                    <th scope="row" class="userEmailInUserList">
                         <a th:href="@{ /user/read( userEmail = ${dto.userEmail},
                                                     page = ${result.page},
                                                     type=${pageRequestDTO.type},
@@ -78,8 +73,8 @@
                             [[${dto.userEmail}]]
                         </a>
                     </th>
-                    <td>[[${dto.userPw}]]</td>
-                    <td>[[${dto.userPhoneNumber}]]</td>
+                    <td class="userPwInUserList">[[${dto.userPw}]]</td>
+                    <td class="userPhoneNumberInUserList">[[${dto.userPhoneNumber}]]</td>
                     <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
                     <td>[[${dto.userName}]]</td>
                     <td>[[${dto.role}]]</td>
@@ -101,15 +96,13 @@
                 </a>
             </li>
 
-            <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}"
-                th:each="page: ${result.pageList}">
+            <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}" th:each="page: ${result.pageList}">
                 <a class="page-link" th:href="@{/user/list(
                                                     page=${page},
                                                     type=${pageRequestDTO.type},
                                                     keyword=${pageRequestDTO.keyword},
                                                     r_type=${pageRequestDTO.r_type},
-                                                    r_keyword=${pageRequestDTO.r_keyword}
-                                                )}">
+                                                    r_keyword=${pageRequestDTO.r_keyword} ) }">
                     [[${page}]]
                 </a>
             </li>
@@ -127,7 +120,6 @@
             </li>
         </ul>
         <!-- /페이징 출력 -->
-
 
         <!--    모달 창 실행-->
         <div class="modal" tabindex="-1" role="dialog">
@@ -150,6 +142,7 @@
             </div>
         </div>
         <!--    /모달 창-->
+
         <!--  JavaScript
               1. 모달 (register( ) 후 전달되는 msg 값을 확인. 아래 코드에서 const closeBtn 으로 모달을 닫는 버튼들을 지정한다. 해단 버튼이 클릭되었을 때 display 를 none 으로 설정해둔다.)
               2. 검색
