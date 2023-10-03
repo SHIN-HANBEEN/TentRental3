@@ -81,7 +81,7 @@ public class UserController {
             service.register(dto); //회원 가입 조건을 만족하여 DB에 등록시킴
         }
 
-        return "redirect:/home/main";
+        return "redirect:/user/customlogin";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
