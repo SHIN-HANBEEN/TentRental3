@@ -80,18 +80,19 @@ public class GoodsServicelmpl implements GoodsService{
 		String keyword = requestDTO.getKeyword();
 		String minPrice = requestDTO.getMinPrice();
 		String maxPrice = requestDTO.getMaxPrice();
-		int intMinPrice = 0;
-		int intMaxPrice = 0;
+		int intMinPrice = 0; //0원 minPrice로 초기화
+		int intMaxPrice = 10000000; //천만원 maxPrice 로 초기화
 
-		if (!minPrice.equals("")) { //가격 검색 input 을 클릭을 사용자가 하면, 기본 값으로 "" 공이 잡힌다. 그것을 처리해주어야 한다.
-			intMinPrice = Integer.parseInt(minPrice);
+		if (minPrice!=null) { //가격 검색 input 을 클릭을 사용자가 하면, 기본 값으로 "" 공이 잡힌다. 그것을 처리해주어야 한다.
+			if (!minPrice.isEmpty()) { //String 의 isEmpty() 와 isBlank() 는 String 이 Null 일 때 NullPointerException 을 발생시키므로, Null 여부를 먼저 파악해야 오류를 방지할 수 있다.
+				intMinPrice = Integer.parseInt(minPrice);
+			}
 		}
-
-		if (!maxPrice.equals("")) {
-			intMaxPrice = Integer.parseInt(maxPrice);
+		if (maxPrice!=null) {
+			if (!maxPrice.isEmpty()) {
+				intMaxPrice = Integer.parseInt(maxPrice);
+			}
 		}
-
-
 
 		BooleanBuilder booleanBuilder = new BooleanBuilder(); // 최종적으로 반환될 검색 조건
 		QGoodsEntity qGoodsEntity = QGoodsEntity.goodsEntity;
@@ -99,32 +100,57 @@ public class GoodsServicelmpl implements GoodsService{
 		BooleanExpression expression = qGoodsEntity.goodsName.isNotEmpty(); // userEmail isNotEmpty( )조건 생성
 		booleanBuilder.and(expression); // 조건 탑재
 
-		if( type == null && minPrice == null && maxPrice == null) { // 검색 조건이 없는 경우에는
-			return booleanBuilder;
-		}
-
 		//검색 조건을 선정한 경우 검색 조건 작성
-		BooleanBuilder conditionBuilder = new BooleanBuilder(); //조건을 쌓을 BooleanBuilder 객체인 conditionBuilder 생
-		if(type.contains("g")) { // type = g 일때는 상품명 검색
-			conditionBuilder.or(qGoodsEntity.goodsName.contains(keyword));
+		BooleanBuilder conditionBuilder = new BooleanBuilder(); //조건을 쌓을 BooleanBuilder 객체인 conditionBuilder 생성
+		if (type == null) {
+			if (maxPrice == null) {
+				if (minPrice == null) {
+					return booleanBuilder;
+				} else {
+					conditionBuilder.and(qGoodsEntity.goodsPrice.gt(intMinPrice));
+					// 검색 조건을 기존 조건에 통합한 후 검색 조건 반환
+					booleanBuilder.and(conditionBuilder);
+					return booleanBuilder;
+				}
+			} else {
+				conditionBuilder.and(qGoodsEntity.goodsPrice.lt(intMaxPrice));
+				if (minPrice == null) {
+					// 검색 조건을 기존 조건에 통합한 후 검색 조건 반환
+					booleanBuilder.and(conditionBuilder);
+					return booleanBuilder;
+				} else {
+					conditionBuilder.and(qGoodsEntity.goodsPrice.gt(intMinPrice));
+					// 검색 조건을 기존 조건에 통합한 후 검색 조건 반환
+					booleanBuilder.and(conditionBuilder);
+					return booleanBuilder;
+				}
+			}
+		} else {
+			if(type.contains("g")) { // type = g 일때는 상품명 검색
+				conditionBuilder.or(qGoodsEntity.goodsName.contains(keyword));
+			}
+			if(type.contains("gd")) { // type = gd 일때는 상품명 or 상품설명 검색
+				conditionBuilder.or(qGoodsEntity.goodsName.contains(keyword));
+				conditionBuilder.or(qGoodsEntity.goodsDescription.contains(keyword));
+			}
+			if (maxPrice == null) {
+				if (minPrice == null) {
+					// 검색 조건을 기존 조건에 통합한 후 검색 조건 반환
+					booleanBuilder.and(conditionBuilder);
+					return booleanBuilder;
+				} else {
+					conditionBuilder.and(qGoodsEntity.goodsPrice.gt(intMinPrice));
+					// 검색 조건을 기존 조건에 통합한 후 검색 조건 반환
+					booleanBuilder.and(conditionBuilder);
+					return booleanBuilder;
+				}
+			} else {
+				conditionBuilder.and(qGoodsEntity.goodsPrice.lt(intMaxPrice));
+				// 검색 조건을 기존 조건에 통합한 후 검색 조건 반환
+				booleanBuilder.and(conditionBuilder);
+				return booleanBuilder;
+			}
 		}
-		if(type.contains("gd")) { // type = gd 일때는 상품명 or 상품설명 검색
-			conditionBuilder.or(qGoodsEntity.goodsName.contains(keyword));
-			conditionBuilder.or(qGoodsEntity.goodsDescription.contains(keyword));
-		}
-
-		if(!minPrice.equals("")) { //최소 가격 보다 높은 가격 조건 추가
-			conditionBuilder.and(qGoodsEntity.goodsPrice.gt(intMinPrice));
-		}
-
-		if(!maxPrice.equals("")) { //최대 가격 보다 낮은 가격 조건 추가
-			conditionBuilder.and(qGoodsEntity.goodsPrice.lt(intMaxPrice));
-		}
-
-		//모든 조건 통합
-		booleanBuilder.and(conditionBuilder);
-
-		return booleanBuilder;
 	}
 
 	//상품상세정보

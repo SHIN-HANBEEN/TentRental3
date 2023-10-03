@@ -28,7 +28,7 @@
 }
 
 .goodsPrice {
-    display: none; /* 버튼 클릭했을 때 보이게 js 처리 */
+    /* display: none; */ /* 버튼 클릭했을 때 보이게 js 처리 */
 }
 
 

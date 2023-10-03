@@ -22,7 +22,7 @@
 				<input type="hidden" name="page" value="1" />
 				<div class="input-group-prepend">
 					<select class="form-select" name="type">
-						<option th:selected="${pageRequestDTO.type == null}">------</option>
+						<option value="" disabled selected th:selected="${pageRequestDTO.type == null}">검색조건선택</option>
 						<!--                        <option value="u" th:selected="${pageRequestDTO.type == 'u'}">아이디</option>--> <!-- 원래 아이디가 User 엔티티에 있었으나, 이메일을 아아디로 바꾸면서 주석처리 -->
 						<option value="g" th:selected="${pageRequestDTO.type == 'g'}">상품명</option>
 						<option value="gd" th:selected="${pageRequestDTO.type == 'gd'}">상품명 or 상품설명</option>
