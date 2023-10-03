@@ -6,6 +6,23 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
+/* ========= /goods/list 가격검색 버튼 처리 ========= */
+//document.addEventListener("DOMContentLoaded", function () {
+//    const goodsButton = document.querySelector(".goodsButton");
+//    const goodsPriceElements = document.querySelectorAll(".goodsPrice");
+//
+//    goodsButton.addEventListener("click", function () {
+//        goodsPriceElements.forEach(function (element) {
+//            if (element.style.display === "none" || element.style.display === "") {
+//                element.style.display = "inline"; // Show the elements
+//            } else {
+//                element.style.display = "none"; // Hide the elements
+//            }
+//        });
+//    });
+//});
+/* ========= //goods/list 가격검색 버튼 처리 ========= */
+
 /* ========= customizeNavbar shrink sticky navbar ========= */
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
