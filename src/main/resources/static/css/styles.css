@@ -3127,7 +3127,7 @@ textarea.form-control-lg {
     padding: 16px 20px;
     border: none;
     cursor: pointer;
-    width: 10%;
+    width: 8%;
     margin-bottom:10px;
     opacity: 0.8;
 }
@@ -3139,7 +3139,7 @@ textarea.form-control-lg {
     padding: 16px 20px;
     border: none;
     cursor: pointer;
-    width: 10%;
+    width: 8%;
     margin-bottom:10px;
     opacity: 0.8;
 }
@@ -11115,4 +11115,5 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+
 }

@@ -1466,5 +1466,16 @@ A VERTICAL event
   .fc-theme-bootstrap a:not([href]) {
     color: inherit; /* natural color for navlinks */
   }
-  
 
+
+.btn-primary1 {
+    background-color: red;
+    color: white;
+    margin-top: 15px;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
