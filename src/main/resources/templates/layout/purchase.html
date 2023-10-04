@@ -1,0 +1,225 @@
+
+<th:block th:fragment="setContent(content)">
+    <!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>텐트렌탈프로젝트</title>
+        <!-- Favicon-->
+        <link rel="icon" href="/assets/tentFavicon.png" type="image/png" >
+
+        <!-- jQuery 를 Bootstrap 보다 먼저 불러와야 웹브라우저 콘솔창에서 오류를 안볼 수 있다. -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/css/styles.css" rel="stylesheet" />
+        <!-- icon -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <!-- ============== purchase + 달력관련 ================== -->
+        <!-- jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- bootstrap 4 -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link th:href="@{/css/calendar.css}" rel="stylesheet"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
+        <script th:inline="javascript">
+            document.addEventListener('DOMContentLoaded', function(){
+                var calendar1 = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendar1,{
+                    initialView: 'dayGridMonth',
+                     headerToolbar:{
+                      left: '',
+                      center: 'title',
+                      right: 'today,prevYear,prev,next,nextYear'
+                  },
+
+
+              buttonText: {
+                  today: "오늘"
+              },
+              displayEventTime: false,
+                locale: "ko",
+                height: '780px', // calendar 높이 설정
+                expandRows: true,
+                 fixedWeekCount: false,
+                showNonCurrentDates: false,
+                datesSet: function(view) {
+
+                    //이벤트 등록 함수 호출
+                    reset();
+                    eventRegister();
+                },
+
+                });
+                 calendar.render();
+            }
+            );
+            function reset() {
+              const tds = document.querySelectorAll("td.fc-daygrid-day");
+              for(i in tds){
+                  if(!isNaN(i)){
+                      const td = tds[i];
+                      if(td.childNodes[0].childNodes[1].childNodes[0]!=undefined){
+                          td.childNodes[0].childNodes[1].childNodes[0].innerHTML = '';
+                      }
+                  }
+              }
+          }
+
+          function eventRegister(){
+
+              let pcsArray = new Array();
+              let pcsArrayList = [[${list}]];
+              let pcs = new Object();
+
+             /*[# th:each="dto : ${list}"]*/
+              pcs.no = /*[[${dto.pcsNo}]]*/
+              pcs.goodsName = /*[[${dto.goodsName}]]*/
+              pcs.start = /*[[${dto.pcsStartDate}]]*/
+              pcs.end = /*[[${dto.pcsEndDate}]]*/
+              pcsArray.push(pcs);
+              /*[/]*/
+
+              let noArray = new Array();
+
+              console.log(pcsArrayList);
+              console.log(pcsArray);
+
+              const tds = document.querySelectorAll("td.fc-daygrid-day");
+
+              for (i in tds) {
+                const td = tds[i];
+                for (let i = 0; i < pcsArray.length; i++) {
+                    if (td instanceof HTMLElement) {
+                        const startDate = new Date(pcsArrayList.content[i].pcsStartDate);
+                        const endDate = new Date(pcsArrayList.content[i].pcsEndDate);
+                        const currentDate = new Date(td.getAttribute("data-date"));
+
+                        if (currentDate >= startDate && currentDate <= endDate) {
+                            let span = '<a href=""></a>';
+                            let linkUrl = '/purchase/read?goodsNo=' + pcsArrayList.content[i].goodsNo +"&pcsNo="+pcsArrayList.content[i].pcsNo +"&pcsStartDate=" + pcsArrayList.content[i].pcsStartDate + "&pcsEndDate=" + pcsArrayList.content[i].pcsEndDate + "&explanation=" + pcsArrayList.content[i].explanation;
+                            let linkText = pcsArrayList.content[i].goodsName.substring(0, 12);
+                            if (pcsArrayList.content[i].goodsName.length > 12) {
+                                linkText += '...';
+                            }
+
+                            let linkElement = document.createElement('a');
+                            linkElement.href = linkUrl;
+                            linkElement.textContent = linkText;
+                            linkElement.style.fontSize = '14px';
+                            linkElement.style.color = 'black';
+                            linkElement.style.backgroundColor = 'rgb(142, 175, 129)';
+                            linkElement.style.border = '1px solid white';
+                            linkElement.style.textAlign = 'center';
+                            linkElement.style.width = '100%';
+                            linkElement.style.textDecoration = 'none';
+                            linkElement.style.display = 'inline-block';
+                            linkElement.style.fontWeight = 'bold';
+                            span = linkElement.outerHTML;
+
+                           if (td.childNodes[0].childNodes[1].childNodes[0].innerHTML != null) {
+                                let ori = td.childNodes[0].childNodes[1].childNodes[0].innerHTML;
+                                td.childNodes[0].childNodes[1].childNodes[0].innerHTML = ori + span;
+                            } else {
+                                td.childNodes[0].childNodes[1].childNodes[0].innerHTML = span;
+                            }
+                        }
+                    } else {
+                        return;
+                    }
+              }
+          }
+          }
+        </script>
+        <style>
+            /* For Sundays */
+            .fc-day-sun {
+                color: red; /* Change the color to your desired value */
+            }
+
+            /* For Saturdays */
+            .fc-day-sat {
+                color: blue; /* Change the color to your desired value */
+            }
+
+            .fc-addListButton-button {
+                display: none;
+            }
+        </style>
+        <!-- /============== purchase + 달력관련 ================== -->
+    </head>
+    <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="customizeNavbar">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/home/main">TentRental</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home/main">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/goods/list" th:if="${#authorization.expression('isAuthenticated()')}">상품목록</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/purchase/list" th:if="${#authorization.expression('isAuthenticated()')}">예약현황</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/goods/register" th:if="${#authorization.expression('isAuthenticated()')}">상품등록</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        </ul>
+                    </li>
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbarRight">
+                        <form class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </form>
+                        <button class="customizeBtn info" th:sec="USER" onclick="redirectToEdit()">내정보수정</button>
+                        <button class="customizeBtn info" th:sec="ADMIN" onclick="redirectToUserList()">전체회원관리</button>
+                        <button class="customizeBtn success" th:unless="${#authorization.expression('isAuthenticated()')}" onclick="redirectToLogin()">Login</button>
+                        <button class="customizeBtn danger" th:if="${#authorization.expression('isAuthenticated()')}" onclick="redirectToLogout()">Logout</button>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">TentRental</h1>
+                <p class="lead fw-normal text-white-50 mb-0">2023.08.13 ~ 2023.10.12</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page content-->
+    <div class="container-fluid">
+        <th:block th:replace = "${content}"></th:block>
+    </div>
+
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; TentRental 2023</p></div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/js/scripts.js"></script>
+    </body>
+    </html>
+</th:block>
