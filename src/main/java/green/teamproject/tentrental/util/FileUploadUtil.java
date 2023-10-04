@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
 @Component
 public class FileUploadUtil {
 	
-	String filePath = "C:\\Users\\user\\Documents\\uploadfile";
+	String filePath = "../../resources/static/assets/uploadFile";
 	
 	public String fileUpload(MultipartFile multipartFile) {
 		

@@ -4513,6 +4513,10 @@ textarea.form-control-lg {
   border-radius: var(--bs-card-inner-border-radius);
 }
 
+.card-img-top {
+    height: 250px;
+}
+
 .card-img,
 .card-img-top,
 .card-img-bottom {
