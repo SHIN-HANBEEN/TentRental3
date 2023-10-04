@@ -51,7 +51,7 @@
                             </button>
                         </form>
                         <button class="customizeBtn info" th:sec="USER" onclick="redirectToEdit()">내정보수정</button>
-                        <button class="customizeBtn info" th:sec="ADMIN" onclick="redirectToUserList()">전체회원목록</button>
+                        <button class="customizeBtn info" th:sec="ADMIN" onclick="redirectToUserList()">전체회원관리</button>
                         <button class="customizeBtn success" th:unless="${#authorization.expression('isAuthenticated()')}" onclick="redirectToLogin()">Login</button>
                         <button class="customizeBtn danger" th:if="${#authorization.expression('isAuthenticated()')}" onclick="redirectToLogout()">Logout</button>
                     </ul>

@@ -3,11 +3,6 @@
         <!-- 제목 및 등록 버튼 -->
         <h1 class="mt-4">
             회원 목록
-            <span>
-                <a th:href="@{/user/register}">
-                    <button type="button" class="btn btn-outline-primary">회원등록</button>
-                </a>
-            </span>
         </h1>
         <!-- /제목 및 등록 버튼 -->
         <!-- 검색 창 -->
@@ -62,11 +57,11 @@
                 <tr th:each="dto : ${result.dtoList}">
                     <th scope="row" class="userEmailInUserList">
                         <a th:href="@{ /user/read( userEmail = ${dto.userEmail},
-                                                    page = ${result.page},
-                                                    type=${pageRequestDTO.type},
-                                                    keyword=${pageRequestDTO.keyword},
-                                                    r_type=${pageRequestDTO.r_type},
-                                                    r_keyword=${pageRequestDTO.r_keyword}
+                                        page = ${pageRequestDTO.page},
+                                        type = ${pageRequestDTO.type},
+                                        keyword = ${pageRequestDTO.keyword},
+                                        r_type = ${pageRequestDTO.r_type},
+                                        r_keyword = ${pageRequestDTO.r_keyword}
                                                     )
                                     }"
                         > <!-- 조회 페이지로 넘어갈 때 사용자 이메일(아이디)와 현재 페이지 정보를 같이 넘겨준다. -->

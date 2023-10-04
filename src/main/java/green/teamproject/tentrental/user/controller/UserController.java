@@ -93,7 +93,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping({"/read", "/modify"})
-    public void adminReadModifyGet(String userEmail, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {  // 다시 목록 페이지로 돌아가는 데이터를 같이 저장하기 위해서 PageRequestDTO를 파라미터로 같이 사용한 것을 확인할 수 있습니다. 이때 @ModelAttribute 는 없어도 처리가 가능하지만 명시적으로 requestDTO라는 이름으로 처리해 두었습니다.
+    public void adminReadModifyGet(@RequestParam String userEmail, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {  // 다시 목록 페이지로 돌아가는 데이터를 같이 저장하기 위해서 PageRequestDTO를 파라미터로 같이 사용한 것을 확인할 수 있습니다. 이때 @ModelAttribute 는 없어도 처리가 가능하지만 명시적으로 requestDTO라는 이름으로 처리해 두었습니다.
         log.info("userEmail: " + userEmail);
         UserDTO dto = service.read(userEmail);
         model.addAttribute("dto", dto);  // 페이지 정보 유지 시키기 위한 코드
