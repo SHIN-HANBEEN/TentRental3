@@ -42,12 +42,16 @@ public class UserServiceImpl implements UserService {
         log.info("DTO................");
         log.info(dto);
 
-        User entity = dtoToEntity(dto);
+        if (dto.getRole().contains(Role.ADMIN)) { //ADMIN 권한이 있을 경우, USER 권한을 추가하여 등록한다.
+            dto.addMemberRole(Role.USER);
+        }
+
+        User entity = dtoToEntity(dto); //entity 로 변환
 
         log.info("Entity................");
         log.info(entity);
 
-        repository.save(entity);
+        repository.save(entity); //entity 저장
 
         return entity.getUserEmail();
     }
