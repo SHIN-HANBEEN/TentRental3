@@ -1,5 +1,4 @@
-// branch main
-// jenkins test 5
+// branch feature-goods
 plugins {
     id 'java'
     id 'war'
