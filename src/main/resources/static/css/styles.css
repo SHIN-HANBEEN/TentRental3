@@ -13,6 +13,9 @@
  */
 
 /* ========= 상품리스트 페이지 ============= */
+.margin: 100%;
+
+
 .goodsButton {
     border: none;
     background-color: inherit;
@@ -4467,6 +4470,7 @@ textarea.form-control-lg {
   background-clip: border-box;
   border: var(--bs-card-border-width) solid var(--bs-card-border-color);
   border-radius: var(--bs-card-border-radius);
+  margin-top: 100px;
 }
 .card > hr {
   margin-right: 0;
@@ -4495,6 +4499,7 @@ textarea.form-control-lg {
   flex: 1 1 auto;
   padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   color: var(--bs-card-color);
+
 }
 
 .card-title {
@@ -4562,7 +4567,8 @@ textarea.form-control-lg {
 }
 
 .card-img-top {
-    height: 250px;
+    max-width: 600px;
+    max-height: 600px;
 }
 
 .card-img,
