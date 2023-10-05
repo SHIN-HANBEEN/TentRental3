@@ -55,9 +55,10 @@
 				<button type="button" class="btn btn-secondary" onclick="registerComment()" style="margin-top:10px">댓글등록</button>
 			</div>
 		</div>
-		<a th:href="@{/goods/modify(goodsNo = ${result.goodsNo})}">
-			<button type="button" class="btn btn-primary" th:if="${#authorization.expression('isAuthenticated()')}" style="margin-bottom:15px">수정</button>
-		</a>
+		<a th:href="@{/goods/modify(goodsNo=${result.goodsNo})}"
+		   class="btn btn-primary"
+		   th:if="${#authorization.expression('isAuthenticated()')}"
+		   style="margin-bottom:15px">수정</a>
 			<button type="button" class="btn btn-info homeBtn" style="margin-bottom:15px">홈으로</button>
 			<button type="button" class="btn btn-info goodsListBtn" style="margin-bottom:15px">상품목록으로</button>
 		<a th:href="@{/purchase/add(goodsNo = ${result.goodsNo})}">
@@ -182,7 +183,7 @@
 				alert("댓글이 삭제되었습니다");
 			}
 
-			var form = $("form"); //form 태그 객체 가져오기
+			var form = $("form");
 
 			 $(".homeBtn").click(function() {
                 form
