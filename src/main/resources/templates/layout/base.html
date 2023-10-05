@@ -29,6 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home/main">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/emailContact">이메일문의</a></li>
                     <li class="nav-item"><a class="nav-link" href="/goods/list" th:if="${#authorization.expression('isAuthenticated()')}">상품목록</a></li>
                     <li class="nav-item"><a class="nav-link" href="/purchase/list" th:if="${#authorization.expression('isAuthenticated()')}">예약현황</a></li>
                     <li class="nav-item"><a class="nav-link" href="/goods/register" th:if="${#authorization.expression('isAuthenticated()')}">상품등록</a></li>

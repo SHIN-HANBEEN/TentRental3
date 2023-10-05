@@ -1,0 +1,26 @@
+<th:block th:replace="~{ layout/base :: setContent(~{this::content}) }">
+    <th:block th:fragment="content">
+
+        <div class="emailContainer">
+            <form action="/sendEmail" method="post">
+                <h2>이메일 문의</h2>
+
+                <label for="name">이름</label>
+                <input type="text" id="name" name="name" placeholder="고객님의 이름을 입력해주세요.">
+
+                <label for="emailForReply">Email 주소</label>
+                <input type="text" id="emailForReply" name="emailForReply" placeholder="답변을 받으실 이메일을 입력해주세요.">
+
+                <label for="subject">Email 제목</label>
+                <input type="text" id="subject" name="subject" placeholder="제목을 입력해주세요.">
+
+                <label for="text">문의사항</label>
+                <textarea id="text" name="text" placeholder="문의내용을 입력해주세요." style="height:200px"></textarea>
+
+                <input type="submit" value="Submit">
+
+            </form>
+        </div>
+
+    </th:block>
+</th:block>

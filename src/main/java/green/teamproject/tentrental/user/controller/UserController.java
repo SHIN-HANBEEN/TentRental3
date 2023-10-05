@@ -53,6 +53,11 @@ public class UserController {
         log.info("user/login GetMethod activated");
     }
 
+    @PreAuthorize("permitAll()")
+    @GetMapping("/emailContact")
+    public void emailContact(Model model) {
+        log.info("user/emailContact get...");
+    }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/register")
