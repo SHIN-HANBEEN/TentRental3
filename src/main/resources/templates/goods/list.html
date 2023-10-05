@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
 	
-	<th:block th:fragment="content"> 
+	<th:block th:fragment="content">
 		
-		<h1>상품리스트페이지
-		 	<span>
-                <a th:href="@{/goods/register}">
-                    <button type="button" class="btn btn-outline-primary" sec="{hasRole('ADMIN')}" th:if="${#authorization.expression('isAuthenticated()')}">게시물 등록</button>
-                </a>
-            </span>
-			<span>
-				<a th:href="@{/home/main}">
-                    <button type="button" class="btn btn-outline-primary">홈으로</button>
-                </a>
-			</span>
+		<h1 style="margin-bottom: 20px; margin-top: 10px;">상품리스트페이지
+                    <button type="button" class="btn btn-primary moveRegisterBtn" sec="{hasRole('ADMIN')}" th:if="${#authorization.expression('isAuthenticated()')}">게시물 등록</button>
+                    <button type="button" class="btn btn-primary moveHomeBtn">홈으로</button>
 		</h1>
 
 		<!-- 검색 창 -->
@@ -49,7 +41,7 @@
 		<!-- / 검색 창 -->
 
 		<!--테이블 구조 변경-->
-		<table class="table table-striped"><!--부트스트랩의 스타일 적용-->
+		<table class="table table-striped" style="margin-bottom: 30px; margin-top: 30px;"><!--부트스트랩의 스타일 적용-->
 			<thead>
 				<tr>
 					<th scope="col">#</th>
@@ -170,11 +162,25 @@
             });
             // \모달 처리
 
+            var form = $("form"); //form 태그 객체 가져오기
+
+			 $(".moveRegisterBtn").click(function() {
+                form
+                    .attr("action", "/goods/register")
+              		.submit();
+            })
+			 $(".moveHomeBtn").click(function() {
+                form
+                    .attr("action", "/home/main")
+              		.submit();
+            })
+
 		</script>
 		<!--  /JavaScript
                 1. msg 값 확인
                 2. 검색
         -->
+
 
 	</th:block>
 	

@@ -1,9 +1,8 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;400;600&display=swap');
 /*!
-* Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
+* Start Bootstrap - Shop Item v5.0.6 (https://startbootstrap.com/template/shop-item)
 * Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-item/blob/master/LICENSE)
 */
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
@@ -11,241 +10,6 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-
-/* ========= 상품리스트 페이지 ============= */
-.goodsButton {
-    border: none;
-    background-color: inherit;
-    padding: 7px 12px;
-    font-size: 16px;
-    color: dodgerblue;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.goodsButton:hover {
-    background: #eee;
-}
-
-.goodsPrice {
-    /* display: none; */ /* 버튼 클릭했을 때 보이게 js 처리 */
-}
-
-
-/* ========= 상품리스트 페이지 ============= */
-
-/* ========= 유저 리스트 페이지(/user/list) ============= */
-
-.userEmailInUserList {
-    max-width: 50px;
-    overflow: hidden;
-    margin-right: 10px;
-}
-
-.userPwInUserList {
-    max-width: 30px;
-    overflow: hidden;
-    margin-right: 10px;
-}
-
-.userPhoneNumberInUserList {
-    max-width: 35px;
-    overflow: hidden;
-    margin-right: 10px;
-}
-
-
-/* ========= /유저 리스트 페이지(/user/list) ============= */
-
-/* ========= 전체 페이지 대상 ============= */
-
-* {
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-/* ========= /전체 페이지 대상 ============= */
-
-
-/* ========= 비밀번호 소문자, 대문자, 개수 확인 css ============= */
-
-/* The message box is shown when the user clicks on the password field */
-#PWmessage {
-  display:none;
-  background: #f1f1f1;
-  color: #000;
-  position: relative;
-  padding: 20px;
-  margin-top: 10px;
-}
-
-#PWmessage p {
-  padding: 10px 35px;
-  font-size: 18px;
-}
-
-/* Add a green text color and a checkmark when the requirements are right */
-.PWvalid {
-  color: green;
-}
-
-.PWvalid:before {
-  position: relative;
-  left: -35px;
-  content: "✔️";
-}
-
-/* Add a red text color and an "x" icon when the requirements are wrong */
-.PWinvalid {
-  color: red;
-}
-
-.PWinvalid:before {
-  position: relative;
-  left: -35px;
-  content: "❌";
-}
-/* ========= /비밀번호 소문자, 대문자, 개수 확인 css ============= */
-
-/* ========= 회원 가입 및 회원 정보 수정 css ============= */
-.allForEditAndRegister {box-sizing: border-box}
-
-/* Add padding to containers */
-.EditAndRegisterContainer {
-  padding: 16px;
-}
-
-/* Full-width input fields */
-.allForEditAndRegister input[type=text], input[type=password], input[type=tel], input[type=email] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-.allForEditAndRegister input[type=text]:focus, input[type=password]:focus, input[type=tel]:focus, input[type=email]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Overwrite default styles of hr */
-.allForEditAndRegister hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* Set a style for the submit/register button */
-.allForEditAndRegister .registerbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-.allForEditAndRegister .registerbtn:hover {
-  opacity:1;
-}
-
-/* Add a blue text color to links */
-.allForEditAndRegister a {
-  color: dodgerblue;
-}
-
-/* Set a grey background color and center the text of the "sign in" section */
-.allForEditAndRegister .signin {
-  background-color: #f1f1f1;
-  text-align: center;
-}
-
-.animatedButton {
-    padding: 5px 15px;
-    font-size: 17px;
-    text-align: center;
-    cursor: pointer;
-    outline: none;
-    color: #fff;
-    background-color: #04AA6D;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-}
-
-.animatedButton:hover {
-    background-color: #3e8e41
-}
-
-.animatedButton:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-/* ========== /회원 가입 및 회원 정보 수정 css =============== */
-
-
-/* ========== 메인페이지 shrink 네비게이션바 =============== */
-#customizeNavbar {
-    position: fixed; /* Make it stick/fixed */
-    top: 0; /* Stay on top */
-    width: 100%; /* Full width */
-    transition: top 0.3s; /* Transition effect when sliding down (and up) */
-    border-bottom: 2px solid black;
-    z-index: 999;
-}
-/* ========== /메인페이지 shrink 네비게이션바 =============== */
-
-/* ========== 메인페이지 로그인, 로그아웃 버튼 =============== */
-.customizeBtn {
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: white;
-    color: black;
-    padding: 7px 10px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 5px;
-    transition: all 0.3s ease;
-}
-
-/* Green */
-.success {
-  border-color: #04AA6D;
-  color: green;
-}
-
-.success:hover {
-  background-color: #04AA6D;
-  color: white;
-}
-
-/* Blue */
-.info {
-  border-color: #2196F3;
-  color: dodgerblue
-}
-
-.info:hover {
-  background: #2196F3;
-  color: white;
-}
-
-/* Red */
-.danger {
-  border-color: #f44336;
-  color: red
-}
-
-.danger:hover {
-  background: #f44336;
-  color: white;
-}
-/* ========== /메인페이지 로그인, 로그아웃 버튼 =============== */
-
-
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -3096,54 +2860,6 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #0d6efd;
 }
 
-.btn-primary1 {
-    background-color: #04AA6D;
-    color: white;
-    margin-top: 15px;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
-.btn-primary2 {
-    background-color: red;
-    color: white;
-    margin-top: 15px;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
-.btn-boardAdd {
-    background-color: green;
-    color: white;
-    margin-top: 15px;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 8%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
-.btn-home {
-    background-color: red;
-    color: white;
-    margin-top: 15px;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 8%;
-    margin-bottom:10px;
-    opacity: 0.8;
-}
-
 .btn-secondary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #6c757d;
@@ -3951,7 +3667,6 @@ textarea.form-control-lg {
   background-color: transparent;
   border-color: transparent;
 }
-
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: var(--bs-nav-tabs-link-active-color);
@@ -4009,12 +3724,6 @@ textarea.form-control-lg {
 .tab-content > .active {
   display: block;
 }
-
-#navbarRight {
-        position: absolute;
-        right: 5%;
-}
-
 
 .navbar {
   --bs-navbar-padding-x: 0;
@@ -4559,10 +4268,6 @@ textarea.form-control-lg {
   left: 0;
   padding: var(--bs-card-img-overlay-padding);
   border-radius: var(--bs-card-inner-border-radius);
-}
-
-.card-img-top {
-    height: 250px;
 }
 
 .card-img,
@@ -8287,7 +7992,6 @@ textarea.form-control-lg {
 
 .text-center {
   text-align: center !important;
-
 }
 
 .text-decoration-none {
@@ -11119,5 +10823,4 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
-
 }
