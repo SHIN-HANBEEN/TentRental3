@@ -1,55 +1,69 @@
+
 <th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
+
 	<th:block th:fragment="content">
-		<section class="py-5">
-			<div class="container px-4 px-lg-5 my-5">
-				<div class="row gx-4 gx-lg-5 align-items-center">
-					<div class="col-md-6">
-						<th:block th:if="${result.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
-							<div class="card-img-top mb-5 mb-md-0">
-								<img th:src="@{'/assets/uploadFile/'+${result.imgPath}}">
-							</div>
-						</th:block>
-					</div>
-					<div class="col-md-6">
-						<div class="small mb-1">[[${result.goodsNo}]]</div>
-						<h1 class="display-5 fw-bolder">[[${result.goodsName}]]</h1>
-						<div class="fs-5 mb-5">
-							<span>[[${result.goodsPrice}]]</span>
-						</div>
-						<p class="lead">[[${result.goodsDescription}]]</p>
-						<div class="d-flex">조회수:
-							<div class="small mb-1">[[${result.goodsView}]]</div>
-						</div>
-						<div class="d-flex">등록일:
-							<div class="small mb-1">[[${#temporals.format(result.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
-						</div>
-						<div class="d-flex">수정일:
-							<div class="small mb-1">[[${#temporals.format(result.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
-						</div>
-					</div>
-				</div>
-				<div class="card shadow mb-4" style="margin-top:10px">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">댓글보기</h6>
-					</div>
-					<div class="card-body" id="commentdiv">
-					</div>
-					<div class="card-body">
-						<textarea class="form-control" id="commentContent" rows="5"></textarea>
-						<button type="button" class="btn btn-secondary" onclick="registerComment()" style="margin-top:10px">댓글등록</button>
-					</div>
-				</div>
-				<a th:href="@{/goods/modify(goodsNo=${result.goodsNo})}"
-				   class="btn btn-primary"
-				   th:if="${#authorization.expression('isAuthenticated()')}"
-				   style="margin-bottom:15px">수정</a>
-				<button type="button" class="btn btn-info homeBtn" style="margin-bottom:15px">홈으로</button>
-				<button type="button" class="btn btn-info goodsListBtn" style="margin-bottom:15px">상품목록으로</button>
-				<a th:href="@{/purchase/add(goodsNo = ${result.goodsNo})}">
-					<button type="button" class="btn btn-info" th:if="${#authorization.expression('isAuthenticated()')}" style="margin-bottom:15px">예약하기</button>
-				</a>
+
+		<h1 class="mt-4">상품 상세 페이지</h1>
+
+		<div class="form-group">
+			<label>상품번호</label>
+			<input type="text" class="form-control" th:value="${result.goodsNo}" readonly>
+		</div>
+
+		<div class="form-group">
+			<label>상품명</label>
+			<input type="text" class="form-control" th:value="${result.goodsName}" readonly>
+		</div>
+		<!--이미지-->
+		<th:block th:if="${result.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
+			<div class="form-group">
+				<img th:src="@{'/assets/uploadFile/'+${result.imgPath}}">
 			</div>
-		</section>
+		</th:block>
+		<div class="form-group">
+			<label>상세내용</label>
+			<textarea class="form-control" rows="5" readonly>[[${result.goodsDescription}]]</textarea>
+		</div>
+		<div class="form-group">
+			<label>가격</label>
+			<input type="text" class="form-control" th:value="${result.goodsPrice}" readonly>
+		</div>
+		<div class="form-group">
+			<label>조회수</label>
+			<input type="text" class="form-control" th:value="${result.goodsView}" readonly>
+		</div>
+		<div class="form-group">
+			<label>등록일</label>
+			<input type="text" class="form-control"
+				   th:value="${#temporals.format(result.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+		</div>
+		<div class="form-group">
+			<label>수정일</label>
+			<input type="text" class="form-control"
+				   th:value="${#temporals.format(result.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+		</div>
+
+		<!--댓글구현-->
+		<div class="card shadow mb-4" style="margin-top:10px">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">댓글보기</h6>
+			</div>
+			<div class="card-body" id="commentdiv">
+			</div>
+			<div class="card-body">
+				<textarea class="form-control" id="commentContent" rows="5"></textarea>
+				<button type="button" class="btn btn-secondary" onclick="registerComment()" style="margin-top:10px">댓글등록</button>
+			</div>
+		</div>
+		<a th:href="@{/goods/modify(goodsNo=${result.goodsNo})}"
+		   class="btn btn-primary"
+		   th:if="${#authorization.expression('isAuthenticated()')}"
+		   style="margin-bottom:15px">수정</a>
+			<button type="button" class="btn btn-info homeBtn" style="margin-bottom:15px">홈으로</button>
+			<button type="button" class="btn btn-info goodsListBtn" style="margin-bottom:15px">상품목록으로</button>
+		<a th:href="@{/purchase/add(goodsNo = ${result.goodsNo})}">
+			<button type="button" class="btn btn-info" th:if="${#authorization.expression('isAuthenticated()')}" style="margin-bottom:15px">예약하기</button>
+		</a>
 		<!--댓글구현-->
 		<script th:inline="javascript">
 			$(document).ready(function () {
