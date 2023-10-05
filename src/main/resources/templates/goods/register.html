@@ -6,24 +6,23 @@
 		<h1 class="mt-4">상품등록페이지</h1>
 
 		<form th:action="@{/goods/register}" th:method="post" enctype="multipart/form-data">
-			<div class="form-group">
+			<div class="form-group" style="margin-bottom: 20px;">
 				<label>상품명</label>
 				<input type="text" class="form-control" name="goodsName">
 			</div>
-			<div class="form-group">
+			<div class="form-group" style="margin-bottom: 20px;">
 				<label>가격</label>
 				<input type="text" class="form-control" name="goodsPrice">
 			</div>
-			<div class="form-group">
+			<div class="form-group" style="margin-bottom: 20px;">
 				<label>상세설명</label>
 				<textarea class="form-control" rows="5" name="goodsDescription"></textarea>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" style="margin-bottom: 20px;">
 				<label>첨부파일</label>
 				<input type="file" class="form-control" name="uploadfile"/>
 			</div>
-
 
 			<button type="submit" class="btn btn-primary1 registerGoods">등록</button>
 		</form>
