@@ -14,6 +14,8 @@
 			left: 0;
 			width: 100%;
 			height: auto;
+			opacity: 0;
+  			transition: opacity 1s;
 			}
 			</style>
 		</head>
@@ -31,20 +33,20 @@
 							</div>
 						</th:block>
 					<div class="col-md-6">
-						<div class="small mb-1">[[${result.goodsNo}]]</div>
+						<div class="small mb-1">상품번호:[[${result.goodsNo}]]</div>
 						<h1 class="display-5 fw-bolder">[[${result.goodsName}]]</h1>
 						<div class="fs-5 mb-5">
-							<span>[[${result.goodsPrice}]]</span>
+							<span>[[${result.goodsPrice}]]원</span>
 						</div>
 						<p class="lead">[[${result.goodsDescription}]]</p>
-						<div class="d-flex">조회수:
-							<div class="small mb-1">[[${result.goodsView}]]</div>
+						<div class="d-flex">
+							<div class="small mb-1">조회수:[[${result.goodsView}]]</div>
 						</div>
-						<div class="d-flex">등록일:
-							<div class="small mb-1">[[${#temporals.format(result.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
+						<div class="d-flex">
+							<div class="small mb-1">등록일:[[${#temporals.format(result.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
 						</div>
-						<div class="d-flex">수정일:
-							<div class="small mb-1">[[${#temporals.format(result.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
+						<div class="d-flex">
+							<div class="small mb-1">수정일:[[${#temporals.format(result.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</div>
 						</div>
 					</div>
 				</div>
@@ -212,13 +214,15 @@
 
 			function slideImages() {
 				for(i=0;i<3;i++){
-					images[i].style = "visibility:hidden; "
+					images[i].style = "visibility:hidden;"
+					images[i].style.opacity = 0;
 				}
 			  images[currentImageIndex].style.visibility = "visible";
+			  images[currentImageIndex].style.opacity = 1;
 
 			  currentImageIndex = (currentImageIndex + 1) % images.length;
 
-			  setTimeout(slideImages, 1000); // 1초마다 슬라이드
+			  setTimeout(slideImages, 2000); // 2초마다 슬라이드
 
 
 			}
