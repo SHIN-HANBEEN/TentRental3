@@ -50,6 +50,14 @@ public class GoodsEntity extends BaseEntity {
 	//이미지첨부
 	@Column(length = 200, nullable = true)
 	private String imgPath;
+
+	//이미지첨부
+	@Column(length = 200, nullable = true)
+	private String imgPath1;
+
+	//이미지첨부
+	@Column(length = 200, nullable = true)
+	private String imgPath2;
 	
 	//검색
 	//private String title;
