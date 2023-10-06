@@ -1,21 +1,35 @@
 <th:block th:replace="~{layout/base :: setContent(~{this::content} )}">
 	<th:block th:fragment="content">
+		<head>
+			<style>
+			#image-slider-container {
+			width: 100%;
+			height: auto;
+			position: relative;
+			}
+
+			.slider-image {
+			position: absolute;
+			top: -160px;
+			left: 0;
+			width: 100%;
+			height: auto;
+			}
+			</style>
+		</head>
+
 		<section class="py-5">
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
-					<div class="col-md-6">
 						<th:block th:if="${result.imgPath!=null}">  <!-- 이미지가 있으면 출력 -->
-							<div class="card-img-top mb-5 mb-md-0">
-								<img style=" max-width: 100%; height: auto;" th:src="@{'/uploadfile/'+${result.imgPath}}">
-							</div>
-							<div class="card-img-top mb-5 mb-md-0">
-								<img style=" max-width: 100%; height: auto;" th:src="@{'/uploadfile/'+${result.imgPath1}}">
-							</div>
-							<div class="card-img-top mb-5 mb-md-0">
-								<img style=" max-width: 100%; height: auto;" th:src="@{'/uploadfile/'+${result.imgPath2}}">
+							<div class="col-md-6">
+								<div id="image-slider-container" class="card-img-top mb-5 mb-md-0">
+									<img class="slider-image" th:src="@{'/uploadfile/'+${result.imgPath}}">
+									<img class="slider-image" th:src="@{'/uploadfile/'+${result.imgPath1}}">
+									<img class="slider-image" th:src="@{'/uploadfile/'+${result.imgPath2}}">
+								</div>
 							</div>
 						</th:block>
-					</div>
 					<div class="col-md-6">
 						<div class="small mb-1">[[${result.goodsNo}]]</div>
 						<h1 class="display-5 fw-bolder">[[${result.goodsName}]]</h1>
@@ -55,6 +69,9 @@
 					<button type="button" class="btn btn-info" th:if="${#authorization.expression('isAuthenticated()')}" style="margin-bottom:15px">예약하기</button>
 				</a>
 			</div>
+
+
+
 		</section>
 		<!--댓글구현-->
 		<script th:inline="javascript">
@@ -188,6 +205,28 @@
                     .attr("action", "/goods/list")
               		.submit();
             })
+
+			let currentImageIndex = 0;
+			const images = document.querySelectorAll(".slider-image");
+			const imageSliderContainer = document.getElementById("image-slider-container");
+
+			function slideImages() {
+				for(i=0;i<3;i++){
+					images[i].style = "visibility:hidden; "
+				}
+			  images[currentImageIndex].style.visibility = "visible";
+
+			  currentImageIndex = (currentImageIndex + 1) % images.length;
+
+			  setTimeout(slideImages, 1000); // 1초마다 슬라이드
+
+
+			}
+
+			// 페이지 로드 후 슬라이드 시작
+			slideImages();
+
+
 
 		</script>
 	</th:block>
