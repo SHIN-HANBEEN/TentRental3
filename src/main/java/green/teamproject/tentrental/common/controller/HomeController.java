@@ -27,18 +27,18 @@ public class HomeController {
     @Autowired
     private GoodsService service;
 
-//    @PreAuthorize("permitAll()")
-//    @GetMapping("/") // 메인화면 보내줌
-//    public String main(Principal principal, Model model) {
-//        model.addAttribute("id", principal.getName()); // 인증객체에서 아이디 정보를 꺼내서 전달해보자.
-//        return "home/main"; //loalhost:8080 접속을 하면 home/main 이 반환이 된다.
-//        // 따라서 기존에 board 패키지 밑에 있는 main html 을 옮겨준다.
-//    }
+    @PreAuthorize("permitAll()")
+    @GetMapping("/") // 메인화면 보내줌
+    public String main(PageRequestDTO pageRequestDTO, Model model) {
+        log.info("8080/ Init........" + pageRequestDTO);
+        model.addAttribute("result", service.getList(pageRequestDTO));
+        return "home/main"; //loalhost:8080 접속을 하면 home/main 이 반환이 된다.
+    }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/home/main")
     public void list(PageRequestDTO pageRequestDTO, Model model){
-        log.info("list........" + pageRequestDTO);
+        log.info("/home/main Get........" + pageRequestDTO);
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 }
