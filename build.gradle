@@ -1,4 +1,4 @@
-// branch dev
+// branch main
 plugins {
     id 'java'
     id 'war'
