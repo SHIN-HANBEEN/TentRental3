@@ -44,13 +44,13 @@
 <!--                    </li>-->
 
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbarRight">
-                        <form class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">
-                            <button class="btn btn-outline-dark" type="submit">
-                                <i class="bi-cart-fill me-1"></i>
-                                Cart
-                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                            </button>
-                        </form>
+<!--                        <form class="d-flex" th:if="${#authorization.expression('isAuthenticated()')}">-->
+<!--                            <button class="btn btn-outline-dark" type="submit">-->
+<!--                                <i class="bi-cart-fill me-1"></i>-->
+<!--                                Cart-->
+<!--                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>-->
+<!--                            </button>-->
+<!--                        </form>-->
                         <button class="customizeBtn info" th:if="${#authorization.expression('isAuthenticated()')}" th:sec="USER" onclick="redirectToEdit()">내정보수정</button>
                         <button class="customizeBtn info" th:if="${#authorization.expression('isAuthenticated()')}" th:sec="ADMIN" onclick="redirectToUserList()">전체회원관리</button>
                         <button class="customizeBtn success" th:unless="${#authorization.expression('isAuthenticated()')}" onclick="redirectToLogin()">Login</button>
