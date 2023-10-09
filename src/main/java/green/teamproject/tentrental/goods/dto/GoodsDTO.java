@@ -29,5 +29,9 @@ public class GoodsDTO {
 	private LocalDateTime modDate;
 	private int goodsView;
 	private String imgPath; //조회
+	private String imgPath1; //조회
+	private String imgPath2; //조회
 	private MultipartFile uploadfile; //등록
+	private MultipartFile uploadfile1; //등록
+	private MultipartFile uploadfile2; //등록
 }

@@ -61,6 +61,8 @@ public interface GoodsService {
 				.regDate(entity.getRegDate())
 				.modDate(entity.getModDate())
 				.imgPath(entity.getImgPath())
+				.imgPath1(entity.getImgPath1())
+				.imgPath2(entity.getImgPath2())
 				.goodsView(entity.getGoodsView())
 				.build();
 		

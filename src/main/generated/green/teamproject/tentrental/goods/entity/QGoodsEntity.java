@@ -33,6 +33,10 @@ public class QGoodsEntity extends EntityPathBase<GoodsEntity> {
 
     public final StringPath imgPath = createString("imgPath");
 
+    public final StringPath imgPath1 = createString("imgPath1");
+
+    public final StringPath imgPath2 = createString("imgPath2");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
 
