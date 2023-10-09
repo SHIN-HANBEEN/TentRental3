@@ -53,7 +53,11 @@ public class GoodsServicelmpl implements GoodsService{
 	public int register(GoodsDTO dto) {		
 		GoodsEntity entity = dtoToEntity(dto);
 		String imgPath = fileUploadUtil.fileUpload(dto.getUploadfile());
+		String imgPath1 = fileUploadUtil.fileUpload1(dto.getUploadfile1());
+		String imgPath2 = fileUploadUtil.fileUpload2(dto.getUploadfile2());
 		entity.setImgPath(imgPath);
+		entity.setImgPath1(imgPath1);
+		entity.setImgPath2(imgPath2);
 		repository.save(entity);
 		return entity.getGoodsNo();
 	}

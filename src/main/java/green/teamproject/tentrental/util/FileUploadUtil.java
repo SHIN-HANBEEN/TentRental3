@@ -15,6 +15,8 @@ import org.springframework.util.StringUtils;
 public class FileUploadUtil {
 	
 	String filePath = "C:\\Users\\user\\Documents\\uploadfile";
+	String filePath1 = "C:\\Users\\user\\Documents\\uploadfile";
+	String filePath2 = "C:\\Users\\user\\Documents\\uploadfile";
 	
 	public String fileUpload(MultipartFile multipartFile) {
 		
@@ -32,6 +34,40 @@ public class FileUploadUtil {
 		}
 		
 		return multipartFile.getOriginalFilename();
+	}
+	public String fileUpload1(MultipartFile multipartFile1) {
+
+		Path copyOfLocation = Paths.get(filePath1 + File.separator + StringUtils.cleanPath(multipartFile1.getOriginalFilename()));
+		if(multipartFile1.isEmpty()) {
+			return null;
+		}
+
+		try {
+
+			Files.copy(multipartFile1.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return multipartFile1.getOriginalFilename();
+	}
+	public String fileUpload2(MultipartFile multipartFile2) {
+
+		Path copyOfLocation = Paths.get(filePath + File.separator + StringUtils.cleanPath(multipartFile2.getOriginalFilename()));
+		if(multipartFile2.isEmpty()) {
+			return null;
+		}
+
+		try {
+
+			Files.copy(multipartFile2.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return multipartFile2.getOriginalFilename();
 	}
 
 }
