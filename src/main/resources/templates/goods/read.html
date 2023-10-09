@@ -63,7 +63,7 @@
 				</div>
 				<a th:href="@{/goods/modify(goodsNo=${result.goodsNo})}"
 				   class="btn btn-primary"
-				   th:if="${#authorization.expression('isAuthenticated()')}"
+				   sec:authorize="hasRole('ADMIN')"
 				   style="margin-bottom:15px">수정</a>
 				<button type="button" class="btn btn-info homeBtn" style="margin-bottom:15px">홈으로</button>
 				<button type="button" class="btn btn-info goodsListBtn" style="margin-bottom:15px">상품목록으로</button>
